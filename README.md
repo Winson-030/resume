@@ -1,7 +1,7 @@
 
 |个人信息|           |联系方式 |      |
 |---------|---------|---------|------|
-|李永杰(winson)|男，1996年生，base 广州/佛山|手机|`xxxxxxx`    ,工作日上午10:00-11:30,下午3:00-4:30可联系|
+|winson|男，1996年生，base 广州/佛山|手机|`xxxxxxx`    ,工作日上午10:00-11:30,下午3:00-4:30可联系|
 |毕业院系|珠海科技学院社会工作系 本科|Email|[mail@winson-dev.tk](mail@winson-dev.tk)|
 |个人网站| [https://winson-dev.tk](https://winson-dev.tk)|wechat|`xxxxxx`|
 |技术博客|[https://winson-030.github.io/myHexoDiary/](https://winson-030.github.io/myHexoDiary/)|Github|[https://github.com/Winson-030](https://github.com/Winson-030)|
