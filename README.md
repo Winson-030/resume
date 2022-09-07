@@ -1,14 +1,14 @@
 # <p style="text-align:center;font-size:35px">李永杰</p>
 # <p style="font-size:20px">应聘职位：初级Java开发工程师</p>
 
-
 |基本信息|           |联系方式 |      |
 |---------|---------|---------|------|
-|李永杰(winson)|男，1996年生，Base 广州/佛山|手机/wechat|`xxxxxxxxxxx`    ,工作日上午10:00-11:30,下午3:00-4:30可联系|
+|李永杰(winson)|男，1996年生，Base 广州/佛山|手机/wechat|`13226974049`    ,工作日上午10:00-11:30,下午3:00-4:30可联系|
 |毕业院系|珠海科技学院社会工作系 本科|Email|[mail@winson-dev.tk](mail@winson-dev.tk)|
 |技术博客|[https://winson-030.github.io/myHexoDiary/](https://winson-030.github.io/myHexoDiary/)|Github|[https://github.com/Winson-030](https://github.com/Winson-030)|
 
 --------------
+
 ## 项目经验
 
 ### 1. 基于Vuejs和Springboot的租物平台（ 2022年7月 ~ 2022年9月 ）
@@ -56,11 +56,9 @@
 ----------------
 |技能清单||
 |-----|----|
-|掌握Java基础，熟悉面向对象编程、集合等知识，了解JVM 虚拟机的垃圾回收机制和并发编程，了解JUC常用工具类|Java|
-|熟练使用SpringBoot开发框架，了解控制翻转和面向切面编程的原理|
-|熟悉MySQL数据库的使用和整合开发|Database|
-|了解Redis的使用场景以及与springBoot项目的整合实现，了解持久化和过期淘汰策略||
-|了解Elasticsearch搜索框架在SpringBoot项目中的整合开发|
+|Java 基础扎实, 熟练使用spring boot, mybatis等工具并了解其实现原理|Java|
+|掌握常见的关系型数据库以及非关系型数据库，理解其使用场景及限制|Database|
+|掌握 MySQL 数据库的基本原理与常用语法，了解 Elasticsearch、Redis 等 NoSQL 数据库|
 |熟悉Html\CSS\JavaScript 在前端开发中的运用，了解使用Vue.js开发框架和Vant、Element等UI库|前端|
 |Manjaro 用户。熟练使用Linux，掌握常用运维命令,了解使用Docker容器的搭建和运维|DevOps|
 |熟练使用Git进行版本管理|Git|
