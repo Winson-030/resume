@@ -7,7 +7,18 @@
 |毕业院系|珠海科技学院社会工作系 本科|Email|[mail@winson-dev.tk](mail@winson-dev.tk)|
 |技术博客|[https://winson-030.github.io/myHexoDiary/](https://winson-030.github.io/myHexoDiary/)|Github|[https://github.com/Winson-030](https://github.com/Winson-030)|
 
+
 --------------
+|技能清单||
+|-----|----|
+|Java 基础扎实, 熟练使用spring boot, mybatis等工具并了解其实现原理|Java|
+|掌握常见的关系型数据库以及非关系型数据库，理解其使用场景及限制|Database|
+|掌握 MySQL 数据库的基本原理与常用语法，了解 Elasticsearch、Redis 等 NoSQL 数据库|
+|熟悉Html\CSS\JavaScript 在前端开发中的运用，了解使用Vue.js开发框架和Vant、Element等UI库|前端|
+|Manjaro 用户。熟练使用Linux，掌握常用运维命令,了解使用Docker容器的搭建和运维|DevOps|
+|熟练使用Git进行版本管理|Git|
+
+-----------
 
 ## 项目经验
 
@@ -54,19 +65,4 @@
   [项目开源地址](https://github.com/Winson-030/smallMVC)
 
 ----------------
-|技能清单||
-|-----|----|
-|Java 基础扎实, 熟练使用spring boot, mybatis等工具并了解其实现原理|Java|
-|掌握常见的关系型数据库以及非关系型数据库，理解其使用场景及限制|Database|
-|掌握 MySQL 数据库的基本原理与常用语法，了解 Elasticsearch、Redis 等 NoSQL 数据库|
-|熟悉Html\CSS\JavaScript 在前端开发中的运用，了解使用Vue.js开发框架和Vant、Element等UI库|前端|
-|Manjaro 用户。熟练使用Linux，掌握常用运维命令,了解使用Docker容器的搭建和运维|DevOps|
-|熟练使用Git进行版本管理|Git|
 
------------
-
-|工作经验||
-|---|---|
-|火把社区中心（2019年12月~2020年7月）|学校社会工作者，对接社区及学校合作方开展校园欺凌科普宣传及个案服务|
-|鼎和社工服务中心（2020年11月~2021年7月）|流浪人口服务社工，对接社区、广州市流浪人口管理中心对广州市内的流浪人口开展物质支持、帮扶、寻亲等服务|
-------
