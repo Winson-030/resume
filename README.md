@@ -1,28 +1,27 @@
-# <p style="text-align:center;font-size:35px">李永杰</p>
-# <p style="font-size:20px">应聘职位：初级Java开发工程师</p>
+
+<p style="font-size:20px">应聘职位：初级Java开发工程师</p>
 
 |基本信息|           |联系方式 |      |
 |---------|---------|---------|------|
-|李永杰(winson)|男，1996年生，Base 广州/佛山|手机/wechat|`xxxxxxx`    ,工作日上午10:00-11:30,下午3:00-4:30可联系|
-|毕业院系|珠海科技学院社会工作系 本科|Email|[mail@winson-dev.tk](mail@winson-dev.tk)|
+|李永杰(winson)|男，1996年生，Base 广州/佛山|手机/wechat|`xxxxxxxxxx`   |
+|毕业院系|珠海科技学院社会工作系 本科|Email|xxx|
 |技术博客|[https://winson-030.github.io/myHexoDiary/](https://winson-030.github.io/myHexoDiary/)|Github|[https://github.com/Winson-030](https://github.com/Winson-030)|
 
-
 --------------
-|技能清单||
-|-----|----|
-|Java 基础扎实, 熟练使用spring boot, mybatis等工具并了解其实现原理|Java|
-|掌握常见的关系型数据库以及非关系型数据库，理解其使用场景及限制|Database|
-|掌握 MySQL 数据库的基本原理与常用语法，了解 Elasticsearch、Redis 等 NoSQL 数据库|
-|熟悉Html\CSS\JavaScript 在前端开发中的运用，了解使用Vue.js开发框架和Vant、Element等UI库|前端|
-|Manjaro 用户。熟练使用Linux，掌握常用运维命令,了解使用Docker容器的搭建和运维|DevOps|
-|熟练使用Git进行版本管理|Git|
-
------------
 
 ## 项目经验
 
-### 1. 基于Vuejs和Springboot的租物平台（ 2022年7月 ~ 2022年9月 ）
+### 1. Docker swarm容器集群 （ 2022年9月 ~ 2022年11月 ）   
+
+- 应用技术：
+  Linux Docker swarm Nginx 
+- 项目描述：
+  此项目使用Docker swarm 在多台服务器上搭建容器集群，实现服务的高可用，避免单点故障
+- 主要工作：
+  本人主要负责配置文件的编写，集群搭建、调试、运维
+
+
+### 2. 基于Vuejs和Springboot的租物平台（ 2022年7月 ~ 2022年9月 ）
 
 - 应用技术：
   SpringBoot、MyBatis、MySQL、Vue.js、VantUI、ElementUI、Elasticsearch、Echarts、Redis、OSS、Docker
@@ -38,7 +37,7 @@
   [用户端体验网站](https://down.xiaoheihe.work)
   [管理端体验网站](https://admin.xiaoheihe.work)
 
-### 2. 基于Vuejs和Springboot的多功能工具网站（2022年5月 - 2022年7月）
+### 3. 基于Vuejs和Springboot的多功能工具网站（2022年5月 - 2022年7月）
 
 - 应用技术：
   SpringBoot、MyBatis、ElementUI、Spring Mail、Bootstrap、ConvertApi
@@ -51,7 +50,7 @@
   
   [项目开源地址](https://gitee.com/Alexander__lu_admin/mail.git)
 
-### 3. 基于Tomcat和Servlet的MVC框架（2022年4月-2022年5月）
+### 4. 基于Tomcat和Servlet的MVC框架（2022年4月-2022年5月）
 
 - 应用技术：
   Servlet、Tomcat、Guava、Jackson
@@ -65,4 +64,13 @@
   [项目开源地址](https://github.com/Winson-030/smallMVC)
 
 ----------------
+|技能清单||
+|-----|----|
+|Java 基础扎实, 熟练使用spring boot, mybatis等工具并了解其实现原理|Java|
+|掌握常见的关系型数据库以及非关系型数据库，理解其使用场景及限制|Database|
+|掌握 MySQL 数据库的基本原理与常用语法，了解 Elasticsearch、Redis 等 NoSQL 数据库|
+|熟悉Html\CSS\JavaScript 在前端开发中的运用，了解使用Vue.js开发框架和Vant、Element等UI库|前端|
+|Manjaro 用户。熟练使用Linux，掌握常用运维命令,了解使用Docker容器的搭建和运维|DevOps|
+|熟练使用Git进行版本管理|Git|
 
+-----------
