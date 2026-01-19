@@ -1,0 +1,96 @@
+{
+  "navigation": {
+    "about": "プロフィール",
+    "experience": "職歴",
+    "projects": "プロジェクト",
+    "skills": "スキル",
+    "contact": "お問い合わせ"
+  },
+  "hero": {
+    "greeting": "こんにちは、私は",
+    "name": "李永杰 (Winson)",
+    "title": "シニア DevOps エンジニア",
+    "description": "3年間の多文化チーム経験を持ち、クラウドインフラ、CI/CD 自動化、AI 活用運用に特化しています。",
+    "contact": "お問い合わせ",
+    "download": "職歴書をダウンロード"
+  },
+  "about": {
+    "title": "私について",
+    "content": "私は 3 年間の多文化チーム経験を持つシニア DevOps エンジニアです。クラウドネイティブアーキテクチャ、CI/CD 自動化、AI 活用運用に特化しています。スケーラブルで信性の高いシステムの構築と、開発ワークフローの最適化に情熱を注いでいます。",
+    "techStack": "技術スタック",
+    "education": {
+      "title": "学歴",
+      "degree": "ソーシャルワーク学士",
+      "school": "珠海科学技術学院",
+      "year": "2015 - 2019"
+    }
+  },
+  "experience": {
+    "title": "職歴",
+    "items": [
+      {
+        "company": "友邦 (AIA Digital+)",
+        "position": "DevOps エンジニア",
+        "period": "2024/02 - 現在",
+        "location": "州",
+        "description": "複数環境の CI/CD パイプライン（AKS、Jenkins）を管理し、200 チーム以上をサポート。日 500 回以上のビルドを最適化し、リリース成功率を 70% 向上させました。全社的な DevOps の定を主導し、配信サイクルを 2 週間から 3 日間に短縮しました。30 分以内の平均復旧時間を実現し、1 年間の障害フリーで 24/7 の信性を維持しました。",
+        "tags": ["AKS", "Jenkins", "CI/CD", "DevOps"]
+      },
+      {
+        "company": "フリーランス (Remote)",
+        "position": "DevOps エンジニア",
+        "period": "2022/12 - 2024/01",
+        "location": "リモート",
+        "description": "Azure 上で CI/CD インフラを構築し最適化し、運用効率を 20% 向上させました。安全でスケーラブルなクラウドソリューションの設計を主導し、運用コストを 15% 削減しました。",
+        "tags": ["Azure", "CI/CD", "Cloud"]
+      }
+    ]
+  },
+  "skills": {
+    "title": "スキルと技術",
+    "categories": {
+      "frontend": "クラウドネイティブ",
+      "backend": "インフラ",
+      "tools": "ツール"
+    },
+    "frontend": ["Kubernetes", "Docker", "Azure", "AWS", "CI/CD"],
+    "backend": ["Linux", "Terraform", "Ansible", "Prometheus", "Grafana"],
+    "tools": ["Git", "Jenkins", "Azure DevOps", "Jira", "Confluence"],
+    "progress": {
+      "frontend": 85,
+      "backend": 75,
+      "tools": 90
+    }
+  },
+  "projects": {
+    "title": "主要プロジェクト",
+    "items": [
+      {
+        "name": "ハイブリッドクラウド K8s 管理",
+        "description": "Tailscale を使用して、マルチクラウド（AWS/Azure/GCP）とオンプレミスノードの相互接続を実現し、トポロジの複雑さを 60% 低減しました。",
+        "tech": ["Tailscale", "K8s", "ゼロトラスト"],
+        "link": "https://github.com"
+      },
+      {
+        "name": "AI 活用ナレッジボット",
+        "description": "OpenAI と RAG 技術を使用して運用ナレッジチャットボットを構築し、問題解決効率を 40% 向上させました。",
+        "tech": ["OpenAI", "RAG", "Python"],
+        "link": "https://github.com"
+      }
+    ]
+  },
+  "contact": {
+    "title": "お問い合わせ",
+    "description": "現在、フリーランスまたはフルタイムのポジションを受け付けています。プロジェクトにクリエイティブな活用が必要な場合は、ご相談ください。",
+    "form": {
+      "name": "名前",
+      "email": "メール",
+      "message": "メッセージ",
+      "send": "メッセージを送る"
+    },
+    "social": "ソーシャルリンク"
+  },
+  "footer": {
+    "copyright": "© 2025 Winson。全著作権所有。"
+  }
+}
