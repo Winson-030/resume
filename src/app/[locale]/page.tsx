@@ -136,7 +136,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   </div>
                   <Separator />
                   <div className="flex gap-2">
-                    <a href="https://github.com/winsondev" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <a href="https://github.com/winson-030" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                       <Github className="h-4 w-4" />
                     </a>
                     <a href="https://www.linkedin.com/in/winson-dev" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
