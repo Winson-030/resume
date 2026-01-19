@@ -1,0 +1,96 @@
+{
+  "navigation": {
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "LI YONGJIE (Winson)",
+    "title": "Senior DevOps Engineer",
+    "description": "3 years of experience in cross-cultural environments, specializing in cloud infrastructure, CI/CD automation, and AI-powered operations.",
+    "contact": "Contact Me",
+    "download": "Download Resume"
+  },
+  "about": {
+    "title": "About Me",
+    "content": "I'm a Senior DevOps Engineer with 3 years of experience in cross-cultural environments, specializing in cloud infrastructure, CI/CD automation, and AI-powered operations. I have a passion for building scalable, reliable systems and optimizing development workflows.",
+    "techStack": "Tech Stack",
+    "education": {
+      "title": "Education",
+      "degree": "Bachelor of Social Work",
+      "school": "Zhuhai College of Science and Technology",
+      "year": "2015 - 2019"
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "items": [
+      {
+        "company": "AIA Digital+",
+        "position": "DevOps Engineer",
+        "period": "02/2024 - Present",
+        "location": "Guangzhou",
+        "description": "Orchestrated multi-environment CI/CD pipelines (AKS, Jenkins) supporting 100+ engineering teams. Optimized 500+ daily builds, achieving 70% improvement in release success rate. Championed enterprise-wide DevOps adoption, reducing delivery cycles from 2 weeks to 3 days. Maintained 24/7 reliability with sub-30min MTTR and zero critical outages for 12 months.",
+        "tags": ["AKS", "Jenkins", "CI/CD", "DevOps"]
+      },
+      {
+        "company": "Remote",
+        "position": "DevOps Engineer",
+        "period": "12/2022 - 01/2024",
+        "location": "Remote",
+        "description": "Built and optimized CI/CD infrastructure on Azure, improving operational efficiency by 20%. Led design of secure, scalable cloud solutions, reducing operational costs by 15%.",
+        "tags": ["Azure", "CI/CD", "Cloud"]
+      }
+    ]
+  },
+  "skills": {
+    "title": "Skills & Technologies",
+    "categories": {
+      "frontend": "Cloud & DevOps",
+      "backend": "Infrastructure",
+      "tools": "Tools"
+    },
+    "frontend": ["Kubernetes", "Docker", "Azure", "AWS", "CI/CD"],
+    "backend": ["Linux", "Terraform", "Ansible", "Prometheus", "Grafana"],
+    "tools": ["Git", "Jenkins", "Azure DevOps", "Jira", "Confluence"],
+    "progress": {
+      "frontend": 85,
+      "backend": 75,
+      "tools": 90
+    }
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "items": [
+      {
+        "name": "Hybrid Cloud K8s Management",
+        "description": "Cross-cloud interconnection integrating Tailscale (WireGuard) for multi-cloud (AWS/Azure/GCP) and on-premises nodes, reducing topology complexity by 60%.",
+        "tech": ["Tailscale", "K8s", "Zero Trust"],
+        "link": "https://github.com"
+      },
+      {
+        "name": "AI-Powered Ops Bot",
+        "description": "RAG-based knowledge chatbot using OpenAI, accelerating issue resolution by 40%.",
+        "tech": ["OpenAI", "RAG", "Python"],
+        "link": "https://github.com"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "I'm currently available for freelance work or full-time positions. If you have a project that needs some creative injection, let's discuss it.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send Message"
+    },
+    "social": "Social Links"
+  },
+  "footer": {
+    "copyright": "© 2025 Winson. All rights reserved."
+  }
+}

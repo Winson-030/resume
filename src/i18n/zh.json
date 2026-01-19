@@ -1,0 +1,96 @@
+{
+  "navigation": {
+    "about": "关于",
+    "experience": "经历",
+    "projects": "项目",
+    "skills": "技能",
+    "contact": "联系"
+  },
+  "hero": {
+    "greeting": "你好，我是",
+    "name": "李永杰 (Winson)",
+    "title": "高级 DevOps 工程师",
+    "description": "3年跨文化团队经验，深耕云原生架构、CI/CD 自动化及 AI 赋能运维领域。",
+    "contact": "联系我",
+    "download": "下载简历"
+  },
+  "about": {
+    "title": "关于我",
+    "content": "我是一名高级 DevOps 工程师，拥有3年跨文化团队经验，专注于云原生架构、CI/CD 自动化及 AI 赋能运维领域。我热衷于构建可扩展、可靠的系统，并优化开发工作流程。",
+    "techStack": "技术栈",
+    "education": {
+      "title": "教育",
+      "degree": "社会工作学学士",
+      "school": "珠海科技学院",
+      "year": "2015 - 2019"
+    }
+  },
+  "experience": {
+    "title": "工作经历",
+    "items": [
+      {
+        "company": "友邦资讯 (AIA Digital+)",
+        "position": "DevOps 工程师",
+        "period": "2024/02 - 至今",
+        "location": "广州",
+        "description": "管理多环境 CI/CD 流水线（AKS、Jenkins），支撑 200 余团队，日均 500 次构建。发布成功率提升 70%，交付周期从 2 周缩短至 3 天。构建 30 分钟内平均故障修复机制，实现全年生产环境 7×24 小时稳定运行。",
+        "tags": ["AKS", "Jenkins", "CI/CD", "DevOps"]
+      },
+      {
+        "company": "自由职业 (Remote)",
+        "position": "DevOps 工程师",
+        "period": "2022/12 - 2024/01",
+        "location": "远程",
+        "description": "构建并优化 Azure 云原生基础设施，提升客户运营效率 20%。主导设计云基础设施解决方案，降低运维成本达 15%。",
+        "tags": ["Azure", "CI/CD", "Cloud"]
+      }
+    ]
+  },
+  "skills": {
+    "title": "专业技能",
+    "categories": {
+      "frontend": "云原生与运维",
+      "backend": "基础设施",
+      "tools": "工具"
+    },
+    "frontend": ["Kubernetes", "Docker", "Azure", "AWS", "CI/CD"],
+    "backend": ["Linux", "Terraform", "Ansible", "Prometheus", "Grafana"],
+    "tools": ["Git", "Jenkins", "Azure DevOps", "Jira", "Confluence"],
+    "progress": {
+      "frontend": 85,
+      "backend": 75,
+      "tools": 90
+    }
+  },
+  "projects": {
+    "title": "重点项目",
+    "items": [
+      {
+        "name": "混合云 Kubernetes 管理",
+        "description": "基于 Tailscale 实现跨云（AWS/Azure/GCP）与本地节点互联，降低拓扑复杂度 60%。",
+        "tech": ["Tailscale", "K8s", "零信任"],
+        "link": "https://github.com"
+      },
+      {
+        "name": "AI 赋能知识库机器人",
+        "description": "基于 OpenAI 与 RAG 技术构建运维知识库，问题解决效率提升 40%。",
+        "tech": ["OpenAI", "RAG", "Python"],
+        "link": "https://github.com"
+      }
+    ]
+  },
+  "contact": {
+    "title": "联系我",
+    "description": "我目前可接受自由职业或全职工作。如果您有项目需要创意注入，我们可以讨论。",
+    "form": {
+      "name": "姓名",
+      "email": "邮箱",
+      "message": "消息",
+      "send": "发送消息"
+    },
+    "social": "社交链接"
+  },
+  "footer": {
+    "copyright": "© 2025 Winson。保留所有权利。"
+  }
+}
