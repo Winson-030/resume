@@ -86,7 +86,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {messages.hero.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="https://winson.dev/resume" target="_blank">
+              <Link href="https://r.easycv.cn/winson" target="_blank">
                 <Button size="lg" className="text-sm px-6 py-3">
                   <Download className="mr-2 h-4 w-4" />
                   {messages.hero.download}
