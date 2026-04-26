@@ -10,13 +10,13 @@
     "greeting": "Hello, I'm",
     "name": "LI YONGJIE (Winson)",
     "title": "Senior DevOps Engineer",
-    "description": "3 years of experience in cross-cultural environments, specializing in cloud infrastructure, CI/CD automation, and AI-powered operations.",
+    "description": "5 years of experience in cross-cultural environments, specializing in cloud infrastructure, CI/CD automation, and AI-powered operations.",
     "contact": "Contact Me",
     "download": "Download Resume"
   },
   "about": {
     "title": "About Me",
-    "content": "I'm a Senior DevOps Engineer with 3 years of experience in cross-cultural environments, specializing in cloud infrastructure, CI/CD automation, and AI-powered operations. I have a passion for building scalable, reliable systems and optimizing development workflows.",
+    "content": "I'm a Senior DevOps Engineer with 5 years of experience in cross-cultural environments, specializing in cloud infrastructure, CI/CD automation, and AI-powered operations. I have a passion for building scalable, reliable systems and optimizing development workflows.",
     "techStack": "Tech Stack",
     "education": {
       "title": "Education",
@@ -28,6 +28,7 @@
   "experience": {
     "title": "Experience",
     "items": [
+      
       {
         "company": "AIA Digital+",
         "position": "DevOps Engineer",
