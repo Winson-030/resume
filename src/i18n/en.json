@@ -9,15 +9,15 @@
   "hero": {
     "greeting": "Hello, I'm",
     "name": "LI YONGJIE (Winson)",
-    "title": "Senior DevOps Engineer",
-    "description": "5 years of experience in cross-cultural environments, specializing in cloud infrastructure, CI/CD automation, and AI-powered operations.",
+    "title": "Senior DevOps / Platform Engineer",
+    "description": "3+ Years Cross-Cultural Cloud Infrastructure Experience | Specializing in cloud-native architecture, CI/CD automation, and AI-powered operations.",
     "contact": "Contact Me",
     "download": "Download Resume"
   },
   "about": {
     "title": "About Me",
-    "content": "I'm a Senior DevOps Engineer with 5 years of experience in cross-cultural environments, specializing in cloud infrastructure, CI/CD automation, and AI-powered operations. I have a passion for building scalable, reliable systems and optimizing development workflows.",
-    "techStack": "Tech Stack",
+    "content": "I'm a Senior DevOps / Platform Engineer with 3+ years of cross-cultural experience in cloud infrastructure. I specialize in building scalable, reliable systems and optimizing development workflows. Currently based in Tokyo, Japan, I bring a unique blend of technical expertise and international collaboration skills.",
+    "techStack": "Core Technologies",
     "education": {
       "title": "Education",
       "degree": "Bachelor of Social Work",
@@ -25,73 +25,172 @@
       "year": "2015 - 2019"
     }
   },
+  "certificates": [
+    {
+      "name": "AWS Cloud Practitioner",
+      "issuer": "Amazon Web Services",
+      "date": "2024"
+    },
+    {
+      "name": "Certified Kubernetes Administrator",
+      "issuer": "CNCF",
+      "date": "2024"
+    },
+    {
+      "name": "Certified Azure AI Engineer",
+      "issuer": "Microsoft",
+      "date": "2024"
+    }
+  ],
   "experience": {
-    "title": "Experience",
+    "title": "Work Experience",
     "items": [
-      
+      {
+        "company": "NB-Intelligence",
+        "position": "DevOps Engineer",
+        "period": "03/2026 - Present",
+        "location": "Tokyo, Japan",
+        "description": "Leading DevOps platform design and GitLab CI/CD pipeline implementation.",
+        "highlights": [
+          "Designed and implemented DevOps platform and GitLab CI/CD pipelines, enabling fully automated build, test, and deployment workflows",
+          "Managed Tencent Cloud infrastructure with HA patterns and comprehensive monitoring for enterprise SLA requirements",
+          "Administered Linux-based private infrastructure using Bash scripting and Ansible playbooks"
+        ],
+        "tags": ["GitLab CI/CD", "Tencent Cloud", "Ansible", "Linux"]
+      },
       {
         "company": "AIA Digital+",
         "position": "DevOps Engineer",
-        "period": "02/2024 - Present",
-        "location": "Guangzhou",
-        "description": "Orchestrated multi-environment CI/CD pipelines (AKS, Jenkins) supporting 100+ engineering teams. Optimized 500+ daily builds, achieving 70% improvement in release success rate. Championed enterprise-wide DevOps adoption, reducing delivery cycles from 2 weeks to 3 days. Maintained 24/7 reliability with sub-30min MTTR and zero critical outages for 12 months.",
-        "tags": ["AKS", "Jenkins", "CI/CD", "DevOps"]
+        "period": "02/2024 - 03/2026",
+        "location": "Guangzhou, China",
+        "description": "Orchestrated multi-environment CI/CD pipelines supporting 100+ engineering teams.",
+        "highlights": [
+          "Optimized 500+ daily builds achieving 70% improvement in release success rate",
+          "Reduced feature delivery cycles from 2 weeks to 3 days for 95% of teams",
+          "Maintained sub-30-minute MTTR with zero critical outages for 12 months",
+          "Built AI-powered knowledge base chatbot using OpenAI and RAG, accelerating issue resolution by 40%",
+          "Implemented GitOps framework enhancing Jenkins job configuration efficiency by 30%"
+        ],
+        "tags": ["AKS", "Jenkins", "Azure", "CI/CD", "OpenAI", "RAG"]
       },
       {
-        "company": "Remote",
+        "company": "Freelance",
         "position": "DevOps Engineer",
         "period": "12/2022 - 01/2024",
         "location": "Remote",
-        "description": "Built and optimized CI/CD infrastructure on Azure, improving operational efficiency by 20%. Led design of secure, scalable cloud solutions, reducing operational costs by 15%.",
-        "tags": ["Azure", "CI/CD", "Cloud"]
+        "description": "Built and optimized CI/CD infrastructure on Azure for multiple clients.",
+        "highlights": [
+          "Improved customer operational efficiency by 20% through CI/CD optimization",
+          "Reduced operational costs by 15% via Terraform IaC and Bash automation",
+          "Administered Linux servers and automated provisioning workflows"
+        ],
+        "tags": ["Azure", "Terraform", "CI/CD", "Linux"]
+      },
+      {
+        "company": "Shenzhen Baimulin Education Technology",
+        "position": "Backend Developer",
+        "period": "04/2022 - 11/2022",
+        "location": "Shenzhen, China",
+        "description": "Designed RESTful API interfaces and built containerization pipelines.",
+        "highlights": [
+          "Designed RESTful API interfaces for modular e-commerce systems",
+          "Built Docker/Kubernetes-powered containerization pipelines",
+          "Managed Linux application servers with automated deployment scripts"
+        ],
+        "tags": ["Docker", "Kubernetes", "API Design", "Linux"]
       }
     ]
   },
   "skills": {
     "title": "Skills & Technologies",
     "categories": {
-      "frontend": "Cloud & DevOps",
-      "backend": "Infrastructure",
-      "tools": "Tools"
+      "cloud": "Cloud Platforms",
+      "infrastructure": "Infrastructure & DevOps",
+      "tools": "Tools & Practices"
     },
-    "frontend": ["Kubernetes", "Docker", "Azure", "AWS", "CI/CD"],
-    "backend": ["Linux", "Terraform", "Ansible", "Prometheus", "Grafana"],
-    "tools": ["Git", "Jenkins", "Azure DevOps", "Jira", "Confluence"],
-    "progress": {
-      "frontend": 85,
-      "backend": 75,
-      "tools": 90
-    }
+    "cloud": [
+      { "name": "Azure (AKS, ACR, VNet, Firewall)", "level": 95 },
+      { "name": "AWS", "level": 85 },
+      { "name": "Tencent Cloud", "level": 80 },
+      { "name": "Kubernetes", "level": 95 },
+      { "name": "Docker", "level": 95 }
+    ],
+    "infrastructure": [
+      { "name": "Terraform", "level": 90 },
+      { "name": "Ansible", "level": 85 },
+      { "name": "Linux (Ubuntu/CentOS)", "level": 95 },
+      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)", "level": 95 },
+      { "name": "Python/Bash Scripting", "level": 90 },
+      { "name": "Networking & Security", "level": 85 }
+    ],
+    "tools": [
+      { "name": "Git/GitLab/GitHub", "level": 95 },
+      { "name": "Jira/Confluence", "level": 90 },
+      { "name": "Prometheus/Grafana", "level": 85 },
+      { "name": "Cloudflare/WAF", "level": 80 },
+      { "name": "Tailscale/VPN", "level": 85 }
+    ]
   },
   "projects": {
     "title": "Featured Projects",
     "items": [
       {
-        "name": "Hybrid Cloud K8s Management",
-        "description": "Cross-cloud interconnection integrating Tailscale (WireGuard) for multi-cloud (AWS/Azure/GCP) and on-premises nodes, reducing topology complexity by 60%.",
-        "tech": ["Tailscale", "K8s", "Zero Trust"],
-        "link": "https://github.com"
+        "name": "Hybrid Cloud Kubernetes Management",
+        "description": "Cross-cloud network interconnection architecture integrating Tailscale (WireGuard) to enable seamless connectivity between multi-cloud (AWS/Azure/GCP) and on-premises nodes.",
+        "highlights": [
+          "Reduced network topology complexity by 60%",
+          "Implemented zero-trust ACL-based network policies blocking 100% unauthorized access",
+          "Automated provisioning using Ansible playbooks"
+        ],
+        "tech": ["Kubernetes", "Tailscale", "WireGuard", "Ansible", "Zero Trust"],
+        "link": "https://github.com/winson-030"
       },
       {
-        "name": "AI-Powered Ops Bot",
-        "description": "RAG-based knowledge chatbot using OpenAI, accelerating issue resolution by 40%.",
-        "tech": ["OpenAI", "RAG", "Python"],
-        "link": "https://github.com"
+        "name": "Azure Cloud Infrastructure",
+        "description": "Comprehensive Azure infrastructure deployment with VNet segmentation, Firewall security, and hybrid Active Directory integration.",
+        "highlights": [
+          "Deployed VNet with public/private subnets and Azure Firewall",
+          "Integrated Azure Entra ID with RBAC and Managed Identities",
+          "Reduced release cycle from 2 weeks to 3 days"
+        ],
+        "tech": ["Azure", "VNet", "Azure Firewall", "Entra ID", "DevBox"],
+        "link": "https://github.com/winson-030"
+      },
+      {
+        "name": "Cloudflare Global CDN",
+        "description": "Global service delivery architecture with intelligent DNS, dynamic CDN, WAF protection, and automated certificate management.",
+        "highlights": [
+          "Reduced global user access latency to under 50ms",
+          "Blocked 98% of malicious traffic with WAF rules",
+          "Maintained 99% annual service availability"
+        ],
+        "tech": ["Cloudflare", "CDN", "WAF", "DNS", "Zero Trust"],
+        "link": "https://github.com/winson-030"
+      },
+      {
+        "name": "AI-Powered Knowledge Bot",
+        "description": "RAG-based knowledge base chatbot using OpenAI, accelerating issue resolution and reducing onboarding time.",
+        "highlights": [
+          "Accelerated issue resolution by 40%",
+          "Reduced new hire onboarding time by 50%",
+          "Python + Jenkins CI/CD integration"
+        ],
+        "tech": ["OpenAI", "RAG", "Python", "Jenkins", "API"],
+        "link": "https://github.com/winson-030"
       }
     ]
   },
   "contact": {
-    "title": "Contact",
-    "description": "I'm currently available for freelance work or full-time positions. If you have a project that needs some creative injection, let's discuss it.",
+    "title": "Get In Touch",
+    "description": "I'm currently available for freelance work or full-time positions. If you have a project that needs DevOps expertise or cloud infrastructure optimization, let's discuss.",
     "form": {
       "name": "Name",
       "email": "Email",
       "message": "Message",
       "send": "Send Message"
-    },
-    "social": "Social Links"
+    }
   },
   "footer": {
-    "copyright": "© 2025 Winson. All rights reserved."
+    "copyright": "© 2026 Winson. All rights reserved."
   }
 }

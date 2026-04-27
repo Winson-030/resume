@@ -9,123 +9,188 @@
   "hero": {
     "greeting": "你好，我是",
     "name": "李永杰 (Winson)",
-    "title": "高级 DevOps 工程师",
-    "description": "5年跨文化团队经验，深耕云原生架构、CI/CD 自动化及 AI 赋能运维领域。",
+    "title": "高级 DevOps / 平台工程师",
+    "description": "3年以上跨文化云基础设施经验 | 专注于云原生架构、CI/CD自动化和AI赋能运维",
     "contact": "联系我",
     "download": "下载简历"
   },
   "about": {
     "title": "关于我",
-    "content": "我是一名高级 DevOps 工程师，拥有5年跨文化团队经验，专注于云原生架构、CI/CD 自动化及 AI 赋能运维领域。我热衷于构建可扩展、可靠的系统，并优化开发工作流程。",
-    "techStack": "技术栈",
+    "content": "我是一名拥有3年以上跨文化经验的高级DevOps/平台工程师，专注于构建可扩展、可靠的系统和优化开发工作流。目前居住在日本东京，具备独特的技术专长和国际协作能力。",
+    "techStack": "核心技术",
     "education": {
-      "title": "教育",
+      "title": "教育背景",
       "degree": "社会工作学学士",
       "school": "珠海科技学院",
       "year": "2015 - 2019"
     }
   },
+  "certificates": [
+    {
+      "name": "AWS云从业者认证",
+      "issuer": "亚马逊云服务",
+      "date": "2024"
+    },
+    {
+      "name": "Kubernetes管理员认证 (CKA)",
+      "issuer": "云原生计算基金会",
+      "date": "2024"
+    },
+    {
+      "name": "Azure AI工程师认证",
+      "issuer": "微软",
+      "date": "2024"
+    }
+  ],
   "experience": {
     "title": "工作经历",
     "items": [
       {
-        "company": "友邦资讯 (AIA Digital+)",
-        "position": "DevOps 工程师",
-        "period": "2024/02 - 至今",
-        "location": "广州",
-        "description": "管理多环境 CI/CD 流水线（AKS、Jenkins），支撑 200 余团队，日均 500 次构建。发布成功率提升 70%，交付周期从 2 周缩短至 3 天。构建 30 分钟内平均故障修复机制，实现全年生产环境 7×24 小时稳定运行。",
-        "tags": [
-          "AKS",
-          "Jenkins",
-          "CI/CD",
-          "DevOps"
-        ]
+        "company": "NB-Intelligence",
+        "position": "DevOps工程师",
+        "period": "2026/03 - 至今",
+        "location": "日本 东京",
+        "description": "主导DevOps平台设计和GitLab CI/CD流水线实施",
+        "highlights": [
+          "设计和实施DevOps平台及GitLab CI/CD流水线，实现全自动化构建、测试和部署",
+          "管理腾讯云基础设施，建立高可用模式和综合监控，满足企业SLA要求",
+          "使用Bash脚本和Ansible Playbook管理Linux私有基础设施"
+        ],
+        "tags": ["GitLab CI/CD", "腾讯云", "Ansible", "Linux"]
       },
       {
-        "company": "自由职业 (Remote)",
-        "position": "DevOps 工程师",
+        "company": "友邦资讯 (AIA Digital+)",
+        "position": "DevOps工程师",
+        "period": "2024/02 - 2026/03",
+        "location": "中国 广州",
+        "description": "管理多环境CI/CD流水线，支持100+工程团队",
+        "highlights": [
+          "优化日均500+次构建，发布成功率提升70%",
+          "95%团队的交付周期从2周缩短至3天",
+          "实现平均30分钟内故障修复，连续12个月零重大故障",
+          "使用OpenAI和RAG技术构建AI知识库机器人，问题解决效率提升40%",
+          "实施GitOps框架，Jenkins作业配置管理效率提升30%"
+        ],
+        "tags": ["AKS", "Jenkins", "Azure", "CI/CD", "OpenAI", "RAG"]
+      },
+      {
+        "company": "自由职业",
+        "position": "DevOps工程师",
         "period": "2022/12 - 2024/01",
         "location": "远程",
-        "description": "构建并优化 Azure 云原生基础设施，提升客户运营效率 20%。主导设计云基础设施解决方案，降低运维成本达 15%。",
-        "tags": [
-          "Azure",
-          "CI/CD",
-          "Cloud"
-        ]
+        "description": "为多个客户构建和优化Azure云原生基础设施",
+        "highlights": [
+          "通过CI/CD优化，客户运营效率提升20%",
+          "通过Terraform IaC和Bash自动化，运维成本降低15%",
+          "管理Linux服务器，自动化配置工作流"
+        ],
+        "tags": ["Azure", "Terraform", "CI/CD", "Linux"]
+      },
+      {
+        "company": "深圳百木林教育科技",
+        "position": "后端开发工程师",
+        "period": "2022/04 - 2022/11",
+        "location": "中国 深圳",
+        "description": "设计RESTful API接口并构建容器化流水线",
+        "highlights": [
+          "为模块化电商系统设计RESTful API接口",
+          "构建Docker/Kubernetes容器化流水线",
+          "使用自动化部署脚本管理Linux应用服务器"
+        ],
+        "tags": ["Docker", "Kubernetes", "API设计", "Linux"]
       }
     ]
   },
   "skills": {
     "title": "专业技能",
     "categories": {
-      "frontend": "云原生与运维",
-      "backend": "基础设施",
-      "tools": "工具"
+      "cloud": "云平台",
+      "infrastructure": "基础设施与DevOps",
+      "tools": "工具与实践"
     },
-    "frontend": [
-      "Kubernetes",
-      "Docker",
-      "Azure",
-      "AWS",
-      "CI/CD"
+    "cloud": [
+      { "name": "Azure (AKS, ACR, VNet, Firewall)", "level": 95 },
+      { "name": "AWS", "level": 85 },
+      { "name": "腾讯云", "level": 80 },
+      { "name": "Kubernetes", "level": 95 },
+      { "name": "Docker", "level": 95 }
     ],
-    "backend": [
-      "Linux",
-      "Terraform",
-      "Ansible",
-      "Prometheus",
-      "Grafana"
+    "infrastructure": [
+      { "name": "Terraform", "level": 90 },
+      { "name": "Ansible", "level": 85 },
+      { "name": "Linux (Ubuntu/CentOS)", "level": 95 },
+      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)", "level": 95 },
+      { "name": "Python/Bash脚本", "level": 90 },
+      { "name": "网络与安全", "level": 85 }
     ],
     "tools": [
-      "Git",
-      "Jenkins",
-      "Azure DevOps",
-      "Jira",
-      "Confluence"
-    ],
-    "progress": {
-      "frontend": 85,
-      "backend": 75,
-      "tools": 90
-    }
+      { "name": "Git/GitLab/GitHub", "level": 95 },
+      { "name": "Jira/Confluence", "level": 90 },
+      { "name": "Prometheus/Grafana", "level": 85 },
+      { "name": "Cloudflare/WAF", "level": 80 },
+      { "name": "Tailscale/VPN", "level": 85 }
+    ]
   },
   "projects": {
     "title": "重点项目",
     "items": [
       {
-        "name": "混合云 Kubernetes 管理",
-        "description": "基于 Tailscale 实现跨云（AWS/Azure/GCP）与本地节点互联，降低拓扑复杂度 60%。",
-        "tech": [
-          "Tailscale",
-          "K8s",
-          "零信任"
+        "name": "混合云Kubernetes管理",
+        "description": "基于Tailscale (WireGuard)的跨云网络互联架构，实现多云(AWS/Azure/GCP)与本地节点的无缝连接",
+        "highlights": [
+          "网络拓扑复杂度降低60%",
+          "实施基于ACL的零信任网络策略，阻止100%未授权访问",
+          "使用Ansible Playbook实现自动化配置"
         ],
-        "link": "https://github.com"
+        "tech": ["Kubernetes", "Tailscale", "WireGuard", "Ansible", "零信任"],
+        "link": "https://github.com/winson-030"
       },
       {
-        "name": "AI 赋能知识库机器人",
-        "description": "基于 OpenAI 与 RAG 技术构建运维知识库，问题解决效率提升 40%。",
-        "tech": [
-          "OpenAI",
-          "RAG",
-          "Python"
+        "name": "Azure云基础设施",
+        "description": "综合Azure基础设施部署，包含VNet分段、防火墙安全和混合Active Directory集成",
+        "highlights": [
+          "部署含公网/私网子网和Azure防火墙的VNet",
+          "集成Azure Entra ID与RBAC和托管标识",
+          "发布周期从2周缩短至3天"
         ],
-        "link": "https://github.com"
+        "tech": ["Azure", "VNet", "Azure防火墙", "Entra ID", "DevBox"],
+        "link": "https://github.com/winson-030"
+      },
+      {
+        "name": "Cloudflare全球CDN",
+        "description": "全球服务交付架构，包含智能DNS、动态CDN、WAF保护和自动证书管理",
+        "highlights": [
+          "全球用户访问延迟降至50ms以下",
+          "WAF规则阻止98%恶意流量",
+          "保持99%年度服务可用性"
+        ],
+        "tech": ["Cloudflare", "CDN", "WAF", "DNS", "零信任"],
+        "link": "https://github.com/winson-030"
+      },
+      {
+        "name": "AI赋能知识机器人",
+        "description": "基于OpenAI的RAG知识库机器人，加速问题解决并减少入职时间",
+        "highlights": [
+          "问题解决效率提升40%",
+          "新员工入职时间减少50%",
+          "Python + Jenkins CI/CD集成"
+        ],
+        "tech": ["OpenAI", "RAG", "Python", "Jenkins", "API"],
+        "link": "https://github.com/winson-030"
       }
     ]
   },
   "contact": {
     "title": "联系我",
-    "description": "我目前可接受自由职业或全职工作。如果您有项目需要创意注入，我们可以讨论。",
+    "description": "目前可接受自由职业或全职工作。如果您有项目需要DevOps专业知识或云基础设施优化，欢迎讨论。",
     "form": {
       "name": "姓名",
       "email": "邮箱",
-      "message": "消息",
+      "message": "留言",
       "send": "发送消息"
-    },
-    "social": "社交链接"
+    }
   },
   "footer": {
-    "copyright": "© 2025 Winson。保留所有权利。"
+    "copyright": "© 2026 Winson. 保留所有权利。"
   }
 }

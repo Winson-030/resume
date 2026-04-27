@@ -9,15 +9,15 @@
   "hero": {
     "greeting": "こんにちは、私は",
     "name": "李永杰 (Winson)",
-    "title": "シニア DevOps エンジニア",
-    "description": "5年間の多文化チーム経験を持ち、クラウドインフラ、CI/CD 自動化、AI 活用運用に特化しています。",
+    "title": "シニア DevOps / プラットフォームエンジニア",
+    "description": "異文化クラウドインフラ3年以上の経験 | クラウドネイティブアーキテクチャ、CI/CD自動化、AI活用運用を専門",
     "contact": "お問い合わせ",
-    "download": "職歴書をダウンロード"
+    "download": "履歴書をダウンロード"
   },
   "about": {
     "title": "私について",
-    "content": "私は 5 年間の多文化チーム経験を持つシニア DevOps エンジニアです。クラウドネイティブアーキテクチャ、CI/CD 自動化、AI 活用運用に特化しています。スケーラブルで信性の高いシステムの構築と、開発ワークフローの最適化に情熱を注いでいます。",
-    "techStack": "技術スタック",
+    "content": "クラウドインフラにおける異文化経験3年以上のシニアDevOps/プラットフォームエンジニアです。スケーラブルで信頼性の高いシステムの構築と開発ワークフローの最適化に特化しています。現在は日本の東京を拠点に、独自の技術的専門知識と国際的なコラボレーション能力を活かしています。",
+    "techStack": "コア技術",
     "education": {
       "title": "学歴",
       "degree": "ソーシャルワーク学士",
@@ -25,107 +25,172 @@
       "year": "2015 - 2019"
     }
   },
+  "certificates": [
+    {
+      "name": "AWS Cloud Practitioner",
+      "issuer": "Amazon Web Services",
+      "date": "2024"
+    },
+    {
+      "name": "Certified Kubernetes Administrator",
+      "issuer": "CNCF",
+      "date": "2024"
+    },
+    {
+      "name": "Certified Azure AI Engineer",
+      "issuer": "Microsoft",
+      "date": "2024"
+    }
+  ],
   "experience": {
     "title": "職歴",
     "items": [
       {
-        "company": "友邦 (AIA Digital+)",
-        "position": "DevOps エンジニア",
-        "period": "2024/02 - 現在",
-        "location": "州",
-        "description": "複数環境の CI/CD パイプライン（AKS、Jenkins）を管理し、200 チーム以上をサポート。日 500 回以上のビルドを最適化し、リリース成功率を 70% 向上させました。全社的な DevOps の定を主導し、配信サイクルを 2 週間から 3 日間に短縮しました。30 分以内の平均復旧時間を実現し、1 年間の障害フリーで 24/7 の信性を維持しました。",
-        "tags": [
-          "AKS",
-          "Jenkins",
-          "CI/CD",
-          "DevOps"
-        ]
+        "company": "NB-Intelligence",
+        "position": "DevOpsエンジニア",
+        "period": "2026/03 - 現在",
+        "location": "日本 東京",
+        "description": "DevOpsプラットフォームの設計とGitLab CI/CDパイプラインの実装を主導",
+        "highlights": [
+          "DevOpsプラットフォームとGitLab CI/CDパイプラインを設計・実装し、完全自動化されたビルド、テスト、デプロイワークフローを実現",
+          "高可用性パターンと包括的なモニタリングを備えたTencent Cloudインフラを管理し、企業SLA要件を満たす",
+          "BashスクリプトとAnsible Playbookを使用してLinuxベースのプライベートインフラを管理"
+        ],
+        "tags": ["GitLab CI/CD", "Tencent Cloud", "Ansible", "Linux"]
       },
       {
-        "company": "フリーランス (Remote)",
-        "position": "DevOps エンジニア",
+        "company": "友邦 (AIA Digital+)",
+        "position": "DevOpsエンジニア",
+        "period": "2024/02 - 2026/03",
+        "location": "中国 広州",
+        "description": "複数環境のCI/CDパイプラインを管理し、100以上のエンジニアリングチームをサポート",
+        "highlights": [
+          "1日500回以上のビルドを最適化し、リリース成功率を70%向上",
+          "95%のチームで機能配信サイクルを2週間から3日間に短縮",
+          "平均30分以内の障害復旧を実現し、12か月連続で重大障害ゼロ",
+          "OpenAIとRAG技術を使用してAIナレッジベースチャットボットを構築し、問題解決効率を40%向上",
+          "GitOpsフレームワークを実施し、Jenkinsジョブ設定管理効率を30%向上"
+        ],
+        "tags": ["AKS", "Jenkins", "Azure", "CI/CD", "OpenAI", "RAG"]
+      },
+      {
+        "company": "フリーランス",
+        "position": "DevOpsエンジニア",
         "period": "2022/12 - 2024/01",
         "location": "リモート",
-        "description": "Azure 上で CI/CD インフラを構築し最適化し、運用効率を 20% 向上させました。安全でスケーラブルなクラウドソリューションの設計を主導し、運用コストを 15% 削減しました。",
-        "tags": [
-          "Azure",
-          "CI/CD",
-          "Cloud"
-        ]
+        "description": "複数のクライアント向けにAzureクラウドネイティブインフラを構築・最適化",
+        "highlights": [
+          "CI/CD最適化によりクライアントの運用効率を20%向上",
+          "Terraform IaCとBash自動化により運用コストを15%削減",
+          "Linuxサーバーを管理し、構成ワークフローを自動化"
+        ],
+        "tags": ["Azure", "Terraform", "CI/CD", "Linux"]
+      },
+      {
+        "company": "Shenzhen Baimulin Education Technology",
+        "position": "バックエンド開発エンジニア",
+        "period": "2022/04 - 2022/11",
+        "location": "中国 深セン",
+        "description": "RESTful APIインターフェースを設計し、コンテナ化パイプラインを構築",
+        "highlights": [
+          "モジュラー電子商取引システム向けにRESTful APIインターフェースを設計",
+          "Docker/Kubernetesコンテナ化パイプラインを構築",
+          "自動化デプロイスクリプトを使用してLinuxアプリケーションサーバーを管理"
+        ],
+        "tags": ["Docker", "Kubernetes", "API設計", "Linux"]
       }
     ]
   },
   "skills": {
     "title": "スキルと技術",
     "categories": {
-      "frontend": "クラウドネイティブ",
-      "backend": "インフラ",
-      "tools": "ツール"
+      "cloud": "クラウドプラットフォーム",
+      "infrastructure": "インフラとDevOps",
+      "tools": "ツールと実践"
     },
-    "frontend": [
-      "Kubernetes",
-      "Docker",
-      "Azure",
-      "AWS",
-      "CI/CD"
+    "cloud": [
+      { "name": "Azure (AKS, ACR, VNet, Firewall)", "level": 95 },
+      { "name": "AWS", "level": 85 },
+      { "name": "Tencent Cloud", "level": 80 },
+      { "name": "Kubernetes", "level": 95 },
+      { "name": "Docker", "level": 95 }
     ],
-    "backend": [
-      "Linux",
-      "Terraform",
-      "Ansible",
-      "Prometheus",
-      "Grafana"
+    "infrastructure": [
+      { "name": "Terraform", "level": 90 },
+      { "name": "Ansible", "level": 85 },
+      { "name": "Linux (Ubuntu/CentOS)", "level": 95 },
+      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)", "level": 95 },
+      { "name": "Python/Bashスクリプト", "level": 90 },
+      { "name": "ネットワークとセキュリティ", "level": 85 }
     ],
     "tools": [
-      "Git",
-      "Jenkins",
-      "Azure DevOps",
-      "Jira",
-      "Confluence"
-    ],
-    "progress": {
-      "frontend": 85,
-      "backend": 75,
-      "tools": 90
-    }
+      { "name": "Git/GitLab/GitHub", "level": 95 },
+      { "name": "Jira/Confluence", "level": 90 },
+      { "name": "Prometheus/Grafana", "level": 85 },
+      { "name": "Cloudflare/WAF", "level": 80 },
+      { "name": "Tailscale/VPN", "level": 85 }
+    ]
   },
   "projects": {
     "title": "主要プロジェクト",
     "items": [
       {
-        "name": "ハイブリッドクラウド K8s 管理",
-        "description": "Tailscale を使用して、マルチクラウド（AWS/Azure/GCP）とオンプレミスノードの相互接続を実現し、トポロジの複雑さを 60% 低減しました。",
-        "tech": [
-          "Tailscale",
-          "K8s",
-          "ゼロトラスト"
+        "name": "ハイブリッドクラウドK8s管理",
+        "description": "Tailscale (WireGuard)を使用したクロスクラウドネットワーク相互接続アーキテクチャ。マルチクラウド(AWS/Azure/GCP)とオンプレミスノード間のシームレスな接続を実現",
+        "highlights": [
+          "ネットワークトポロジの複雑さを60%低減",
+          "ACLベースのゼロトラストネットワークポリシーを実施し、100%の未承認アクセスを阻止",
+          "Ansible Playbookを使用して自動構成を実現"
         ],
-        "link": "https://github.com"
+        "tech": ["Kubernetes", "Tailscale", "WireGuard", "Ansible", "ゼロトラスト"],
+        "link": "https://github.com/winson-030"
       },
       {
-        "name": "AI 活用ナレッジボット",
-        "description": "OpenAI と RAG 技術を使用して運用ナレッジチャットボットを構築し、問題解決効率を 40% 向上させました。",
-        "tech": [
-          "OpenAI",
-          "RAG",
-          "Python"
+        "name": "Azureクラウドインフラ",
+        "description": "VNetセグメンテーション、ファイアウォールセキュリティ、ハイブリッドActive Directory統合を含む包括的なAzureインフラストラクチャデプロイメント",
+        "highlights": [
+          "パブリック/プライベートサブネットとAzureファイアウォールを備えたVNetをデプロイ",
+          "RBACとマネージドIDを備えたAzure Entra IDを統合",
+          "リリースサイクルを2週間から3日間に短縮"
         ],
-        "link": "https://github.com"
+        "tech": ["Azure", "VNet", "Azure Firewall", "Entra ID", "DevBox"],
+        "link": "https://github.com/winson-030"
+      },
+      {
+        "name": "CloudflareグローバルCDN",
+        "description": "インテリジェントDNS、動的CDN、WAF保護、自動証明書管理を含むグローバルサービスデリバリーアーキテクチャ",
+        "highlights": [
+          "グローバルユーザーアクセスレイテンシーを50ms未満に削減",
+          "WAFルールで98%の悪意のあるトラフィックを阻止",
+          "99%の年間サービス可用性を維持"
+        ],
+        "tech": ["Cloudflare", "CDN", "WAF", "DNS", "ゼロトラスト"],
+        "link": "https://github.com/winson-030"
+      },
+      {
+        "name": "AI活用ナレッジボット",
+        "description": "OpenAIを使用したRAGナレッジベースチャットボット。問題解決を加速し、オンボーディング時間を短縮",
+        "highlights": [
+          "問題解決効率を40%向上",
+          "新入社員のオンボーディング時間を50%短縮",
+          "Python + Jenkins CI/CD統合"
+        ],
+        "tech": ["OpenAI", "RAG", "Python", "Jenkins", "API"],
+        "link": "https://github.com/winson-030"
       }
     ]
   },
   "contact": {
     "title": "お問い合わせ",
-    "description": "現在、フリーランスまたはフルタイムのポジションを受け付けています。プロジェクトにクリエイティブな活用が必要な場合は、ご相談ください。",
+    "description": "現在、フリーランスまたはフルタイムのポジションを受け付けています。DevOpsの専門知識やクラウドインフラストラクチャの最適化が必要なプロジェクトがあれば、ぜひご相談ください。",
     "form": {
-      "name": "名前",
-      "email": "メール",
+      "name": "お名前",
+      "email": "メールアドレス",
       "message": "メッセージ",
-      "send": "メッセージを送る"
-    },
-    "social": "ソーシャルリンク"
+      "send": "送信"
+    }
   },
   "footer": {
-    "copyright": "© 2025 Winson。全著作権所有。"
+    "copyright": "© 2026 Winson。全著作権所有。"
   }
 }
