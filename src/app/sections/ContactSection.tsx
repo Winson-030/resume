@@ -34,68 +34,70 @@ export function ContactSection({ messages }: ContactSectionProps) {
           </div>
         </FadeInWhenVisible>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <FadeInWhenVisible delay={0.1} direction="left">
-            <div className="space-y-8">
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {messages.description}
-              </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+          <FadeInWhenVisible delay={0.1} direction="left" className="h-full">
+            <Card className="p-6 h-full flex flex-col">
+              <div className="space-y-8 flex-1">
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  {messages.description}
+                </p>
 
-              <div className="space-y-4">
-                <h3 className="font-medium">Connect with me</h3>
-                <div className="flex gap-4">
+                <div className="space-y-4">
+                  <h3 className="font-medium">Connect with me</h3>
+                  <div className="flex gap-4">
+                    <Link
+                      href="https://github.com/winson-030"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <motion.div
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+                      >
+                        <Github className="h-5 w-5" />
+                      </motion.div>
+                    </Link>
+                    <Link
+                      href="https://www.linkedin.com/in/winson-dev"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <motion.div
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+                      >
+                        <Linkedin className="h-5 w-5" />
+                      </motion.div>
+                    </Link>
+                    <Link href="mailto:mail@winson.dev">
+                      <motion.div
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+                      >
+                        <Mail className="h-5 w-5" />
+                      </motion.div>
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="font-medium">Email</h3>
                   <Link
-                    href="https://github.com/winson-030"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="mailto:mail@winson.dev"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <motion.div
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
-                    >
-                      <Github className="h-5 w-5" />
-                    </motion.div>
-                  </Link>
-                  <Link
-                    href="https://www.linkedin.com/in/winson-dev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
-                    >
-                      <Linkedin className="h-5 w-5" />
-                    </motion.div>
-                  </Link>
-                  <Link href="mailto:mail@winson.dev">
-                    <motion.div
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
-                    >
-                      <Mail className="h-5 w-5" />
-                    </motion.div>
+                    mail@winson.dev
                   </Link>
                 </div>
               </div>
-
-              <div className="space-y-2">
-                <h3 className="font-medium">Email</h3>
-                <Link
-                  href="mailto:mail@winson.dev"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  mail@winson.dev
-                </Link>
-              </div>
-            </div>
+            </Card>
           </FadeInWhenVisible>
 
-          <FadeInWhenVisible delay={0.2} direction="right">
-            <Card className="p-6">
+          <FadeInWhenVisible delay={0.2} direction="right" className="h-full">
+            <Card className="p-6 h-full">
               <ContactForm labels={messages.form} />
             </Card>
           </FadeInWhenVisible>
