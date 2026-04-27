@@ -29,12 +29,12 @@
     {
       "name": "AWS云从业者认证",
       "issuer": "亚马逊云服务",
-      "date": "2024"
+      "date": "2023"
     },
     {
       "name": "Kubernetes管理员认证 (CKA)",
       "issuer": "云原生计算基金会",
-      "date": "2024"
+      "date": "2023"
     },
     {
       "name": "Azure AI工程师认证",
@@ -56,7 +56,12 @@
           "管理腾讯云基础设施，建立高可用模式和综合监控，满足企业SLA要求",
           "使用Bash脚本和Ansible Playbook管理Linux私有基础设施"
         ],
-        "tags": ["GitLab CI/CD", "腾讯云", "Ansible", "Linux"]
+        "tags": [
+          "GitLab CI/CD",
+          "腾讯云",
+          "Ansible",
+          "Linux"
+        ]
       },
       {
         "company": "友邦资讯 (AIA Digital+)",
@@ -71,7 +76,14 @@
           "使用OpenAI和RAG技术构建AI知识库机器人，问题解决效率提升40%",
           "实施GitOps框架，Jenkins作业配置管理效率提升30%"
         ],
-        "tags": ["AKS", "Jenkins", "Azure", "CI/CD", "OpenAI", "RAG"]
+        "tags": [
+          "AKS",
+          "Jenkins",
+          "Azure",
+          "CI/CD",
+          "OpenAI",
+          "RAG"
+        ]
       },
       {
         "company": "自由职业",
@@ -84,7 +96,12 @@
           "通过Terraform IaC和Bash自动化，运维成本降低15%",
           "管理Linux服务器，自动化配置工作流"
         ],
-        "tags": ["Azure", "Terraform", "CI/CD", "Linux"]
+        "tags": [
+          "Azure",
+          "Terraform",
+          "CI/CD",
+          "Linux"
+        ]
       },
       {
         "company": "深圳百木林教育科技",
@@ -97,7 +114,12 @@
           "构建Docker/Kubernetes容器化流水线",
           "使用自动化部署脚本管理Linux应用服务器"
         ],
-        "tags": ["Docker", "Kubernetes", "API设计", "Linux"]
+        "tags": [
+          "Docker",
+          "Kubernetes",
+          "API设计",
+          "Linux"
+        ]
       }
     ]
   },
@@ -109,26 +131,74 @@
       "tools": "工具与实践"
     },
     "cloud": [
-      { "name": "Azure (AKS, ACR, VNet, Firewall)", "level": 95 },
-      { "name": "AWS", "level": 85 },
-      { "name": "腾讯云", "level": 80 },
-      { "name": "Kubernetes", "level": 95 },
-      { "name": "Docker", "level": 95 }
+      {
+        "name": "Azure (AKS, ACR, VNet, Firewall)",
+        "level": 95
+      },
+      {
+        "name": "AWS",
+        "level": 85
+      },
+      {
+        "name": "腾讯云",
+        "level": 80
+      },
+      {
+        "name": "Kubernetes",
+        "level": 95
+      },
+      {
+        "name": "Docker",
+        "level": 95
+      }
     ],
     "infrastructure": [
-      { "name": "Terraform", "level": 90 },
-      { "name": "Ansible", "level": 85 },
-      { "name": "Linux (Ubuntu/CentOS)", "level": 95 },
-      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)", "level": 95 },
-      { "name": "Python/Bash脚本", "level": 90 },
-      { "name": "网络与安全", "level": 85 }
+      {
+        "name": "Terraform",
+        "level": 90
+      },
+      {
+        "name": "Ansible",
+        "level": 85
+      },
+      {
+        "name": "Linux (Ubuntu/CentOS)",
+        "level": 95
+      },
+      {
+        "name": "CI/CD (Jenkins/GitLab/Azure DevOps)",
+        "level": 95
+      },
+      {
+        "name": "Python/Bash脚本",
+        "level": 90
+      },
+      {
+        "name": "网络与安全",
+        "level": 85
+      }
     ],
     "tools": [
-      { "name": "Git/GitLab/GitHub", "level": 95 },
-      { "name": "Jira/Confluence", "level": 90 },
-      { "name": "Prometheus/Grafana", "level": 85 },
-      { "name": "Cloudflare/WAF", "level": 80 },
-      { "name": "Tailscale/VPN", "level": 85 }
+      {
+        "name": "Git/GitLab/GitHub",
+        "level": 95
+      },
+      {
+        "name": "Jira/Confluence",
+        "level": 90
+      },
+      {
+        "name": "Prometheus/Grafana",
+        "level": 85
+      },
+      {
+        "name": "Cloudflare/WAF",
+        "level": 80
+      },
+      {
+        "name": "Tailscale/VPN",
+        "level": 85
+      }
     ]
   },
   "projects": {
@@ -142,7 +212,13 @@
           "实施基于ACL的零信任网络策略，阻止100%未授权访问",
           "使用Ansible Playbook实现自动化配置"
         ],
-        "tech": ["Kubernetes", "Tailscale", "WireGuard", "Ansible", "零信任"],
+        "tech": [
+          "Kubernetes",
+          "Tailscale",
+          "WireGuard",
+          "Ansible",
+          "零信任"
+        ],
         "link": "https://github.com/winson-030"
       },
       {
@@ -153,7 +229,13 @@
           "集成Azure Entra ID与RBAC和托管标识",
           "发布周期从2周缩短至3天"
         ],
-        "tech": ["Azure", "VNet", "Azure防火墙", "Entra ID", "DevBox"],
+        "tech": [
+          "Azure",
+          "VNet",
+          "Azure防火墙",
+          "Entra ID",
+          "DevBox"
+        ],
         "link": "https://github.com/winson-030"
       },
       {
@@ -164,7 +246,13 @@
           "WAF规则阻止98%恶意流量",
           "保持99%年度服务可用性"
         ],
-        "tech": ["Cloudflare", "CDN", "WAF", "DNS", "零信任"],
+        "tech": [
+          "Cloudflare",
+          "CDN",
+          "WAF",
+          "DNS",
+          "零信任"
+        ],
         "link": "https://github.com/winson-030"
       },
       {
@@ -175,7 +263,13 @@
           "新员工入职时间减少50%",
           "Python + Jenkins CI/CD集成"
         ],
-        "tech": ["OpenAI", "RAG", "Python", "Jenkins", "API"],
+        "tech": [
+          "OpenAI",
+          "RAG",
+          "Python",
+          "Jenkins",
+          "API"
+        ],
         "link": "https://github.com/winson-030"
       }
     ]
