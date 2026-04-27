@@ -34,7 +34,7 @@ export function ContactSection({ messages }: ContactSectionProps) {
           </div>
         </FadeInWhenVisible>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <FadeInWhenVisible delay={0.1} direction="left">
             <div className="space-y-8">
               <p className="text-lg text-muted-foreground leading-relaxed">
