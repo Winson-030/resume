@@ -8,15 +8,15 @@
   },
   "hero": {
     "greeting": "こんにちは、私は",
-    "name": "李永杰 (Winson)",
+    "name": "李永傑 (Winson)",
     "title": "シニア DevOps / プラットフォームエンジニア",
-    "description": "異文化クラウドインフラ3年以上の経験 | クラウドネイティブアーキテクチャ、CI/CD自動化、AI活用運用を専門",
+    "description": "異文化クラウドインフラ5年以上の経験 | クラウドネイティブアーキテクチャ、CI/CD自動化、AI活用運用を専門",
     "contact": "お問い合わせ",
     "download": "履歴書をダウンロード"
   },
   "about": {
     "title": "私について",
-    "content": "クラウドインフラにおける異文化経験3年以上のシニアDevOps/プラットフォームエンジニアです。スケーラブルで信頼性の高いシステムの構築と開発ワークフローの最適化に特化しています。現在は日本の東京を拠点に、独自の技術的専門知識と国際的なコラボレーション能力を活かしています。",
+    "content": "クラウドインフラにおける異文化経験5年以上のシニアDevOps/プラットフォームエンジニアです。スケーラブルで信頼性の高いシステムの構築と開発ワークフローの最適化に特化しています。現在は日本の東京を拠点に、独自の技術的専門知識と国際的なコラボレーション能力を活かしています。",
     "techStack": "コア技術",
     "education": {
       "title": "学歴",
@@ -56,7 +56,12 @@
           "高可用性パターンと包括的なモニタリングを備えたTencent Cloudインフラを管理し、企業SLA要件を満たす",
           "BashスクリプトとAnsible Playbookを使用してLinuxベースのプライベートインフラを管理"
         ],
-        "tags": ["GitLab CI/CD", "Tencent Cloud", "Ansible", "Linux"]
+        "tags": [
+          "GitLab CI/CD",
+          "Tencent Cloud",
+          "Ansible",
+          "Linux"
+        ]
       },
       {
         "company": "友邦 (AIA Digital+)",
@@ -71,7 +76,14 @@
           "OpenAIとRAG技術を使用してAIナレッジベースチャットボットを構築し、問題解決効率を40%向上",
           "GitOpsフレームワークを実施し、Jenkinsジョブ設定管理効率を30%向上"
         ],
-        "tags": ["AKS", "Jenkins", "Azure", "CI/CD", "OpenAI", "RAG"]
+        "tags": [
+          "AKS",
+          "Jenkins",
+          "Azure",
+          "CI/CD",
+          "OpenAI",
+          "RAG"
+        ]
       },
       {
         "company": "フリーランス",
@@ -84,7 +96,12 @@
           "Terraform IaCとBash自動化により運用コストを15%削減",
           "Linuxサーバーを管理し、構成ワークフローを自動化"
         ],
-        "tags": ["Azure", "Terraform", "CI/CD", "Linux"]
+        "tags": [
+          "Azure",
+          "Terraform",
+          "CI/CD",
+          "Linux"
+        ]
       },
       {
         "company": "Shenzhen Baimulin Education Technology",
@@ -97,7 +114,12 @@
           "Docker/Kubernetesコンテナ化パイプラインを構築",
           "自動化デプロイスクリプトを使用してLinuxアプリケーションサーバーを管理"
         ],
-        "tags": ["Docker", "Kubernetes", "API設計", "Linux"]
+        "tags": [
+          "Docker",
+          "Kubernetes",
+          "API設計",
+          "Linux"
+        ]
       }
     ]
   },
@@ -109,26 +131,74 @@
       "tools": "ツールと実践"
     },
     "cloud": [
-      { "name": "Azure (AKS, ACR, VNet, Firewall)", "level": 95 },
-      { "name": "AWS", "level": 85 },
-      { "name": "Tencent Cloud", "level": 80 },
-      { "name": "Kubernetes", "level": 95 },
-      { "name": "Docker", "level": 95 }
+      {
+        "name": "Azure (AKS, ACR, VNet, Firewall)",
+        "level": 95
+      },
+      {
+        "name": "AWS",
+        "level": 85
+      },
+      {
+        "name": "Tencent Cloud",
+        "level": 80
+      },
+      {
+        "name": "Kubernetes",
+        "level": 95
+      },
+      {
+        "name": "Docker",
+        "level": 95
+      }
     ],
     "infrastructure": [
-      { "name": "Terraform", "level": 90 },
-      { "name": "Ansible", "level": 85 },
-      { "name": "Linux (Ubuntu/CentOS)", "level": 95 },
-      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)", "level": 95 },
-      { "name": "Python/Bashスクリプト", "level": 90 },
-      { "name": "ネットワークとセキュリティ", "level": 85 }
+      {
+        "name": "Terraform",
+        "level": 90
+      },
+      {
+        "name": "Ansible",
+        "level": 85
+      },
+      {
+        "name": "Linux (Ubuntu/CentOS)",
+        "level": 95
+      },
+      {
+        "name": "CI/CD (Jenkins/GitLab/Azure DevOps)",
+        "level": 95
+      },
+      {
+        "name": "Python/Bashスクリプト",
+        "level": 90
+      },
+      {
+        "name": "ネットワークとセキュリティ",
+        "level": 85
+      }
     ],
     "tools": [
-      { "name": "Git/GitLab/GitHub", "level": 95 },
-      { "name": "Jira/Confluence", "level": 90 },
-      { "name": "Prometheus/Grafana", "level": 85 },
-      { "name": "Cloudflare/WAF", "level": 80 },
-      { "name": "Tailscale/VPN", "level": 85 }
+      {
+        "name": "Git/GitLab/GitHub",
+        "level": 95
+      },
+      {
+        "name": "Jira/Confluence",
+        "level": 90
+      },
+      {
+        "name": "Prometheus/Grafana",
+        "level": 85
+      },
+      {
+        "name": "Cloudflare/WAF",
+        "level": 80
+      },
+      {
+        "name": "Tailscale/VPN",
+        "level": 85
+      }
     ]
   },
   "projects": {
@@ -142,7 +212,13 @@
           "ACLベースのゼロトラストネットワークポリシーを実施し、100%の未承認アクセスを阻止",
           "Ansible Playbookを使用して自動構成を実現"
         ],
-        "tech": ["Kubernetes", "Tailscale", "WireGuard", "Ansible", "ゼロトラスト"],
+        "tech": [
+          "Kubernetes",
+          "Tailscale",
+          "WireGuard",
+          "Ansible",
+          "ゼロトラスト"
+        ],
         "link": "https://github.com/winson-030"
       },
       {
@@ -153,7 +229,13 @@
           "RBACとマネージドIDを備えたAzure Entra IDを統合",
           "リリースサイクルを2週間から3日間に短縮"
         ],
-        "tech": ["Azure", "VNet", "Azure Firewall", "Entra ID", "DevBox"],
+        "tech": [
+          "Azure",
+          "VNet",
+          "Azure Firewall",
+          "Entra ID",
+          "DevBox"
+        ],
         "link": "https://github.com/winson-030"
       },
       {
@@ -164,7 +246,13 @@
           "WAFルールで98%の悪意のあるトラフィックを阻止",
           "99%の年間サービス可用性を維持"
         ],
-        "tech": ["Cloudflare", "CDN", "WAF", "DNS", "ゼロトラスト"],
+        "tech": [
+          "Cloudflare",
+          "CDN",
+          "WAF",
+          "DNS",
+          "ゼロトラスト"
+        ],
         "link": "https://github.com/winson-030"
       },
       {
@@ -175,7 +263,13 @@
           "新入社員のオンボーディング時間を50%短縮",
           "Python + Jenkins CI/CD統合"
         ],
-        "tech": ["OpenAI", "RAG", "Python", "Jenkins", "API"],
+        "tech": [
+          "OpenAI",
+          "RAG",
+          "Python",
+          "Jenkins",
+          "API"
+        ],
         "link": "https://github.com/winson-030"
       }
     ]
