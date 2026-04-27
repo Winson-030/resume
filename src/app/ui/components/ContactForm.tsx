@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/app/ui/components/Button";
 
 interface ContactFormProps {
@@ -19,7 +19,6 @@ export function ContactForm({ labels }: ContactFormProps) {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const linkRef = useRef<HTMLAnchorElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,11 +29,8 @@ export function ContactForm({ labels }: ContactFormProps) {
     const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
     const mailtoLink = `mailto:mail@winson.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    // Set href and trigger click
-    if (linkRef.current) {
-      linkRef.current.href = mailtoLink;
-      linkRef.current.click();
-    }
+    // Open mailto link using window.location
+    window.location.href = mailtoLink;
 
     // Reset form after a short delay
     setTimeout(() => {
@@ -111,9 +107,6 @@ export function ContactForm({ labels }: ContactFormProps) {
       <Button type="submit" className="w-full" disabled={!isFormValid || isSubmitting}>
         {isSubmitting ? "Opening..." : labels.send}
       </Button>
-
-      {/* Hidden anchor for mailto link */}
-      <a ref={linkRef} className="hidden" />
     </form>
   );
 }
