@@ -60,7 +60,7 @@ export function HeroSection({ messages }: HeroSectionProps) {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <Link href="https://r.easycv.cn/winson" target="_blank">
+              <Link href="https://r.easycv.cn/winsonli_jp" target="_blank">
                 <Button size="lg" className="group text-base px-8">
                   <Download className="mr-2 h-4 w-4 group-hover:animate-bounce" />
                   {messages.download}
