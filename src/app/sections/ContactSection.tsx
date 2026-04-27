@@ -36,7 +36,7 @@ export function ContactSection({ messages }: ContactSectionProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           <FadeInWhenVisible delay={0.1} direction="left" className="h-full">
-            <Card className="p-6 h-full flex flex-col">
+            <Card className="p-6 h-full flex flex-col border-transparent shadow-none">
               <div className="space-y-8 flex-1">
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   {messages.description}
