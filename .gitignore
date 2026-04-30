@@ -39,3 +39,28 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Config
+config.json
+views.json
+
+# AI Tools
+.claude-plugin/
+.zcf/
+
+# Logs & Data
+events.jsonl
+
+# Labels, Statuses, Sessions
+labels/
+statuses/
+sessions/
