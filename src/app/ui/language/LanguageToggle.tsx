@@ -41,8 +41,8 @@ export function LanguageToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="transition-all duration-300 ease-in-out">
-          <Globe className="mr-2 h-4 w-4" />
+        <Button variant="ghost" size="sm" className="transition-all duration-300 ease-in-out" aria-label="Switch language">
+          <Globe className="mr-2 h-4 w-4" aria-hidden="true" />
           <span className="hidden sm:inline">
             {languages.find((lang) => lang.code === currentLang)?.name}
           </span>

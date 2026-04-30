@@ -42,25 +42,26 @@ export function ThemeToggle() {
           size="icon"
           className="transition-all duration-300"
           onClick={handleToggle}
+          aria-label="Toggle theme"
         >
           {isDark ? (
-            <Moon className="h-4 w-4" />
+            <Moon className="h-4 w-4" aria-hidden="true" />
           ) : (
-            <Sun className="h-4 w-4" />
+            <Sun className="h-4 w-4" aria-hidden="true" />
           )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="animate-in fade-in zoom-in-95 duration-200">
         <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
-          <Sun className="mr-2 h-4 w-4" />
+          <Sun className="mr-2 h-4 w-4" aria-hidden="true" />
           <span>Light</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
-          <Moon className="mr-2 h-4 w-4" />
+          <Moon className="mr-2 h-4 w-4" aria-hidden="true" />
           <span>Dark</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
-          <Monitor className="mr-2 h-4 w-4" />
+          <Monitor className="mr-2 h-4 w-4" aria-hidden="true" />
           <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -63,6 +63,7 @@ export function ContactForm({ labels }: ContactFormProps) {
           onChange={handleChange}
           className="w-full px-4 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
           placeholder={labels.name}
+          autoComplete="name"
           required
         />
       </div>
@@ -82,6 +83,8 @@ export function ContactForm({ labels }: ContactFormProps) {
               : "border-input focus:ring-primary/20 focus:border-primary"
           }`}
           placeholder={labels.email}
+          autoComplete="email"
+          spellCheck={false}
           required
         />
         {formData.email && !isEmailValid && (
@@ -100,12 +103,13 @@ export function ContactForm({ labels }: ContactFormProps) {
           onChange={handleChange}
           className="w-full px-4 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
           placeholder={labels.message}
+          spellCheck={false}
           required
         />
       </div>
 
       <Button type="submit" className="w-full" disabled={!isFormValid || isSubmitting}>
-        {isSubmitting ? "Opening..." : labels.send}
+        {isSubmitting ? "Opening…" : labels.send}
       </Button>
     </form>
   );

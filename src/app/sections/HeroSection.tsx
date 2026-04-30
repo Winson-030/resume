@@ -22,25 +22,23 @@ interface HeroSectionProps {
 export function HeroSection({ messages }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <ParticleBackground />
+      <ParticleBackground aria-hidden="true" />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <FadeInWhenVisible delay={0.1}>
           <p className="text-sm text-muted-foreground mb-4 tracking-wide uppercase">
             {messages.greeting}
           </p>
         </FadeInWhenVisible>
 
-        <div className="mb-6">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight">
-            <TypewriterText
-              text={messages.name}
-              speed={100}
-              delay={300}
-              className="block"
-            />
-          </h1>
-        </div>
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight">
+          <TypewriterText
+            text={messages.name}
+            speed={100}
+            delay={300}
+            className="block"
+          />
+        </h1>
 
         <FadeInWhenVisible delay={1.2}>
           <h2 className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-6">
@@ -49,7 +47,7 @@ export function HeroSection({ messages }: HeroSectionProps) {
         </FadeInWhenVisible>
 
         <FadeInWhenVisible delay={1.4}>
-          <p className="text-base text-muted-foreground/80 leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-base text-muted-foreground/80 leading-relaxed max-w-2xl mx-auto mb-10" translate="no">
             {messages.description}
           </p>
         </FadeInWhenVisible>

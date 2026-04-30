@@ -27,7 +27,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       whileHover={{ y: -8 }}
       className="group"
     >
-      <Link href={project.link || "#"} target="_blank" className="block h-full">
+      <Link href={project.link || "#"} target="_blank" rel="noopener noreferrer" className="block h-full">
         <div className="relative h-full bg-card border border-border rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:border-primary/20 hover:shadow-primary/5">
           <div className="flex justify-between items-start mb-4">
             <div className="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary font-mono text-sm group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
@@ -38,7 +38,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               whileHover={{ rotate: 45 }}
               className="text-muted-foreground group-hover:text-primary transition-colors"
             >
-              <ArrowUpRight className="w-5 h-5" />
+              <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
             </motion.div>
           </div>
 

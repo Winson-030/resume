@@ -227,14 +227,14 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
 function Footer({ messages }: { messages: HomeClientProps["messages"] }) {
   return (
     <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-border">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">{messages.footer.copyright}</p>
           <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-            <Link href="https://github.com/winson-030" target="_blank" className="hover:text-foreground transition-colors">
+            <Link href="https://github.com/winson-030" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               GitHub
             </Link>
-            <Link href="https://www.linkedin.com/in/winson-dev" target="_blank" className="hover:text-foreground transition-colors">
+            <Link href="https://www.linkedin.com/in/winson-dev" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               LinkedIn
             </Link>
             <Link href="mailto:mail@winson.dev" className="hover:text-foreground transition-colors">
@@ -280,7 +280,6 @@ export function HomeClient({ messages }: HomeClientProps) {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background text-foreground">
         <Navbar messages={messages} activeSection={activeSection} />
 
         <main>
@@ -302,7 +301,6 @@ export function HomeClient({ messages }: HomeClientProps) {
         </main>
 
         <Footer messages={messages} />
-      </div>
     </PageTransition>
   );
 }
