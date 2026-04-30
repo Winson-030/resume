@@ -12,6 +12,7 @@ interface HeroSectionProps {
   messages: {
     greeting: string;
     name: string;
+    subname?: string;
     title: string;
     description: string;
     contact: string;
@@ -31,14 +32,23 @@ export function HeroSection({ messages }: HeroSectionProps) {
           </p>
         </FadeInWhenVisible>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight">
-          <TypewriterText
-            text={messages.name}
-            speed={100}
-            delay={300}
-            className="block"
-          />
-        </h1>
+        <div className="mb-2">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight">
+            <TypewriterText
+              text={messages.name}
+              speed={100}
+              delay={300}
+              className="block"
+            />
+          </h1>
+          {messages.subname && (
+            <FadeInWhenVisible delay={1}>
+              <p className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-normal tracking-wide mt-2">
+                {messages.subname}
+              </p>
+            </FadeInWhenVisible>
+          )}
+        </div>
 
         <FadeInWhenVisible delay={1.2}>
           <h2 className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-6">

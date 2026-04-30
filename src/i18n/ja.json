@@ -8,7 +8,8 @@
   },
   "hero": {
     "greeting": "こんにちは、私は",
-    "name": "李永傑 (Winson)",
+    "name": "李永傑",
+    "subname": "(Winson)",
     "title": "シニア DevOps / プラットフォームエンジニア",
     "description": "異文化クラウドインフラ5年以上の経験 | クラウドネイティブアーキテクチャ、CI/CD自動化、AI活用運用を専門",
     "contact": "お問い合わせ",

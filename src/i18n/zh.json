@@ -8,7 +8,8 @@
   },
   "hero": {
     "greeting": "你好，我是",
-    "name": "李永杰 (Winson)",
+    "name": "李永杰",
+    "subname": "(Winson)",
     "title": "高级 DevOps / 平台工程师",
     "description": "5年以上跨文化云基础设施经验 | 专注于云原生架构、CI/CD自动化和AI赋能运维",
     "contact": "联系我",

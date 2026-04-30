@@ -8,7 +8,8 @@
   },
   "hero": {
     "greeting": "Hello, I'm",
-    "name": "LI YONGJIE (Winson)",
+    "name": "LI YONGJIE",
+    "subname":"(Winson)",
     "title": "Senior DevOps / Platform Engineer",
     "description": "5+ Years Cross-Cultural Cloud Infrastructure Experience | Specializing in cloud-native architecture, CI/CD automation, and AI-powered operations.",
     "contact": "Contact Me",
