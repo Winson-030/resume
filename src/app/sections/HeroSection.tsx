@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { Button } from "@/app/ui/components/Button";
-import { TypewriterText } from "@/app/ui/animations/TypewriterText";
 import { FadeInWhenVisible } from "@/app/ui/animations/FadeInWhenVisible";
+import { ChromeBar } from "@/app/ui/components/ChromeBar";
+import { WebGLBackground } from "@/app/ui/animations/WebGLBackground";
 import { ArrowRight, Download } from "lucide-react";
-import { ParticleBackground } from "@/app/ui/animations/ParticleBackground";
+import Link from "next/link";
+import { useReducedMotion } from "@/app/ui/hooks/useReducedMotion";
 
 interface HeroSectionProps {
   messages: {
@@ -18,86 +18,90 @@ interface HeroSectionProps {
     contact: string;
     download: string;
   };
+  chrome: {
+    topLeft: string;
+    topRight: string;
+    bottomLeft?: string;
+    bottomRight: string;
+  };
 }
 
-export function HeroSection({ messages }: HeroSectionProps) {
+export function HeroSection({ messages, chrome }: HeroSectionProps) {
+  const prefersReducedMotion = useReducedMotion();
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <ParticleBackground aria-hidden="true" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background dark:bg-background">
+      <WebGLBackground />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <FadeInWhenVisible delay={0.1}>
-          <p className="text-sm text-muted-foreground mb-4 tracking-wide uppercase">
+      <ChromeBar
+        labels={{
+          topLeft: chrome.topLeft,
+          topRight: chrome.topRight,
+          bottomLeft: `${messages.name} — ${messages.title}`,
+          bottomRight: chrome.bottomRight,
+        }}
+      />
+
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-center min-h-screen">
+        <FadeInWhenVisible delay={0.2}>
+          <p className="font-mono-alt text-sm tracking-[0.12em] uppercase opacity-45 mb-6">
             {messages.greeting}
           </p>
         </FadeInWhenVisible>
 
-        <div className="mb-2">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight">
-            <TypewriterText
-              text={messages.name}
-              speed={100}
-              delay={300}
-              className="block"
-            />
-          </h1>
+        <div className="mb-6">
+          <h1 className="h-hero">{messages.name}</h1>
           {messages.subname && (
-            <FadeInWhenVisible delay={1}>
-              <p className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-normal tracking-wide mt-2">
+            <FadeInWhenVisible delay={0.4}>
+              <p className="text-xl md:text-2xl lg:text-3xl font-sans-zh text-muted-foreground font-light tracking-wide mt-3 opacity-70">
                 {messages.subname}
               </p>
             </FadeInWhenVisible>
           )}
         </div>
 
-        <FadeInWhenVisible delay={1.2}>
-          <h2 className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-6">
-            {messages.title}
-          </h2>
+        <FadeInWhenVisible delay={0.6}>
+          <p className="lead max-w-xl mt-4 opacity-70">{messages.title}</p>
         </FadeInWhenVisible>
 
-        <FadeInWhenVisible delay={1.4}>
-          <p className="text-base text-muted-foreground/80 leading-relaxed max-w-2xl mx-auto mb-10" translate="no">
+        <FadeInWhenVisible delay={0.8}>
+          <p className="text-base text-muted-foreground/60 leading-relaxed max-w-lg mt-4 mb-10 font-sans-zh font-light">
             {messages.description}
           </p>
         </FadeInWhenVisible>
 
-        <FadeInWhenVisible delay={1.6}>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+        <FadeInWhenVisible delay={1.0}>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="https://r.easycv.cn/winsonli_jp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-foreground text-background text-sm tracking-wide hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-opacity"
+              aria-label="Download Resume"
             >
-              <Link href="https://r.easycv.cn/winsonli_jp" target="_blank">
-                <Button size="lg" className="group text-base px-8">
-                  <Download className="mr-2 h-4 w-4 group-hover:animate-bounce" />
-                  {messages.download}
-                </Button>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              <Download className="h-4 w-4" aria-hidden="true" />
+              {messages.download}
+            </Link>
+            <Link
+              href="#contact"
+              className="inline-flex items-center gap-2 px-8 py-3 border border-foreground/20 text-sm tracking-wide hover:border-foreground/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors"
+              aria-label="Contact Section"
             >
-              <Link href="#contact">
-                <Button size="lg" variant="outline" className="group text-base px-8">
-                  {messages.contact}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-            </motion.div>
+              {messages.contact}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
           </div>
         </FadeInWhenVisible>
 
-        <FadeInWhenVisible delay={2}>
-          <motion.div
-            className="absolute bottom-10 left-1/2 -translate-x-1/2"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div className="w-px h-16 bg-gradient-to-b from-transparent via-muted-foreground/50 to-transparent" />
-          </motion.div>
+        <FadeInWhenVisible delay={1.5}>
+          {!prefersReducedMotion && (
+            <motion.div
+              className="absolute bottom-10 left-1/2 -translate-x-1/2"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <div className="w-px h-16 bg-gradient-to-b from-transparent via-muted-foreground/30 to-transparent" />
+            </motion.div>
+          )}
         </FadeInWhenVisible>
       </div>
     </section>

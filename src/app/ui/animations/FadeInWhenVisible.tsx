@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 interface FadeInWhenVisibleProps {
   children: ReactNode;
@@ -20,11 +20,16 @@ export function FadeInWhenVisible({
   className = "",
   once = true,
 }: FadeInWhenVisibleProps) {
+  const prefersReducedMotion = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  })[0];
+
   const directions = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { x: 40, y: 0 },
-    right: { x: -40, y: 0 },
+    up: { y: prefersReducedMotion ? 0 : 40, x: 0 },
+    down: { y: prefersReducedMotion ? 0 : -40, x: 0 },
+    left: { x: prefersReducedMotion ? 0 : 40, y: 0 },
+    right: { x: prefersReducedMotion ? 0 : -40, y: 0 },
   };
 
   return (
@@ -40,7 +45,7 @@ export function FadeInWhenVisible({
       }}
       viewport={{ once, margin: "-50px" }}
       transition={{
-        duration,
+        duration: prefersReducedMotion ? 0 : duration,
         delay,
         ease: [0.4, 0, 0.2, 1],
       }}

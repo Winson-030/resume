@@ -6,14 +6,93 @@
     "skills": "Skills",
     "contact": "Contact"
   },
+  "chrome": {
+    "hero": {
+      "topLeft": "Resume 2026",
+      "topRight": "Vol.01",
+      "bottomRight": "2026"
+    },
+    "stats": {
+      "topLeft": "By the Numbers",
+      "topRight": "Act I · 02 / 07",
+      "bottomLeft": "Page 02 · Stats",
+      "bottomRight": "By the Numbers"
+    },
+    "about": {
+      "topLeft": "About Me",
+      "topRight": "Act II · 03 / 07",
+      "bottomLeft": "Page 03 · About",
+      "bottomRight": "Act II"
+    },
+    "experience": {
+      "topLeft": "Work Experience",
+      "topRight": "Act II · 04 / 07",
+      "bottomLeft": "Page 04 · Experience",
+      "bottomRight": "4 Positions"
+    },
+    "skills": {
+      "topLeft": "Skills & Technologies",
+      "topRight": "Act III · 05 / 07",
+      "bottomLeft": "Page 05 · Skills",
+      "bottomRight": "Act III"
+    },
+    "projects": {
+      "topLeft": "Featured Projects",
+      "topRight": "Act III · 06 / 07",
+      "bottomLeft": "Page 06 · Projects",
+      "bottomRight": "Act III"
+    },
+    "contact": {
+      "topLeft": "Get In Touch",
+      "topRight": "07 / 07",
+      "bottomLeft": "Page 07 · Contact",
+      "bottomRight": "— 2026 —"
+    }
+  },
   "hero": {
     "greeting": "Hello, I'm",
     "name": "LI YONGJIE",
-    "subname":"(Winson)",
+    "subname": "(Winson)",
     "title": "Senior DevOps / Platform Engineer",
     "description": "5+ Years Cross-Cultural Cloud Infrastructure Experience | Specializing in cloud-native architecture, CI/CD automation, and AI-powered operations.",
     "contact": "Contact Me",
     "download": "Download Resume"
+  },
+  "stats": {
+    "title": "By the Numbers",
+    "subtitle": "From 0 to 100+ engineering teams, from manual deployment to automated pipelines.",
+    "items": [
+      {
+        "label": "Experience",
+        "value": "5+",
+        "note": "Years"
+      },
+      {
+        "label": "Daily Builds",
+        "value": "500+",
+        "note": "Per Day"
+      },
+      {
+        "label": "Improvement",
+        "value": "70%",
+        "note": "Release Success"
+      },
+      {
+        "label": "Teams",
+        "value": "100+",
+        "note": "Engineering Teams"
+      },
+      {
+        "label": "Delivery",
+        "value": "3d",
+        "note": "From 2 Weeks"
+      },
+      {
+        "label": "Uptime",
+        "value": "12m",
+        "note": "Zero Critical"
+      }
+    ]
   },
   "about": {
     "title": "About Me",
@@ -45,10 +124,11 @@
   ],
   "experience": {
     "title": "Work Experience",
+    "subtitle": "From Freelance to NB-Intelligence, a continuously evolving career path.",
     "items": [
       {
         "company": "NB-Intelligence",
-        "position": "DevOps Engineer",
+        "position": "Senior DevOps Engineer",
         "period": "03/2026 - Present",
         "location": "Tokyo, Japan",
         "description": "Leading DevOps platform design and GitLab CI/CD pipeline implementation.",
@@ -57,7 +137,12 @@
           "Managed Tencent Cloud infrastructure with HA patterns and comprehensive monitoring for enterprise SLA requirements",
           "Administered Linux-based private infrastructure using Bash scripting and Ansible playbooks"
         ],
-        "tags": ["GitLab CI/CD", "Tencent Cloud", "Ansible", "Linux"]
+        "tags": [
+          "GitLab CI/CD",
+          "Tencent Cloud",
+          "Ansible",
+          "Linux"
+        ]
       },
       {
         "company": "AIA Digital+",
@@ -72,7 +157,14 @@
           "Built AI-powered knowledge base chatbot using OpenAI and RAG, accelerating issue resolution by 40%",
           "Implemented GitOps framework enhancing Jenkins job configuration efficiency by 30%"
         ],
-        "tags": ["AKS", "Jenkins", "Azure", "CI/CD", "OpenAI", "RAG"]
+        "tags": [
+          "AKS",
+          "Jenkins",
+          "Azure",
+          "CI/CD",
+          "OpenAI",
+          "RAG"
+        ]
       },
       {
         "company": "Freelance",
@@ -85,7 +177,12 @@
           "Reduced operational costs by 15% via Terraform IaC and Bash automation",
           "Administered Linux servers and automated provisioning workflows"
         ],
-        "tags": ["Azure", "Terraform", "CI/CD", "Linux"]
+        "tags": [
+          "Azure",
+          "Terraform",
+          "CI/CD",
+          "Linux"
+        ]
       },
       {
         "company": "Shenzhen Baimulin Education Technology",
@@ -98,42 +195,49 @@
           "Built Docker/Kubernetes-powered containerization pipelines",
           "Managed Linux application servers with automated deployment scripts"
         ],
-        "tags": ["Docker", "Kubernetes", "API Design", "Linux"]
+        "tags": [
+          "Docker",
+          "Kubernetes",
+          "API Design",
+          "Linux"
+        ]
       }
     ]
   },
   "skills": {
     "title": "Skills & Technologies",
+    "subtitle": "5+ years of cross-cloud infrastructure experience, from Azure to AWS to Tencent Cloud.",
     "categories": {
       "cloud": "Cloud Platforms",
       "infrastructure": "Infrastructure & DevOps",
       "tools": "Tools & Practices"
     },
     "cloud": [
-      { "name": "Azure (AKS, ACR, VNet, Firewall)", "level": 95 },
-      { "name": "AWS", "level": 85 },
-      { "name": "Tencent Cloud", "level": 80 },
-      { "name": "Kubernetes", "level": 95 },
-      { "name": "Docker", "level": 95 }
+      { "name": "Azure (AKS, ACR, VNet, Firewall)" },
+      { "name": "AWS" },
+      { "name": "Tencent Cloud" },
+      { "name": "Kubernetes" },
+      { "name": "Docker" }
     ],
     "infrastructure": [
-      { "name": "Terraform", "level": 90 },
-      { "name": "Ansible", "level": 85 },
-      { "name": "Linux (Ubuntu/CentOS)", "level": 95 },
-      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)", "level": 95 },
-      { "name": "Python/Bash Scripting", "level": 90 },
-      { "name": "Networking & Security", "level": 85 }
+      { "name": "Terraform" },
+      { "name": "Ansible" },
+      { "name": "Linux (Ubuntu/CentOS)" },
+      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)" },
+      { "name": "Python/Bash Scripting" },
+      { "name": "Networking & Security" }
     ],
     "tools": [
-      { "name": "Git/GitLab/GitHub", "level": 95 },
-      { "name": "Jira/Confluence", "level": 90 },
-      { "name": "Prometheus/Grafana", "level": 85 },
-      { "name": "Cloudflare/WAF", "level": 80 },
-      { "name": "Tailscale/VPN", "level": 85 }
+      { "name": "Git/GitLab/GitHub" },
+      { "name": "Jira/Confluence" },
+      { "name": "Prometheus/Grafana" },
+      { "name": "Cloudflare/WAF" },
+      { "name": "Tailscale/VPN" }
     ]
   },
   "projects": {
     "title": "Featured Projects",
+    "subtitle": "From hybrid cloud architecture to AI-driven knowledge base, 4 representative projects.",
     "items": [
       {
         "name": "Hybrid Cloud Kubernetes Management",
@@ -143,7 +247,13 @@
           "Implemented zero-trust ACL-based network policies blocking 100% unauthorized access",
           "Automated provisioning using Ansible playbooks"
         ],
-        "tech": ["Kubernetes", "Tailscale", "WireGuard", "Ansible", "Zero Trust"],
+        "tech": [
+          "Kubernetes",
+          "Tailscale",
+          "WireGuard",
+          "Ansible",
+          "Zero Trust"
+        ],
         "link": "https://github.com/winson-030"
       },
       {
@@ -154,7 +264,13 @@
           "Integrated Azure Entra ID with RBAC and Managed Identities",
           "Reduced release cycle from 2 weeks to 3 days"
         ],
-        "tech": ["Azure", "VNet", "Azure Firewall", "Entra ID", "DevBox"],
+        "tech": [
+          "Azure",
+          "VNet",
+          "Azure Firewall",
+          "Entra ID",
+          "DevBox"
+        ],
         "link": "https://github.com/winson-030"
       },
       {
@@ -165,7 +281,13 @@
           "Blocked 98% of malicious traffic with WAF rules",
           "Maintained 99% annual service availability"
         ],
-        "tech": ["Cloudflare", "CDN", "WAF", "DNS", "Zero Trust"],
+        "tech": [
+          "Cloudflare",
+          "CDN",
+          "WAF",
+          "DNS",
+          "Zero Trust"
+        ],
         "link": "https://github.com/winson-030"
       },
       {
@@ -176,7 +298,13 @@
           "Reduced new hire onboarding time by 50%",
           "Python + Jenkins CI/CD integration"
         ],
-        "tech": ["OpenAI", "RAG", "Python", "Jenkins", "API"],
+        "tech": [
+          "OpenAI",
+          "RAG",
+          "Python",
+          "Jenkins",
+          "API"
+        ],
         "link": "https://github.com/winson-030"
       }
     ]

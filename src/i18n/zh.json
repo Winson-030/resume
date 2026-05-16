@@ -6,6 +6,49 @@
     "skills": "技能",
     "contact": "联系"
   },
+  "chrome": {
+    "hero": {
+      "topLeft": "简历 2026",
+      "topRight": "Vol.01",
+      "bottomRight": "2026"
+    },
+    "stats": {
+      "topLeft": "数字说话",
+      "topRight": "第一幕 · 02 / 07",
+      "bottomLeft": "第 02 页 · 数据",
+      "bottomRight": "数字说话"
+    },
+    "about": {
+      "topLeft": "关于我",
+      "topRight": "第二幕 · 03 / 07",
+      "bottomLeft": "第 03 页 · 关于",
+      "bottomRight": "第二幕"
+    },
+    "experience": {
+      "topLeft": "工作经历",
+      "topRight": "第二幕 · 04 / 07",
+      "bottomLeft": "第 04 页 · 经历",
+      "bottomRight": "4 段经历"
+    },
+    "skills": {
+      "topLeft": "技能矩阵",
+      "topRight": "第三幕 · 05 / 07",
+      "bottomLeft": "第 05 页 · 技能",
+      "bottomRight": "第三幕"
+    },
+    "projects": {
+      "topLeft": "精选项目",
+      "topRight": "第三幕 · 06 / 07",
+      "bottomLeft": "第 06 页 · 项目",
+      "bottomRight": "第三幕"
+    },
+    "contact": {
+      "topLeft": "联系我",
+      "topRight": "07 / 07",
+      "bottomLeft": "第 07 页 · 联系",
+      "bottomRight": "— 2026 —"
+    }
+  },
   "hero": {
     "greeting": "你好，我是",
     "name": "李永杰",
@@ -14,6 +57,42 @@
     "description": "5年以上跨文化云基础设施经验 | 专注于云原生架构、CI/CD自动化和AI赋能运维",
     "contact": "联系我",
     "download": "下载简历"
+  },
+  "stats": {
+    "title": "5 年+，数字说话",
+    "subtitle": "从 0 到 100+ 工程团队，从手动部署到自动化流水线。",
+    "items": [
+      {
+        "label": "经验",
+        "value": "5+",
+        "note": "年+经验"
+      },
+      {
+        "label": "日均构建",
+        "value": "500+",
+        "note": "日均构建"
+      },
+      {
+        "label": "发布成功率",
+        "value": "70%",
+        "note": "发布成功率"
+      },
+      {
+        "label": "工程团队",
+        "value": "100+",
+        "note": "工程团队"
+      },
+      {
+        "label": "交付周期",
+        "value": "3天",
+        "note": "从2周缩短"
+      },
+      {
+        "label": "零严重事故",
+        "value": "12月",
+        "note": "零严重事故"
+      }
+    ]
   },
   "about": {
     "title": "关于我",
@@ -45,6 +124,7 @@
   ],
   "experience": {
     "title": "工作经历",
+    "subtitle": "从 Freelance 到 NB-Intelligence，一条持续进化的职业曲线。",
     "items": [
       {
         "company": "NB-Intelligence",
@@ -126,84 +206,38 @@
   },
   "skills": {
     "title": "专业技能",
+    "subtitle": "5 年+跨云基础设施经验，从 Azure 到 AWS 再到腾讯云。",
     "categories": {
       "cloud": "云平台",
       "infrastructure": "基础设施与DevOps",
       "tools": "工具与实践"
     },
     "cloud": [
-      {
-        "name": "Azure (AKS, ACR, VNet, Firewall)",
-        "level": 95
-      },
-      {
-        "name": "AWS",
-        "level": 85
-      },
-      {
-        "name": "腾讯云",
-        "level": 80
-      },
-      {
-        "name": "Kubernetes",
-        "level": 95
-      },
-      {
-        "name": "Docker",
-        "level": 95
-      }
+      { "name": "Azure (AKS, ACR, VNet, Firewall)" },
+      { "name": "AWS" },
+      { "name": "Tencent Cloud" },
+      { "name": "Kubernetes" },
+      { "name": "Docker" }
     ],
     "infrastructure": [
-      {
-        "name": "Terraform",
-        "level": 90
-      },
-      {
-        "name": "Ansible",
-        "level": 85
-      },
-      {
-        "name": "Linux (Ubuntu/CentOS)",
-        "level": 95
-      },
-      {
-        "name": "CI/CD (Jenkins/GitLab/Azure DevOps)",
-        "level": 95
-      },
-      {
-        "name": "Python/Bash脚本",
-        "level": 90
-      },
-      {
-        "name": "网络与安全",
-        "level": 85
-      }
+      { "name": "Terraform" },
+      { "name": "Ansible" },
+      { "name": "Linux (Ubuntu/CentOS)" },
+      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)" },
+      { "name": "Python/Bash Scripting" },
+      { "name": "Networking & Security" }
     ],
     "tools": [
-      {
-        "name": "Git/GitLab/GitHub",
-        "level": 95
-      },
-      {
-        "name": "Jira/Confluence",
-        "level": 90
-      },
-      {
-        "name": "Prometheus/Grafana",
-        "level": 85
-      },
-      {
-        "name": "Cloudflare/WAF",
-        "level": 80
-      },
-      {
-        "name": "Tailscale/VPN",
-        "level": 85
-      }
+      { "name": "Git/GitLab/GitHub" },
+      { "name": "Jira/Confluence" },
+      { "name": "Prometheus/Grafana" },
+      { "name": "Cloudflare/WAF" },
+      { "name": "Tailscale/VPN" }
     ]
   },
   "projects": {
     "title": "重点项目",
+    "subtitle": "从混合云架构到 AI 驱动的知识库，4 个代表性项目。",
     "items": [
       {
         "name": "混合云Kubernetes管理",

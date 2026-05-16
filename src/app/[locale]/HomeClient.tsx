@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/app/ui/theme/ThemeToggle";
 import { LanguageToggle } from "@/app/ui/language/LanguageToggle";
 import { HeroSection } from "@/app/sections/HeroSection";
+import { StatsSection } from "@/app/sections/StatsSection";
 import { AboutSection } from "@/app/sections/AboutSection";
 import { ExperienceSection } from "@/app/sections/ExperienceSection";
 import { SkillsSection } from "@/app/sections/SkillsSection";
@@ -13,6 +14,13 @@ import { ProjectsSection } from "@/app/sections/ProjectsSection";
 import { ContactSection } from "@/app/sections/ContactSection";
 import { PageTransition } from "@/app/ui/components/PageTransition";
 import { Menu, X } from "lucide-react";
+
+interface ChromeLabels {
+    topLeft: string;
+    topRight: string;
+    bottomLeft?: string;
+    bottomRight: string;
+  }
 
 interface HomeClientProps {
   messages: {
@@ -23,13 +31,28 @@ interface HomeClientProps {
       projects: string;
       contact: string;
     };
+    chrome: {
+      hero: ChromeLabels;
+      stats: ChromeLabels;
+      about: ChromeLabels;
+      experience: ChromeLabels;
+      skills: ChromeLabels;
+      projects: ChromeLabels;
+      contact: ChromeLabels;
+    };
     hero: {
       greeting: string;
       name: string;
+      subname?: string;
       title: string;
       description: string;
       contact: string;
       download: string;
+    };
+    stats: {
+      title: string;
+      subtitle: string;
+      items: Array<{ label: string; value: string; note: string }>;
     };
     about: {
       title: string;
@@ -49,6 +72,7 @@ interface HomeClientProps {
     }>;
     experience: {
       title: string;
+      subtitle: string;
       items: Array<{
         company: string;
         position: string;
@@ -61,17 +85,19 @@ interface HomeClientProps {
     };
     skills: {
       title: string;
+      subtitle: string;
       categories: {
         cloud: string;
         infrastructure: string;
         tools: string;
       };
-      cloud: Array<{ name: string; level: number }>;
-      infrastructure: Array<{ name: string; level: number }>;
-      tools: Array<{ name: string; level: number }>;
+      cloud: Array<{ name: string }>;
+      infrastructure: Array<{ name: string }>;
+      tools: Array<{ name: string }>;
     };
     projects: {
       title: string;
+      subtitle: string;
       items: Array<{
         name: string;
         description: string;
@@ -136,10 +162,10 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+        <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="flex justify-between items-center h-14">
             <motion.div
-              className="text-lg font-medium"
+              className="text-sm font-medium tracking-wide"
               whileHover={{ scale: 1.02 }}
             >
               <Link href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
@@ -152,7 +178,7 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`relative px-4 py-2 text-sm transition-colors rounded-full ${
+                  className={`relative px-3 py-1.5 text-xs tracking-wide transition-colors ${
                     activeSection === item.id
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
@@ -161,7 +187,7 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
                   {activeSection === item.id && (
                     <motion.div
                       layoutId="activeNav"
-                      className="absolute inset-0 bg-secondary rounded-full"
+                      className="absolute inset-0 bg-secondary rounded-sm"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -177,7 +203,7 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
                 className="md:hidden p-2"
                 onClick={() => setIsMobileMenuOpen(true)}
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -194,12 +220,12 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
           >
             <div className="flex flex-col h-full p-6">
               <div className="flex justify-between items-center">
-                <span className="text-lg font-medium">Menu</span>
+                <span className="text-sm tracking-wide">Menu</span>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-2"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4" />
                 </button>
               </div>
               <div className="flex-1 flex flex-col justify-center space-y-6">
@@ -226,11 +252,11 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
 
 function Footer({ messages }: { messages: HomeClientProps["messages"] }) {
   return (
-    <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-border">
-      <div className="max-w-4xl mx-auto">
+    <footer className="py-8 px-6 sm:px-8 lg:px-12 border-t border-border/30">
+      <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">{messages.footer.copyright}</p>
-          <div className="flex items-center space-x-6 text-sm text-muted-foreground">
+          <p className="text-xs text-muted-foreground font-mono-alt tracking-wide">{messages.footer.copyright}</p>
+          <div className="flex items-center space-x-6 text-xs text-muted-foreground font-mono-alt tracking-wide">
             <Link href="https://github.com/winson-030" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               GitHub
             </Link>
@@ -280,27 +306,30 @@ export function HomeClient({ messages }: HomeClientProps) {
 
   return (
     <PageTransition>
-        <Navbar messages={messages} activeSection={activeSection} />
+      <Navbar messages={messages} activeSection={activeSection} />
 
-        <main>
-          <HeroSection messages={messages.hero} />
+      <main>
+        <HeroSection messages={messages.hero} chrome={messages.chrome.hero} />
 
-          <AboutSection
-            messages={messages.about}
-            certificates={messages.certificates}
-            skills={aboutSkills}
-          />
+        <StatsSection messages={messages.stats} chrome={messages.chrome.stats} />
 
-          <ExperienceSection messages={messages.experience} />
+        <AboutSection
+          messages={messages.about}
+          chrome={messages.chrome.about}
+          certificates={messages.certificates}
+          skills={aboutSkills}
+        />
 
-          <SkillsSection messages={messages.skills} />
+        <ExperienceSection messages={messages.experience} chrome={messages.chrome.experience} />
 
-          <ProjectsSection messages={messages.projects} />
+        <SkillsSection messages={messages.skills} chrome={messages.chrome.skills} />
 
-          <ContactSection messages={messages.contact} />
-        </main>
+        <ProjectsSection messages={messages.projects} chrome={messages.chrome.projects} />
 
-        <Footer messages={messages} />
+        <ContactSection messages={messages.contact} chrome={messages.chrome.contact} />
+      </main>
+
+      <Footer messages={messages} />
     </PageTransition>
   );
 }

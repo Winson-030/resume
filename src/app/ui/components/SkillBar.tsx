@@ -75,14 +75,9 @@ export function SkillBar({ name, percentage, delay = 0, color }: SkillBarProps) 
   );
 }
 
-interface Skill {
-  name: string;
-  level: number;
-}
-
 interface SkillCategoryProps {
   title: string;
-  skills: Skill[];
+  skills: { name: string; level: number }[];
   delay?: number;
 }
 

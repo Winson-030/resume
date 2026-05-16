@@ -6,8 +6,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), var(--font-noto-sans-sc), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), var(--font-noto-serif-sc), Georgia, serif;
+  --font-mono: var(--font-ibm-plex-mono), var(--font-geist-mono), monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -51,36 +52,36 @@
 
 :root {
   --radius: 0.25rem;
-  --background: #FFFFFF;
+  --background: #f1efea;
   --foreground: #111111;
-  --card: #FFFFFF;
+  --card: #f1efea;
   --card-foreground: #111111;
-  --popover: #FFFFFF;
+  --popover: #f1efea;
   --popover-foreground: #111111;
   --primary: #111111;
   --primary-foreground: #FFFFFF;
-  --secondary: #F6F6F6;
+  --secondary: #e8e6e0;
   --secondary-foreground: #111111;
-  --muted: #F2F2F2;
+  --muted: #e8e6e0;
   --muted-foreground: #6D6D6D;
-  --accent: #F6F6F6;
+  --accent: #e8e6e0;
   --accent-foreground: #111111;
   --destructive: #FF0000;
-  --border: #E5E5E5;
-  --input: #E5E5E5;
+  --border: #d5d2cb;
+  --input: #d5d2cb;
   --ring: #6D6D6D;
   --chart-1: #111111;
   --chart-2: #555555;
   --chart-3: #6D6D6D;
-  --chart-4: #E5E5E5;
-  --chart-5: #F2F2F2;
-  --sidebar: #FFFFFF;
+  --chart-4: #d5d2cb;
+  --chart-5: #e8e6e0;
+  --sidebar: #f1efea;
   --sidebar-foreground: #111111;
   --sidebar-primary: #111111;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F6F6F6;
+  --sidebar-accent: #e8e6e0;
   --sidebar-accent-foreground: #111111;
-  --sidebar-border: #E5E5E5;
+  --sidebar-border: #d5d2cb;
   --sidebar-ring: #6D6D6D;
 }
 
@@ -269,13 +270,560 @@
 }
 
 /* Focus visible styles */
-*:focus-visible {
+:focus-visible {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
+}
+
+/* Touch action support */
+button, .step, .tag {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Selection styles */
 ::selection {
   background: hsl(var(--primary) / 0.2);
   color: hsl(var(--foreground));
+}
+
+/* ============================================
+   MAGAZINE STYLE SYSTEM — 电子杂志风
+   ============================================ */
+
+/* — Typography — */
+.font-serif-zh { font-family: var(--font-noto-serif-sc), var(--font-playfair), serif; }
+.font-serif-en { font-family: var(--font-playfair), var(--font-noto-serif-sc), serif; }
+.font-sans-zh { font-family: var(--font-noto-sans-sc), var(--font-geist-sans), sans-serif; }
+.font-mono-alt { font-family: var(--font-ibm-plex-mono), monospace; }
+
+.h-hero {
+  font-family: var(--font-playfair), var(--font-noto-serif-sc), serif;
+  font-weight: 700;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.h-xl {
+  font-family: var(--font-playfair), var(--font-noto-serif-sc), serif;
+  font-weight: 600;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.h-md {
+  font-family: var(--font-playfair), var(--font-noto-serif-sc), serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.kicker {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: clamp(0.7rem, 0.85vw, 0.85rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.lead {
+  font-family: var(--font-noto-sans-sc), var(--font-geist-sans), sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.meta {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  opacity: 0.5;
+}
+
+/* — Section Chrome (magazine header bar) — */
+.chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5vh 2vw 0;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2vw 2.5vh;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  opacity: 0.35;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* — Slide Base — */
+.slide {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.slide .frame {
+  flex: 1;
+  padding: 10vh 8vw 8vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+.slide.hero .frame {
+  display: grid;
+  align-content: center;
+  min-height: 80vh;
+}
+
+.slide.dark {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.slide.light {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+.slide.hero.dark {
+  background: var(--background);
+}
+
+.slide.hero.light {
+  background: var(--muted);
+}
+
+/* — Stat Card — */
+.stat-card {
+  padding: 1.5vh 1vw;
+  border-left: 2px solid currentColor;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.stat-card:hover {
+  opacity: 1;
+}
+
+.stat-label {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: 0.5vh;
+}
+
+.stat-nb {
+  font-family: var(--font-playfair), var(--font-noto-serif-sc), serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+.stat-unit {
+  font-weight: 300;
+  font-size: 0.5em;
+  opacity: 0.5;
+}
+
+.stat-note {
+  font-family: var(--font-noto-sans-sc), sans-serif;
+  font-size: 0.85rem;
+  opacity: 0.5;
+  margin-top: 0.5vh;
+}
+
+/* — Grid Layouts — */
+.grid-6 {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2vw;
+}
+
+@media (max-width: 1024px) {
+  .grid-6 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .grid-6 { grid-template-columns: repeat(2, 1fr); }
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4vw;
+}
+
+@media (max-width: 768px) {
+  .grid-3 { grid-template-columns: 1fr; gap: 3vh; }
+}
+
+.grid-2-7-5 {
+  display: grid;
+  grid-template-columns: 2fr 7fr 5fr;
+  gap: 4vw;
+}
+
+@media (max-width: 768px) {
+  .grid-2-7-5 { grid-template-columns: 1fr; }
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+}
+
+@media (max-width: 768px) {
+  .split { grid-template-columns: 1fr; gap: 4vh; }
+}
+
+/* — Meta Row — */
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  opacity: 0.5;
+}
+
+/* — Pipeline (for theme evolution) — */
+.pipeline-section {
+  margin-top: 5vh;
+}
+
+.pipeline-label {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 1.5vh;
+}
+
+/* Pipeline: 3 columns on iPad Air and above (>= 1024px) */
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5vw;
+  row-gap: 1vh;
+}
+
+/* 2 columns on smaller tablets (768px - 1023px) */
+@media (max-width: 1023px) {
+  .pipeline { grid-template-columns: repeat(2, 1fr); gap: 2vw; }
+}
+
+/* 1 column on mobile */
+@media (max-width: 767px) {
+  .pipeline { grid-template-columns: 1fr; gap: 1vh; }
+}
+
+.pipeline .step {
+  padding: 1.5vh 1.5vw;
+  border-left: 1px solid currentColor;
+  border-left-opacity: 0.15;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, border-left-opacity 0.3s ease;
+}
+
+.pipeline .step-title {
+  font-family: var(--font-noto-serif-sc), var(--font-playfair), serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@media (hover: hover) {
+  .pipeline .step:hover {
+    opacity: 1;
+    border-left-opacity: 0.35;
+  }
+}
+
+/* iPad Air and above optimization */
+@media (min-width: 1024px) {
+  .pipeline .step {
+    padding: 2vh 2vw;
+  }
+  
+  .pipeline .step-title {
+    font-size: 1rem;
+  }
+}
+
+/* Smaller tablets optimization */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .pipeline .step {
+    padding: 1.5vh 1.5vw;
+  }
+  
+  .pipeline .step-title {
+    font-size: 0.95rem;
+  }
+}
+
+/* — Callout — */
+.callout {
+  font-family: var(--font-playfair), var(--font-noto-serif-sc), serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 4vh 3vw;
+  border-left: 3px solid currentColor;
+}
+
+/* — Tag Grid — */
+.tag-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 3vh;
+}
+
+.tag {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  padding: 0.4em 0.8em;
+  border: 1px solid currentColor;
+  opacity: 0.45;
+  transition: opacity 0.2s ease;
+}
+
+.tag:hover {
+  opacity: 0.8;
+}
+
+/* — Magazine Timeline — */
+.magazine-timeline {
+  position: relative;
+  padding-left: 3vw;
+}
+
+.magazine-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: currentColor;
+  opacity: 0.15;
+}
+
+.timeline-entry {
+  position: relative;
+  padding-bottom: 6vh;
+}
+
+.timeline-entry::before {
+  content: '';
+  position: absolute;
+  left: calc(-3vw - 4px);
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.4;
+}
+
+.timeline-date {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  opacity: 0.4;
+}
+
+.timeline-company {
+  font-family: var(--font-playfair), var(--font-noto-serif-sc), serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 0.5vh;
+}
+
+.timeline-position {
+  font-family: var(--font-noto-sans-sc), sans-serif;
+  font-size: 1rem;
+  opacity: 0.6;
+  margin-top: 0.3vh;
+}
+
+.timeline-desc {
+  font-family: var(--font-noto-sans-sc), sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.6;
+  margin-top: 2vh;
+}
+
+.timeline-highlights {
+  list-style: none;
+  padding: 0;
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.timeline-highlights li {
+  font-family: var(--font-noto-sans-sc), sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.55;
+  padding-left: 1.2em;
+  position: relative;
+}
+
+.timeline-highlights li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  opacity: 0.3;
+}
+
+/* — Project Card — */
+.project-card {
+  padding: 3vh 2.5vw;
+  border: 1px solid currentColor;
+  border-opacity: 0.15;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  border-opacity: 0.35;
+}
+
+.project-num {
+  font-family: var(--font-playfair), serif;
+  font-size: 3rem;
+  font-weight: 700;
+  opacity: 0.1;
+  line-height: 1;
+}
+
+.project-name {
+  font-family: var(--font-playfair), var(--font-noto-serif-sc), serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 1.5vh;
+}
+
+.project-desc {
+  font-family: var(--font-noto-sans-sc), sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  opacity: 0.55;
+  margin-top: 1.5vh;
+}
+
+/* — Skill Bar — */
+.skill-bar-group {
+  margin-bottom: 4vh;
+}
+
+.skill-bar-label {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  opacity: 0.5;
+  margin-bottom: 1vh;
+}
+
+.skill-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+  margin-bottom: 1.5vh;
+}
+
+.skill-bar-name {
+  font-family: var(--font-noto-sans-sc), sans-serif;
+  font-size: 0.9rem;
+  min-width: 200px;
+  opacity: 0.75;
+}
+
+@media (max-width: 640px) {
+  .skill-bar-name { min-width: auto; font-size: 0.8rem; }
+}
+
+.skill-bar-track {
+  flex: 1;
+  height: 3px;
+  background: currentColor;
+  opacity: 0.1;
+  position: relative;
+}
+
+.skill-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.skill-bar-level {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  opacity: 0.4;
+  min-width: 35px;
+  text-align: right;
+}
+
+/* — WebGL Canvas — */
+.webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+/* — Section Divider — */
+.section-divider {
+  width: 60px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.2;
+  margin: 4vh 0;
 }

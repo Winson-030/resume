@@ -1,12 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FadeInWhenVisible } from "@/app/ui/animations/FadeInWhenVisible";
-import { Card } from "@/app/ui/components/Card";
-import { ContactForm } from "@/app/ui/components/ContactForm";
-import { Separator } from "@/app/ui/components/Separator";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { ChromeBar } from "@/app/ui/components/ChromeBar";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { SocialLink } from "./SocialLink";
 
 interface ContactSectionProps {
   messages: {
@@ -19,87 +19,108 @@ interface ContactSectionProps {
       send: string;
     };
   };
+  chrome: {
+    topLeft: string;
+    topRight: string;
+    bottomLeft?: string;
+    bottomRight: string;
+  };
 }
 
-export function ContactSection({ messages }: ContactSectionProps) {
+export function ContactSection({ messages, chrome }: ContactSectionProps) {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 3000);
+    setFormData({ name: "", email: "", message: "" });
+  };
+
   return (
-    <section id="contact" className="py-24 md:py-32 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <FadeInWhenVisible>
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-medium mb-4">
-              {messages.title}
-            </h2>
-            <Separator className="w-20 mx-auto" />
-          </div>
-        </FadeInWhenVisible>
+    <section id="contact" className="relative min-h-screen bg-background dark:bg-background flex items-center overflow-hidden">
+      <ChromeBar labels={chrome} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-          <FadeInWhenVisible delay={0.1} direction="left" className="h-full">
-            <Card className="p-6 h-full flex flex-col border-transparent shadow-none">
-              <div className="space-y-8 flex-1">
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {messages.description}
-                </p>
+      <div className="w-full max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <div>
+            <FadeInWhenVisible delay={0.1}>
+              <h2 className="h-xl">{messages.title}</h2>
+            </FadeInWhenVisible>
 
-                <div className="space-y-4">
-                  <h3 className="font-medium">Connect with me</h3>
-                  <div className="flex gap-4">
-                    <Link
-                      href="https://github.com/winson-030"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <motion.div
-                        whileHover={{ scale: 1.1, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
-                      >
-                        <Github className="h-5 w-5" />
-                      </motion.div>
-                    </Link>
-                    <Link
-                      href="https://www.linkedin.com/in/winson-dev"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <motion.div
-                        whileHover={{ scale: 1.1, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
-                      >
-                        <Linkedin className="h-5 w-5" />
-                      </motion.div>
-                    </Link>
-                    <Link href="mailto:mail@winson.dev">
-                      <motion.div
-                        whileHover={{ scale: 1.1, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="w-12 h-12 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
-                      >
-                        <Mail className="h-5 w-5" />
-                      </motion.div>
-                    </Link>
-                  </div>
-                </div>
+            <FadeInWhenVisible delay={0.2}>
+              <p className="lead mt-6 opacity-65 max-w-md">{messages.description}</p>
+            </FadeInWhenVisible>
 
-                <div className="space-y-2">
-                  <h3 className="font-medium">Email</h3>
-                  <Link
-                    href="mailto:mail@winson.dev"
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    mail@winson.dev
-                  </Link>
-                </div>
+            <FadeInWhenVisible delay={0.3}>
+              <div className="mt-10 flex items-center gap-6">
+                {[
+                  { href: "https://github.com/winson-030", icon: Github, ariaLabel: "GitHub Profile" },
+                  { href: "https://www.linkedin.com/in/winson-dev", icon: Linkedin, ariaLabel: "LinkedIn Profile" },
+                  { href: "mailto:mail@winson.dev", icon: Mail, ariaLabel: "Send Email" },
+                ].map(({ href, icon: Icon, ariaLabel }) => (
+                  <SocialLink key={href} href={href} icon={Icon} ariaLabel={ariaLabel} />
+                ))}
               </div>
-            </Card>
-          </FadeInWhenVisible>
+            </FadeInWhenVisible>
 
-          <FadeInWhenVisible delay={0.2} direction="right" className="h-full">
-            <Card className="p-6 h-full">
-              <ContactForm labels={messages.form} />
-            </Card>
+            <FadeInWhenVisible delay={0.4}>
+              <div className="mt-10">
+                <Link
+                  href="https://r.easycv.cn/winsonli_jp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm tracking-wide text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors"
+                  aria-label="Download Resume PDF"
+                >
+                  Download Resume (PDF)
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+            </FadeInWhenVisible>
+          </div>
+
+          <FadeInWhenVisible delay={0.2}>
+            <div className="pl-6 border-l border-foreground/10">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {(["name", "email"] as const).map((field) => (
+                  <div key={field}>
+                    <label className="kicker block mb-2">{messages.form[field]}</label>
+                    <input
+                      type={field === "email" ? "email" : "text"}
+                      value={formData[field]}
+                      onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+                      className="w-full bg-transparent border-b border-foreground/15 pb-2 text-lg font-serif-zh focus:border-foreground/40 outline-none transition-colors"
+                      placeholder={messages.form[field]}
+                    />
+                  </div>
+                ))}
+                <div>
+                  <label className="kicker block mb-2">{messages.form.message}</label>
+                  <textarea
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    rows={4}
+                    className="w-full bg-transparent border-b border-foreground/15 pb-2 text-lg font-serif-zh focus:border-foreground/40 outline-none transition-colors resize-none"
+                    placeholder={messages.form.message}
+                  />
+                </div>
+                <motion.button
+                  type="submit"
+                  className="inline-flex items-center gap-2 px-8 py-3 bg-foreground text-background text-sm tracking-wide hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-opacity"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  aria-label="Submit Contact Form"
+                >
+                  {messages.form.send}
+                  <ArrowRight className="h-4 w-4" />
+                </motion.button>
+                {submitted && (
+                  <p className="text-sm text-muted-foreground mt-4 font-sans-zh">✓ Message sent!</p>
+                )}
+              </form>
+            </div>
           </FadeInWhenVisible>
         </div>
       </div>

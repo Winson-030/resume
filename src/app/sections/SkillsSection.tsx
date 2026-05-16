@@ -1,18 +1,18 @@
 "use client";
 
-import { FadeInWhenVisible } from "@/app/ui/animations/FadeInWhenVisible";
-import { SkillCategory } from "@/app/ui/components/SkillBar";
-import { Separator } from "@/app/ui/components/Separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/ui/components/Tabs";
+import {motion} from "framer-motion";
+import {FadeInWhenVisible} from "@/app/ui/animations/FadeInWhenVisible";
+import {ChromeBar} from "@/app/ui/components/ChromeBar";
+import {useReducedMotion} from "@/app/ui/hooks/useReducedMotion";
 
 interface Skill {
   name: string;
-  level: number;
 }
 
 interface SkillsSectionProps {
   messages: {
     title: string;
+    subtitle: string;
     categories: {
       cloud: string;
       infrastructure: string;
@@ -22,78 +22,88 @@ interface SkillsSectionProps {
     infrastructure: Skill[];
     tools: Skill[];
   };
+  chrome: {
+    topLeft: string;
+    topRight: string;
+    bottomLeft?: string;
+    bottomRight: string;
+  };
 }
 
-export function SkillsSection({ messages }: SkillsSectionProps) {
+function SkillPipeline({ title, skills, delay = 0, prefersReducedMotion = false }: { title: string; skills: Skill[]; delay?: number; prefersReducedMotion?: boolean }) {
   return (
-    <section id="skills" className="py-24 md:py-32 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <FadeInWhenVisible>
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-medium mb-4">
-              {messages.title}
-            </h2>
-            <Separator className="w-20 mx-auto" />
-          </div>
+    <div className="pipeline-section">
+      <div className="font-sans-zh font-medium tracking-tight text-sm opacity-40 uppercase tracking-[0.08em] mb-4">{title}</div>
+      <div className="pipeline">
+        {skills.map((skill, i) => (
+          <FadeInWhenVisible key={skill.name} delay={delay + i * 0.08}>
+            <motion.div 
+              className="step" 
+              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+              style={{ outline: 'none' }}
+            >
+              <div 
+                className="step-title font-serif-zh font-medium" 
+                tabIndex={0} 
+                role="article" 
+                aria-label={`Skill: ${skill.name}`}
+              >
+                {skill.name}
+              </div>
+            </motion.div>
+          </FadeInWhenVisible>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function SkillsSection({ messages, chrome }: SkillsSectionProps) {
+  const prefersReducedMotion = useReducedMotion();
+  const totalSkills = 
+    messages.cloud.length + 
+    messages.infrastructure.length + 
+    messages.tools.length;
+  const delayBase = 0.3;
+
+  return (
+    <section id="skills" className="relative min-h-screen bg-muted/50 dark:bg-background overflow-hidden">
+      <ChromeBar labels={chrome} />
+
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20">
+        <FadeInWhenVisible delay={delayBase}>
+          <h2 className="h-xl font-sans-zh font-medium tracking-tight">{messages.title}</h2>
         </FadeInWhenVisible>
 
-        <Tabs defaultValue="cloud" className="w-full">
-          <FadeInWhenVisible delay={0.1}>
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-12">
-              <TabsTrigger value="cloud">{messages.categories.cloud}</TabsTrigger>
-              <TabsTrigger value="infrastructure">{messages.categories.infrastructure}</TabsTrigger>
-              <TabsTrigger value="tools">{messages.categories.tools}</TabsTrigger>
-            </TabsList>
-          </FadeInWhenVisible>
+        <FadeInWhenVisible delay={delayBase + 0.1}>
+          <p className="lead mt-4 opacity-55 max-w-lg">
+            {messages.subtitle}
+          </p>
+        </FadeInWhenVisible>
 
-          <TabsContent value="cloud">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {messages.cloud.map((skill, index) => (
-                <SkillCategory
-                  key={skill.name}
-                  title={skill.name}
-                  skills={[
-                    { name: "Proficiency", level: skill.level },
-                    { name: "Experience", level: Math.max(skill.level - 10, 60) },
-                  ]}
-                  delay={index * 0.1}
-                />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="infrastructure">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {messages.infrastructure.map((skill, index) => (
-                <SkillCategory
-                  key={skill.name}
-                  title={skill.name}
-                  skills={[
-                    { name: "Proficiency", level: skill.level },
-                    { name: "Experience", level: Math.max(skill.level - 10, 60) },
-                  ]}
-                  delay={index * 0.1}
-                />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="tools">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {messages.tools.map((skill, index) => (
-                <SkillCategory
-                  key={skill.name}
-                  title={skill.name}
-                  skills={[
-                    { name: "Proficiency", level: skill.level },
-                    { name: "Experience", level: Math.max(skill.level - 10, 60) },
-                  ]}
-                  delay={index * 0.1}
-                />
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+        <div className="mt-12">
+          <SkillPipeline 
+            title={messages.categories.cloud} 
+            skills={messages.cloud} 
+            delay={delayBase + 0.2}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+          <SkillPipeline 
+            title="Infrastructure & DevOps" 
+            skills={messages.infrastructure} 
+            delay={delayBase + 0.3}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+          <SkillPipeline 
+            title="Tools & Practices" 
+            skills={messages.tools} 
+            delay={delayBase + 0.4}
+            prefersReducedMotion={prefersReducedMotion}
+          />
+        </div>
       </div>
     </section>
   );
