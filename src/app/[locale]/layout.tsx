@@ -5,7 +5,7 @@ import "../globals.css";
 import { ThemeProvider } from "@/app/ui/theme/ThemeProvider";
 import { locales, isLocale, htmlLang } from "@/lib/site";
 import { getMessages } from "@/i18n/request";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, buildJsonLd } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,12 +72,17 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
+  const messages = await getMessages(locale);
 
   return (
     <html lang={htmlLang[locale]} suppressHydrationWarning data-scroll-behavior="smooth" color-scheme="light dark" style={{ colorScheme: "light dark" }}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoSerifSC.variable} ${playfair.variable} ${notoSansSC.variable} ${ibmPlexMono.variable} antialiased transition-colors duration-500 ease-in-out`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(locale, messages)) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
