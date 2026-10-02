@@ -27,9 +27,8 @@ function TimelineNode({ isActive }: { isActive: boolean }) {
             ? "bg-primary border-primary"
             : "bg-background border-muted-foreground/30"
         }`}
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
+        initial={false}
+        animate={{ scale: 1 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       />
       {isActive && (
@@ -57,11 +56,8 @@ function TimelineItemComponent({
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      initial={{ opacity: 0, x: -20 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.15 }}
       className="relative flex gap-6 md:gap-8"
     >
       <div className="flex flex-col items-center">
@@ -69,7 +65,7 @@ function TimelineItemComponent({
         {!isLast && (
           <motion.div
             className="w-px flex-1 bg-border mt-2"
-            initial={{ scaleY: 0 }}
+            initial={false}
             animate={isInView ? { scaleY: 1 } : {}}
             transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
             style={{ originY: 0 }}
@@ -111,8 +107,8 @@ function TimelineItemComponent({
               {item.highlights.map((highlight, i) => (
                 <motion.li
                   key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  initial={false}
+                  animate={isInView ? { opacity: 1 } : {}}
                   transition={{
                     duration: 0.3,
                     delay: index * 0.15 + 0.3 + i * 0.1,
@@ -140,7 +136,7 @@ function TimelineItemComponent({
           )}
         </Card>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

@@ -827,3 +827,27 @@ button, .step, .tag {
   opacity: 0.2;
   margin: 4vh 0;
 }
+
+/* Load-time reveal. The server HTML only carries the class, never a hidden
+   inline style, so crawlers that skip JavaScript still see every word. */
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--reveal-x, 0px), var(--reveal-y, 24px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.reveal {
+  animation: reveal-in var(--reveal-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+}

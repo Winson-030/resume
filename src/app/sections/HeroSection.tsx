@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
 import { FadeInWhenVisible } from "@/app/ui/animations/FadeInWhenVisible";
 import { ChromeBar } from "@/app/ui/components/ChromeBar";
 import { WebGLBackground } from "@/app/ui/animations/WebGLBackground";
@@ -42,34 +42,34 @@ export function HeroSection({ messages, chrome }: HeroSectionProps) {
       />
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-center min-h-screen">
-        <FadeInWhenVisible delay={0.2}>
+        <div className="reveal" style={{ "--reveal-delay": "200ms" } as CSSProperties}>
           <p className="font-mono-alt text-sm tracking-[0.12em] uppercase opacity-45 mb-6">
             {messages.greeting}
           </p>
-        </FadeInWhenVisible>
+        </div>
 
         <div className="mb-6">
           <h1 className="h-hero">{messages.name}</h1>
           {messages.subname && (
-            <FadeInWhenVisible delay={0.4}>
+            <div className="reveal" style={{ "--reveal-delay": "400ms" } as CSSProperties}>
               <p className="text-xl md:text-2xl lg:text-3xl font-sans-zh text-muted-foreground font-light tracking-wide mt-3 opacity-70">
                 {messages.subname}
               </p>
-            </FadeInWhenVisible>
+            </div>
           )}
         </div>
 
-        <FadeInWhenVisible delay={0.6}>
+        <div className="reveal" style={{ "--reveal-delay": "600ms" } as CSSProperties}>
           <p className="lead max-w-xl mt-4 opacity-70">{messages.title}</p>
-        </FadeInWhenVisible>
+        </div>
 
-        <FadeInWhenVisible delay={0.8}>
+        <div className="reveal" style={{ "--reveal-delay": "800ms" } as CSSProperties}>
           <p className="text-base text-muted-foreground/60 leading-relaxed max-w-lg mt-4 mb-10 font-sans-zh font-light">
             {messages.description}
           </p>
-        </FadeInWhenVisible>
+        </div>
 
-        <FadeInWhenVisible delay={1.0}>
+        <div className="reveal" style={{ "--reveal-delay": "1000ms" } as CSSProperties}>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="https://r.easycv.cn/winsonli_jp"
@@ -90,17 +90,15 @@ export function HeroSection({ messages, chrome }: HeroSectionProps) {
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
-        </FadeInWhenVisible>
+        </div>
 
         <FadeInWhenVisible delay={1.5}>
           {!prefersReducedMotion && (
-            <motion.div
+            <div
               className="absolute bottom-10 left-1/2 -translate-x-1/2"
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
               <div className="w-px h-16 bg-gradient-to-b from-transparent via-muted-foreground/30 to-transparent" />
-            </motion.div>
+            </div>
           )}
         </FadeInWhenVisible>
       </div>

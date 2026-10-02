@@ -46,7 +46,7 @@ export function SkillBar({ name, percentage, delay = 0, color }: SkillBarProps) 
         <span className="text-sm text-muted-foreground">{name}</span>
         <motion.span
           className="text-sm font-mono text-foreground"
-          initial={{ opacity: 0 }}
+          initial={false}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: delay + 0.3 }}
         >
@@ -83,11 +83,7 @@ interface SkillCategoryProps {
 
 export function SkillCategory({ title, skills, delay = 0 }: SkillCategoryProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay, duration: 0.5 }}
+    <div
       className="bg-card border border-border rounded-xl p-6 space-y-4 hover:border-primary/20 transition-colors duration-300"
     >
       <h3 className="font-medium text-foreground mb-4">{title}</h3>
@@ -101,6 +97,6 @@ export function SkillCategory({ title, skills, delay = 0 }: SkillCategoryProps) 
           />
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }

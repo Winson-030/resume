@@ -20,10 +20,7 @@ interface ProjectCardProps {
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      initial={false}
       whileHover={{ y: -8 }}
       className="group"
     >
@@ -34,7 +31,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               {String(index + 1).padStart(2, "0")}
             </div>
             <motion.div
-              initial={{ rotate: 0 }}
+              initial={false}
               whileHover={{ rotate: 45 }}
               className="text-muted-foreground group-hover:text-primary transition-colors"
             >

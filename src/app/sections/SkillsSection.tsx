@@ -39,10 +39,8 @@ function SkillPipeline({ title, skills, delay = 0, prefersReducedMotion = false 
           <FadeInWhenVisible key={skill.name} delay={delay + i * 0.08}>
             <motion.div 
               className="step" 
-              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+              initial={false}
+              whileHover={!prefersReducedMotion ? { y: -2 } : undefined}
               style={{ outline: 'none' }}
             >
               <div 

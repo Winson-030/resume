@@ -63,16 +63,16 @@ export function AboutSection({ messages, chrome, certificates, skills }: AboutSe
                 <h3 className="kicker mb-4">{messages.techStack}</h3>
                 <div className="tag-grid">
                   {skills.map((skill, i) => (
-                    <motion.span
+                    <span
                       key={skill}
                       className="tag"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.04 }}
+                      style={{
+                        animation: `reveal-in 600ms cubic-bezier(0.4, 0, 0.2, 1) both`,
+                        animationDelay: `${i * 0.04}s`,
+                      }}
                     >
                       {skill}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
               </div>
@@ -103,6 +103,7 @@ export function AboutSection({ messages, chrome, certificates, skills }: AboutSe
                   <motion.div
                     key={cert.name}
                     className="pl-4 border-l border-foreground/10 hover:border-foreground/25 transition-colors"
+                    initial={false}
                     whileHover={{ x: 2 }}
                   >
                     <p className="text-sm font-medium">{cert.name}</p>
