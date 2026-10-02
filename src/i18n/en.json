@@ -213,26 +213,58 @@
       "tools": "Tools & Practices"
     },
     "cloud": [
-      { "name": "Azure (AKS, ACR, VNet, Firewall)" },
-      { "name": "AWS" },
-      { "name": "Tencent Cloud" },
-      { "name": "Kubernetes" },
-      { "name": "Docker" }
+      {
+        "name": "Azure (AKS, ACR, VNet, Firewall)"
+      },
+      {
+        "name": "AWS"
+      },
+      {
+        "name": "Tencent Cloud"
+      },
+      {
+        "name": "Kubernetes"
+      },
+      {
+        "name": "Docker"
+      }
     ],
     "infrastructure": [
-      { "name": "Terraform" },
-      { "name": "Ansible" },
-      { "name": "Linux (Ubuntu/CentOS)" },
-      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)" },
-      { "name": "Python/Bash Scripting" },
-      { "name": "Networking & Security" }
+      {
+        "name": "Terraform"
+      },
+      {
+        "name": "Ansible"
+      },
+      {
+        "name": "Linux (Ubuntu/CentOS)"
+      },
+      {
+        "name": "CI/CD (Jenkins/GitLab/Azure DevOps)"
+      },
+      {
+        "name": "Python/Bash Scripting"
+      },
+      {
+        "name": "Networking & Security"
+      }
     ],
     "tools": [
-      { "name": "Git/GitLab/GitHub" },
-      { "name": "Jira/Confluence" },
-      { "name": "Prometheus/Grafana" },
-      { "name": "Cloudflare/WAF" },
-      { "name": "Tailscale/VPN" }
+      {
+        "name": "Git/GitLab/GitHub"
+      },
+      {
+        "name": "Jira/Confluence"
+      },
+      {
+        "name": "Prometheus/Grafana"
+      },
+      {
+        "name": "Cloudflare/WAF"
+      },
+      {
+        "name": "Tailscale/VPN"
+      }
     ]
   },
   "projects": {
@@ -321,5 +353,23 @@
   },
   "footer": {
     "copyright": "© 2026 Winson. All rights reserved."
+  },
+  "seo": {
+    "title": "LI YONGJIE (Winson) — Senior DevOps / Platform Engineer",
+    "description": "Senior DevOps / Platform Engineer based in Tokyo with 5+ years across Azure, AWS, Tencent Cloud and Kubernetes. CI/CD automation, IaC, observability and AI-powered operations for 100+ engineering teams.",
+    "keywords": [
+      "DevOps Engineer",
+      "Platform Engineer",
+      "Kubernetes",
+      "CI/CD",
+      "Terraform",
+      "Ansible",
+      "Azure",
+      "AWS",
+      "Tencent Cloud",
+      "SRE",
+      "Cloud Infrastructure",
+      "Tokyo"
+    ]
   }
 }

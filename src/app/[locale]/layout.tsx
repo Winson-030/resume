@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { Geist, Geist_Mono, Noto_Serif_SC, Playfair_Display, Noto_Sans_SC, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 import { ThemeProvider } from "@/app/ui/theme/ThemeProvider";
-import { SITE_URL, locales, isLocale, htmlLang } from "@/lib/site";
+import { locales, isLocale, htmlLang } from "@/lib/site";
+import { getMessages } from "@/i18n/request";
+import { buildMetadata } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,9 +41,16 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ["300", "400", "500", "600"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const messages = await getMessages(locale);
+  return buildMetadata(locale, messages);
+}
 
 export const viewport: Viewport = {
   themeColor: [

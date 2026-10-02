@@ -213,26 +213,58 @@
       "tools": "ツールとプラクティス"
     },
     "cloud": [
-      { "name": "Azure (AKS, ACR, VNet, Firewall)" },
-      { "name": "AWS" },
-      { "name": "Tencent Cloud" },
-      { "name": "Kubernetes" },
-      { "name": "Docker" }
+      {
+        "name": "Azure (AKS, ACR, VNet, Firewall)"
+      },
+      {
+        "name": "AWS"
+      },
+      {
+        "name": "Tencent Cloud"
+      },
+      {
+        "name": "Kubernetes"
+      },
+      {
+        "name": "Docker"
+      }
     ],
     "infrastructure": [
-      { "name": "Terraform" },
-      { "name": "Ansible" },
-      { "name": "Linux (Ubuntu/CentOS)" },
-      { "name": "CI/CD (Jenkins/GitLab/Azure DevOps)" },
-      { "name": "Python/Bash Scripting" },
-      { "name": "Networking & Security" }
+      {
+        "name": "Terraform"
+      },
+      {
+        "name": "Ansible"
+      },
+      {
+        "name": "Linux (Ubuntu/CentOS)"
+      },
+      {
+        "name": "CI/CD (Jenkins/GitLab/Azure DevOps)"
+      },
+      {
+        "name": "Python/Bash Scripting"
+      },
+      {
+        "name": "Networking & Security"
+      }
     ],
     "tools": [
-      { "name": "Git/GitLab/GitHub" },
-      { "name": "Jira/Confluence" },
-      { "name": "Prometheus/Grafana" },
-      { "name": "Cloudflare/WAF" },
-      { "name": "Tailscale/VPN" }
+      {
+        "name": "Git/GitLab/GitHub"
+      },
+      {
+        "name": "Jira/Confluence"
+      },
+      {
+        "name": "Prometheus/Grafana"
+      },
+      {
+        "name": "Cloudflare/WAF"
+      },
+      {
+        "name": "Tailscale/VPN"
+      }
     ]
   },
   "projects": {
@@ -321,5 +353,23 @@
   },
   "footer": {
     "copyright": "© 2026 Winson. All rights reserved."
+  },
+  "seo": {
+    "title": "LI YONGJIE (Winson) — シニア DevOps / プラットフォームエンジニア",
+    "description": "東京を拠点とするシニア DevOps / プラットフォームエンジニア。Azure・AWS・Tencent Cloud・Kubernetes を中心に5年以上のマルチクラウド基盤経験。CI/CD 自動化、IaC、可観測性、AI 活用運用を専門とし、100以上の開発チームを支援。",
+    "keywords": [
+      "DevOps エンジニア",
+      "プラットフォームエンジニア",
+      "Kubernetes",
+      "CI/CD",
+      "Terraform",
+      "Ansible",
+      "Azure",
+      "AWS",
+      "Tencent Cloud",
+      "SRE",
+      "クラウドインフラ",
+      "東京"
+    ]
   }
 }
