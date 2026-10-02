@@ -25,3 +25,6 @@ export const CRAWLER_UA_RE =
 export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
 }
+
+/** Public IndexNow key; also served as /<key>.txt to prove ownership. */
+export const indexnowKey = "7d41c9f0e3a84b6fa1c2d5e0937b4f18";
