@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { notFound } from "next/navigation";
 import { Geist, Geist_Mono, Noto_Serif_SC, Playfair_Display, Noto_Sans_SC, IBM_Plex_Mono } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { ThemeProvider } from "@/app/ui/theme/ThemeProvider";
+import { SITE_URL, locales, isLocale, htmlLang } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,8 +40,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Winson - Senior DevOps Engineer",
-  description: "Personal resume website of Winson, a Senior DevOps Engineer specializing in cloud infrastructure, CI/CD automation, and AI-powered operations",
+  metadataBase: new URL(SITE_URL),
 };
 
 export const viewport: Viewport = {
@@ -49,13 +50,22 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" color-scheme="light dark" style={{ colorScheme: 'light dark' }}>
+    <html lang={htmlLang[locale]} suppressHydrationWarning data-scroll-behavior="smooth" color-scheme="light dark" style={{ colorScheme: "light dark" }}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoSerifSC.variable} ${playfair.variable} ${notoSansSC.variable} ${ibmPlexMono.variable} antialiased transition-colors duration-500 ease-in-out`}
       >
