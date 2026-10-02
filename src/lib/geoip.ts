@@ -55,6 +55,37 @@ export function isInternalIP(ip: string): boolean {
 }
 
 /**
+ * Country code from the hosting platform's geo headers, which are free and
+ * synchronous, before falling back to a third-party IP lookup.
+ */
+export function getCountryFromHeaders(request: Request): string | null {
+  const headerNames = ["x-vercel-ip-country", "cf-ipcountry", "x-country-code"];
+  for (const name of headerNames) {
+    const value = request.headers.get(name);
+    if (value && /^[a-z]{2}$/i.test(value) && value.toUpperCase() !== "XX") {
+      return value.toUpperCase();
+    }
+  }
+  return null;
+}
+
+/**
+ * Get locale from country code
+ */
+function getLocaleFromCountryCode(countryCode: string): string {
+  const upperCountry = countryCode.toUpperCase();
+
+  switch (upperCountry) {
+    case "CN":
+      return "zh"; // Chinese
+    case "JP":
+      return "ja"; // Japanese
+    default:
+      return "en"; // Default to English
+  }
+}
+
+/**
  * Query ipapi.co API for country code
  */
 async function lookupCountryCode(ip: string): Promise<string | null> {
@@ -86,29 +117,23 @@ async function lookupCountryCode(ip: string): Promise<string | null> {
 }
 
 /**
- * Get locale from country code
- */
-function getLocaleFromCountryCode(countryCode: string): string {
-  const upperCountry = countryCode.toUpperCase();
-
-  switch (upperCountry) {
-    case "CN":
-      return "zh"; // Chinese
-    case "JP":
-      return "ja"; // Japanese
-    default:
-      return "en"; // Default to English
-  }
-}
-
-/**
  * Get locale from IP address with caching
  */
 export async function getLocaleFromIP(
   request: Request,
   defaultLocale: string = "en"
 ): Promise<string> {
+  // Platform geo headers are free and synchronous, so they win over any lookup.
+  const headerCountry = getCountryFromHeaders(request);
   const ip = getClientIP(request);
+
+  if (headerCountry) {
+    const locale = getLocaleFromCountryCode(headerCountry);
+    if (ip) {
+      setCachedLocale(ip, locale);
+    }
+    return locale;
+  }
 
   // No IP found, return default
   if (!ip) {
@@ -126,7 +151,7 @@ export async function getLocaleFromIP(
     return defaultLocale;
   }
 
-  // Lookup country code
+  // Lookup country code via ipapi.co
   const countryCode = await lookupCountryCode(ip);
 
   // Default on failure
