@@ -13,6 +13,9 @@ const cache = new Map<string, CacheEntry>();
 // Default TTL: 1 hour (in milliseconds)
 const DEFAULT_TTL = 60 * 60 * 1000;
 
+// Hard cap on cached IP -> locale entries per server instance.
+const MAX_ENTRIES = 5000;
+
 /**
  * Get TTL from environment or use default
  */
@@ -59,8 +62,21 @@ export function setCachedLocale(ip: string, locale: string): void {
     timestamp: Date.now(),
   });
 
-  // Periodically clean up expired entries
-  cleanupExpired();
+  // Keep the map bounded: a long-lived instance would only ever grow otherwise.
+  if (cache.size > MAX_ENTRIES) {
+    cleanupExpired();
+
+    const excess = cache.size - MAX_ENTRIES;
+    if (excess > 0) {
+      let removed = 0;
+
+      for (const key of cache.keys()) {
+        if (removed >= excess) break;
+        cache.delete(key);
+        removed += 1;
+      }
+    }
+  }
 }
 
 /**

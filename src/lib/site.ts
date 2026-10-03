@@ -1,7 +1,10 @@
 // SEO/多语言的单一事实源
 // 本文件集中定义站点级配置，包括可用语言、默认语言、HTML lang属性和Open Graph locale
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://winson.dev";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.winson.dev";
+
+/** Hostname only (no protocol). Used by robots.txt `Host` and the share card. */
+export const SITE_HOST = new URL(SITE_URL).host;
 
 export const locales = ["en", "zh", "ja"] as const;
 export type Locale = (typeof locales)[number];

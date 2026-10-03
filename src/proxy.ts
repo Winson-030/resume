@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
-import { getLocaleFromIP } from "./lib/geoip";
-import { CRAWLER_UA_RE, LOCALE_COOKIE, defaultLocale, locales } from "./lib/site";
+import { getCountryFromHeaders, getLocaleFromIP } from "./lib/geoip";
+import { LOCALE_COOKIE, defaultLocale, locales, type Locale } from "./lib/site";
+import { needsIpLookup, resolveRouting } from "./lib/routing";
 
 const intlMiddleware = createMiddleware({ locales, defaultLocale });
 
@@ -13,41 +14,42 @@ const intlMiddlewareForCrawlers = createMiddleware({
   localeDetection: false,
 });
 
-export default async function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const userAgent = request.headers.get("user-agent") ?? "";
-  const isCrawler = CRAWLER_UA_RE.test(userAgent);
+function redirectTo(request: NextRequest, locale: Locale, noStore: boolean) {
+  const response = NextResponse.redirect(new URL(`/${locale}`, request.url), 307);
 
-  const existingLocale = locales.find(
-    (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`)
-  );
-
-  // Already localized: let next-intl take over untouched.
-  if (existingLocale) {
-    return intlMiddleware(request);
+  if (noStore) {
+    // Never let a CDN or proxy cache one visitor's geo redirect for others.
+    response.headers.set("Cache-Control", "private, no-store, must-revalidate");
   }
 
-  if (isCrawler) {
+  return response;
+}
+
+export default async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const userAgent = request.headers.get("user-agent");
+  const hasLocaleCookie = request.cookies.has(LOCALE_COOKIE);
+  const countryCode = getCountryFromHeaders(request);
+  const input = { pathname, userAgent, hasLocaleCookie, countryCode };
+
+  const decision = resolveRouting(input);
+
+  if (decision.kind === "redirect") {
+    return redirectTo(request, decision.locale, decision.source === "geo");
+  }
+
+  if (decision.kind === "pass-without-detection") {
     return intlMiddlewareForCrawlers(request);
   }
 
-  if (pathname === "/") {
-    // An explicit choice already made by the visitor wins over GeoIP.
-    if (request.cookies.has(LOCALE_COOKIE)) {
-      return intlMiddleware(request);
-    }
-
+  // No geo header on "/" and no explicit choice yet: fall back to the cached
+  // ipapi.co lookup, which is slower but only runs on the root path.
+  if (needsIpLookup(input)) {
     try {
-      const detectedLocale = await getLocaleFromIP(request, defaultLocale);
+      const detected = await getLocaleFromIP(request, defaultLocale);
 
-      if (detectedLocale !== defaultLocale) {
-        const response = NextResponse.redirect(
-          new URL(`/${detectedLocale}`, request.url)
-        );
-        // Never let a CDN or proxy cache one visitor's geo redirect for others.
-        response.headers.set("Cache-Control", "private, no-store, must-revalidate");
-        response.headers.set("Vary", "User-Agent, Accept-Language");
-        return response;
+      if (detected !== defaultLocale && locales.includes(detected as Locale)) {
+        return redirectTo(request, detected as Locale, true);
       }
     } catch (error) {
       console.warn("Geo locale detection failed, using default locale:", error);
@@ -58,7 +60,5 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // "/" plus every path without a locale prefix; dotted paths (robots.txt,
-  // sitemap.xml, llms.txt, favicon) and Next internals are skipped.
   matcher: ["/", "/((?!api|_next|_vercel|.*\\..*).*)"],
 };

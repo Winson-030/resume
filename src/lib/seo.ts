@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_LAST_MODIFIED } from "./build-info";
 import { SITE_URL, ogLocale, locales, htmlLang, type Locale } from "./site";
 
 export type Messages = typeof import("@/i18n/en.json");
@@ -146,7 +147,7 @@ export function buildJsonLd(locale: Locale, messages: Messages): Record<string, 
         inLanguage: htmlLang[locale],
         isPartOf: { "@id": websiteId },
         about: { "@id": personId },
-        dateModified: new Date().toISOString(),
+        dateModified: SITE_LAST_MODIFIED,
       },
       {
         "@type": "ItemList",

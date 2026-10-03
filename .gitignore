@@ -64,3 +64,5 @@ events.jsonl
 labels/
 statuses/
 sessions/
+
+!.env.example
