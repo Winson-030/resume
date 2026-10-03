@@ -85,7 +85,7 @@ export function AboutSection({ messages, chrome, certificates, skills }: AboutSe
                 <p className="kicker mb-3">{messages.education.title}</p>
                 <p className="text-lg font-serif-zh font-medium">{messages.education.degree}</p>
                 <p className="text-sm text-muted-foreground mt-1">{messages.education.school}</p>
-                <p className="text-xs font-mono-alt text-muted-foreground/50 mt-2">{messages.education.year}</p>
+                <p className="text-xs font-mono-alt text-muted-foreground mt-2">{messages.education.year}</p>
               </div>
             </FadeInWhenVisible>
 

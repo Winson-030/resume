@@ -33,7 +33,7 @@ interface SkillsSectionProps {
 function SkillPipeline({ title, skills, delay = 0, prefersReducedMotion = false }: { title: string; skills: Skill[]; delay?: number; prefersReducedMotion?: boolean }) {
   return (
     <div className="pipeline-section">
-      <div className="font-sans-zh font-medium tracking-tight text-sm opacity-40 uppercase tracking-[0.08em] mb-4">{title}</div>
+      <div className="font-sans-zh font-medium tracking-tight text-sm text-muted-foreground uppercase tracking-[0.08em] mb-4">{title}</div>
       <div className="pipeline">
         {skills.map((skill, i) => (
           <FadeInWhenVisible key={skill.name} delay={delay + i * 0.08}>

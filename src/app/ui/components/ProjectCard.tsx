@@ -52,7 +52,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               {project.highlights.map((highlight, i) => (
                 <li
                   key={i}
-                  className="text-xs text-muted-foreground/80 flex items-center gap-2"
+                  className="text-xs text-muted-foreground flex items-center gap-2"
                 >
                   <span className="w-1 h-1 rounded-full bg-primary/60" />
                   {highlight}

@@ -89,7 +89,7 @@ function TimelineItemComponent({
                 {item.period}
               </p>
               {item.location && (
-                <p className="text-xs text-muted-foreground/70">
+                <p className="text-xs text-muted-foreground">
                   {item.location}
                 </p>
               )}

@@ -77,7 +77,7 @@ export function CertificateCard({ certificate, index = 0 }: CertificateCardProps
           <p className="text-sm text-muted-foreground mt-1">
             {certificate.issuer}
           </p>
-          <p className="text-xs text-muted-foreground/60 mt-2">
+          <p className="text-xs text-muted-foreground mt-2">
             {certificate.date}
           </p>
         </div>

@@ -43,7 +43,7 @@ export function HeroSection({ messages, chrome }: HeroSectionProps) {
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col justify-center min-h-screen">
         <div className="reveal" style={{ "--reveal-delay": "200ms" } as CSSProperties}>
-          <p className="font-mono-alt text-sm tracking-[0.12em] uppercase opacity-45 mb-6">
+          <p className="font-mono-alt text-sm tracking-[0.12em] uppercase text-muted-foreground mb-6">
             {messages.greeting}
           </p>
         </div>
@@ -52,7 +52,7 @@ export function HeroSection({ messages, chrome }: HeroSectionProps) {
           <h1 className="h-hero">{messages.name}</h1>
           {messages.subname && (
             <div className="reveal" style={{ "--reveal-delay": "400ms" } as CSSProperties}>
-              <p className="text-xl md:text-2xl lg:text-3xl font-sans-zh text-muted-foreground font-light tracking-wide mt-3 opacity-70">
+              <p className="text-xl md:text-2xl lg:text-3xl font-sans-zh text-muted-foreground font-light tracking-wide mt-3">
                 {messages.subname}
               </p>
             </div>
@@ -64,7 +64,7 @@ export function HeroSection({ messages, chrome }: HeroSectionProps) {
         </div>
 
         <div className="reveal" style={{ "--reveal-delay": "800ms" } as CSSProperties}>
-          <p className="text-base text-muted-foreground/60 leading-relaxed max-w-lg mt-4 mb-10 font-sans-zh font-light">
+          <p className="text-base text-muted-foreground leading-relaxed max-w-lg mt-4 mb-10 font-sans-zh font-light">
             {messages.description}
           </p>
         </div>

@@ -11,7 +11,7 @@ const links = [
 export default function LocaleNotFound() {
   return (
     <main className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-      <p className="font-mono-alt text-xs tracking-[0.12em] uppercase opacity-45">404</p>
+      <p className="font-mono-alt text-xs tracking-[0.12em] uppercase text-muted-foreground">404</p>
       <h1 className="h-xl mt-4">
         Page not found / 页面不存在 / ページが見つかりません
       </h1>

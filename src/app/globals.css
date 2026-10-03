@@ -4,6 +4,8 @@
 @variant dark (&:where(.dark, .dark *));
 
 @theme inline {
+  --color-*: initial;
+  --radius-*: initial;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans), var(--font-noto-sans-sc), system-ui, sans-serif;
@@ -46,8 +48,6 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  --color-*: initial;
-  --radius-*: initial;
 }
 
 :root {
