@@ -13,7 +13,7 @@ const languages: { code: Language; label: string; full: string }[] = [
   { code: "ja", label: "日本語", full: "Japanese" },
 ];
 
-export function LanguageToggle() {
+export function LanguageToggle({ onSelect }: { onSelect?: () => void } = {}) {
   const pathname = usePathname();
   const router = useRouter();
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -41,6 +41,7 @@ export function LanguageToggle() {
       newPath = `/${newLang}`;
     }
 
+    onSelect?.();
     router.push(newPath);
   };
 
@@ -80,7 +81,7 @@ export function LanguageToggle() {
             onClick={() => handleLanguageChange(lang.code)}
             onKeyDown={(e) => handleKeyDown(e, index)}
             className={cn(
-              "relative z-10 px-3 py-1.5 text-xs font-mono-alt font-medium tracking-wider rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+              "relative z-10 px-2.5 py-2 text-xs font-mono-alt font-medium tracking-wider whitespace-nowrap rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 touch-manipulation sm:px-3 sm:py-1.5",
               isActive
                 ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground/70"

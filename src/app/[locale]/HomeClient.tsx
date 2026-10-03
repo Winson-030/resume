@@ -197,11 +197,15 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
             </div>
 
             <div className="flex items-center space-x-3">
-              <LanguageToggle />
-              <ThemeToggle />
+              <div className="hidden md:flex items-center gap-2">
+                <LanguageToggle />
+                <ThemeToggle />
+              </div>
               <button
-                className="md:hidden p-2"
+                className="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-full text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 touch-manipulation"
                 onClick={() => setIsMobileMenuOpen(true)}
+                aria-label="Open menu"
+                aria-expanded={isMobileMenuOpen}
               >
                 <Menu className="h-4 w-4" />
               </button>
@@ -213,22 +217,26 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-background/95 backdrop-blur-xl"
           >
-            <div className="flex flex-col h-full p-6">
+            <div className="flex flex-col h-full p-6 overflow-y-auto overscroll-contain">
               <div className="flex justify-between items-center">
                 <span className="text-sm tracking-wide">Menu</span>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2"
+                  className="inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-full text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 touch-manipulation"
+                  aria-label="Close menu"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
-              <div className="flex-1 flex flex-col justify-center space-y-6">
+              <div className="flex-1 min-h-0 flex flex-col justify-center gap-2">
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.id}
@@ -236,11 +244,15 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                     onClick={() => scrollToSection(item.id)}
-                    className="text-2xl font-medium text-left py-2"
+                    className="text-xl font-medium text-left py-1.5"
                   >
                     {item.label}
                   </motion.button>
                 ))}
+              </div>
+              <div className="flex flex-row flex-wrap items-center justify-center gap-4 border-t border-border/40 pt-6">
+                <LanguageToggle onSelect={() => setIsMobileMenuOpen(false)} />
+                <ThemeToggle />
               </div>
             </div>
           </motion.div>

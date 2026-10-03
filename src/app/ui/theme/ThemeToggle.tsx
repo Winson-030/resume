@@ -14,14 +14,16 @@ const themes: { value: string; label: string; icon: typeof Sun }[] = [
 
 export function ThemeToggle() {
   const { setTheme, resolvedTheme, theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  const currentTheme = theme || "system";
+  const currentTheme = mounted ? (theme || "system") : "";
   const currentIndex = themes.findIndex((t) => t.value === currentTheme);
 
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
+    setMounted(true);
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(media.matches);
     const onChange = () => setPrefersReducedMotion(media.matches);
@@ -51,13 +53,13 @@ export function ThemeToggle() {
 
   return (
     <nav
-      className="inline-flex items-center rounded-full border border-foreground/10 bg-background/80 p-0.5 backdrop-blur-sm"
+      className="inline-flex items-center rounded-full border border-foreground/10 bg-background/80 p-1 sm:p-0.5 backdrop-blur-sm"
       role="radiogroup"
       aria-label="Theme selection"
     >
       {themes.map((t, index) => {
         const Icon = t.icon;
-        const isActive = t.value === currentTheme;
+        const isActive = mounted && t.value === currentTheme;
         return (
           <button
             key={t.value}
@@ -71,7 +73,7 @@ export function ThemeToggle() {
             onClick={() => handleThemeChange(t.value)}
             onKeyDown={(e) => handleKeyDown(e, index)}
             className={cn(
-              "relative z-10 flex items-center justify-center w-7 h-7 rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+              "relative z-10 flex items-center justify-center w-9 h-9 sm:w-7 sm:h-7 rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 touch-manipulation",
               isActive
                 ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground/70"
