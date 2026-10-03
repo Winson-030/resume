@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/app/ui/theme/ThemeToggle";
 import { LanguageToggle } from "@/app/ui/language/LanguageToggle";
@@ -122,9 +122,116 @@ interface HomeClientProps {
   };
 }
 
+function useModalFocusTrap<C extends HTMLElement, F extends HTMLElement>(
+  open: boolean,
+  close: () => void,
+  containerRef: React.RefObject<C | null>,
+  returnFocusRef: React.RefObject<F | null>
+) {
+  // Keep the latest close callback without re-running the effect every render.
+  const closeRef = useRef(close);
+  useEffect(() => {
+    closeRef.current = close;
+  }, [close]);
+
+  // Hand focus back only on a real open -> close transition, never on mount.
+  const wasOpenRef = useRef(false);
+  useEffect(() => {
+    if (open) {
+      wasOpenRef.current = true;
+      return;
+    }
+    if (!wasOpenRef.current) return;
+    wasOpenRef.current = false;
+    const target = returnFocusRef.current;
+    if (target && target.isConnected) target.focus();
+  }, [open, returnFocusRef]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    let rafId = 0;
+
+    const setupFocus = () => {
+      const focusable = getFocusableElements(container);
+      (focusable[0] || container).focus();
+    };
+
+    const bodyStyle = document.body.style;
+    const originalOverflow = bodyStyle.overflow;
+    bodyStyle.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeRef.current();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const focusable = getFocusableElements(container);
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (focusable.length === 1) {
+        e.preventDefault();
+        first.focus();
+        return;
+      }
+
+      const active = document.activeElement;
+      if (!active || !container.contains(active)) {
+        e.preventDefault();
+        first.focus();
+        return;
+      }
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    rafId = requestAnimationFrame(setupFocus);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      cancelAnimationFrame(rafId);
+      bodyStyle.overflow = originalOverflow;
+    };
+  }, [open, containerRef, returnFocusRef]);
+}
+
+function getFocusableElements(container: HTMLElement): HTMLElement[] {
+  const candidates = container.querySelectorAll<HTMLElement>(
+    "button, [href], input, select, textarea, [tabindex]"
+  );
+  return Array.from(candidates).filter((el) => {
+    if (el.hasAttribute("disabled")) return false;
+    // Radiogroups use roving tabindex: only the selected radio stays tabbable.
+    if (el.getAttribute("tabindex") === "-1") return false;
+    return el.getClientRects().length > 0;
+  });
+}
+
 function Navbar({ messages, activeSection }: { messages: HomeClientProps["messages"]; activeSection: string }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const closeMenuRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+
+  useModalFocusTrap(isMobileMenuOpen, () => setIsMobileMenuOpen(false), drawerRef, burgerRef);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -202,7 +309,8 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
                 <ThemeToggle />
               </div>
               <button
-                className="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-full text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 touch-manipulation"
+                ref={burgerRef}
+                className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 touch-manipulation"
                 onClick={() => setIsMobileMenuOpen(true)}
                 aria-label="Open menu"
                 aria-expanded={isMobileMenuOpen}
@@ -217,20 +325,23 @@ function Navbar({ messages, activeSection }: { messages: HomeClientProps["messag
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            ref={drawerRef}
+            tabIndex={-1}
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-background/95 backdrop-blur-xl"
+            className="fixed inset-0 z-50 bg-background/85 backdrop-blur-xl"
           >
             <div className="flex flex-col h-full p-6 overflow-y-auto overscroll-contain">
               <div className="flex justify-between items-center">
                 <span className="text-sm tracking-wide">Menu</span>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-full text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 touch-manipulation"
+                  ref={closeMenuRef}
+                  className="inline-flex items-center justify-center w-11 h-11 rounded-full text-foreground transition-colors hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 touch-manipulation"
                   aria-label="Close menu"
                 >
                   <X className="h-4 w-4" />
