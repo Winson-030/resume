@@ -846,8 +846,28 @@ button, .step, .tag {
   animation-delay: var(--reveal-delay, 0ms);
 }
 
+/* Opacity-only reveal, for elements that wrap position: fixed descendants.
+   A non-none transform makes an element the containing block for every fixed
+   descendant, which unpins the navbar and stretches the mobile drawer to the
+   full document height. opacity never creates a containing block, so this
+   variant is safe at every point of the animation. */
+@keyframes reveal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.reveal-fade {
+  animation: reveal-fade-in var(--reveal-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .reveal-fade {
     animation: none;
   }
 }
