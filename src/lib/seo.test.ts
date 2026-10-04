@@ -4,7 +4,7 @@ import ja from "@/i18n/ja.json";
 import zh from "@/i18n/zh.json";
 import { SITE_LAST_MODIFIED } from "./build-info";
 import { buildJsonLd, buildMetadata, type Messages } from "./seo";
-import { SITE_HOST, SITE_URL, locales, type Locale } from "./site";
+import { SITE_HOST, SITE_URL, locales, htmlLang, alternateLanguages, type Locale } from "./site";
 
 const catalogues: Record<Locale, Messages> = { en, zh, ja };
 
@@ -43,6 +43,24 @@ describe("buildMetadata", () => {
     const twitter = metadata.twitter as { card?: string } | undefined;
     expect(twitter?.card).toBe("summary_large_image");
     expect(metadata.robots).toMatchObject({ index: true, follow: true });
+  });
+});
+
+describe("alternateLanguages", () => {
+  it("derives keys from htmlLang and includes x-default", () => {
+    const paths = alternateLanguages((l) => `/${l}`);
+    const keys = Object.keys(paths).sort();
+    // Keys come from htmlLang values, not hand-listed
+    const expectedKeys = [...Object.values(htmlLang), "x-default"].sort();
+    expect(keys).toEqual(expectedKeys);
+    // x-default points to default locale
+    expect(paths["x-default"]).toBe("/en");
+  });
+
+  it("produces identical key sets for relative and absolute forms", () => {
+    const relative = alternateLanguages((l) => `/${l}`);
+    const absolute = alternateLanguages((l) => `${SITE_URL}/${l}`);
+    expect(Object.keys(relative).sort()).toEqual(Object.keys(absolute).sort());
   });
 });
 

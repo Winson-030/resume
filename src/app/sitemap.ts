@@ -1,15 +1,10 @@
 import type { MetadataRoute } from "next";
 import { SITE_LAST_MODIFIED } from "@/lib/build-info";
-import { SITE_URL, locales } from "@/lib/site";
+import { SITE_URL, locales, alternateLanguages, type Locale } from "@/lib/site";
 
-const priority: Record<string, number> = { en: 1, zh: 0.9, ja: 0.9 };
+const priority: Record<Locale, number> = { en: 1, zh: 0.9, ja: 0.9 };
 
-const languages = {
-  en: `${SITE_URL}/en`,
-  "zh-Hans": `${SITE_URL}/zh`,
-  ja: `${SITE_URL}/ja`,
-  "x-default": `${SITE_URL}/en`,
-};
+const languages = alternateLanguages((l) => `${SITE_URL}/${l}`);
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Same commit -> same lastmod, so crawlers can trust the signal.

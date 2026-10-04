@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
 import { SITE_LAST_MODIFIED } from "./build-info";
-import { SITE_URL, ogLocale, locales, htmlLang, type Locale } from "./site";
+import { SITE_URL, ogLocale, locales, htmlLang, alternateLanguages, type Locale } from "./site";
 
 export type Messages = typeof import("@/i18n/en.json");
-
-/** hreflang map: locale -> language tag used in <link rel="alternate"> */
-export const hreflang: Record<Locale, string> = {
-  en: "en",
-  zh: "zh-Hans",
-  ja: "ja",
-};
 
 export function buildMetadata(locale: Locale, messages: Messages): Metadata {
   const url = `${SITE_URL}/${locale}`;
@@ -27,12 +20,7 @@ export function buildMetadata(locale: Locale, messages: Messages): Metadata {
     category: "technology",
     alternates: {
       canonical: `/${locale}`,
-      languages: {
-        en: "/en",
-        "zh-Hans": "/zh",
-        ja: "/ja",
-        "x-default": "/en",
-      },
+      languages: alternateLanguages((l) => `/${l}`),
     },
     openGraph: {
       type: "profile",

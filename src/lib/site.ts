@@ -15,6 +15,17 @@ export const htmlLang: Record<Locale, string> = { en: "en", zh: "zh-Hans", ja: "
 
 export const ogLocale: Record<Locale, string> = { en: "en_US", zh: "zh_CN", ja: "ja_JP" };
 
+/**
+ * Build alternate languages map for SEO (hreflang).
+ * Derives keys from htmlLang and values from the provided path function.
+ */
+export function alternateLanguages(path: (locale: Locale) => string): Record<string, string> {
+  return {
+    ...Object.fromEntries(locales.map((l) => [htmlLang[l], path(l)])),
+    "x-default": path(defaultLocale),
+  };
+}
+
 /** Cookie next-intl uses to remember an explicit locale choice. */
 export const LOCALE_COOKIE = "NEXT_LOCALE";
 
