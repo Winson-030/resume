@@ -1,4 +1,4 @@
-import { getCachedLocale, setCachedLocale } from "./cache";
+import { getCachedCountry, setCachedCountry } from "./cache";
 
 /**
  * Get client IP address from request headers
@@ -70,22 +70,6 @@ export function getCountryFromHeaders(request: Request): string | null {
 }
 
 /**
- * Get locale from country code
- */
-function getLocaleFromCountryCode(countryCode: string): string {
-  const upperCountry = countryCode.toUpperCase();
-
-  switch (upperCountry) {
-    case "CN":
-      return "zh"; // Chinese
-    case "JP":
-      return "ja"; // Japanese
-    default:
-      return "en"; // Default to English
-  }
-}
-
-/**
  * Query ipapi.co API for country code
  */
 async function lookupCountryCode(ip: string): Promise<string | null> {
@@ -117,53 +101,31 @@ async function lookupCountryCode(ip: string): Promise<string | null> {
 }
 
 /**
- * Get locale from IP address with caching
+ * Country code for the client IP: in-memory cache first, then an ipapi.co
+ * lookup. Platform geo headers are read separately by getCountryFromHeaders,
+ * which is free and synchronous; callers only reach here when those headers
+ * were absent. Returns null when no country can be determined.
  */
-export async function getLocaleFromIP(
-  request: Request,
-  defaultLocale: string = "en"
-): Promise<string> {
-  // Platform geo headers are free and synchronous, so they win over any lookup.
-  const headerCountry = getCountryFromHeaders(request);
+export async function detectCountryFromIP(request: Request): Promise<string | null> {
   const ip = getClientIP(request);
-
-  if (headerCountry) {
-    const locale = getLocaleFromCountryCode(headerCountry);
-    if (ip) {
-      setCachedLocale(ip, locale);
-    }
-    return locale;
-  }
-
-  // No IP found, return default
   if (!ip) {
-    return defaultLocale;
+    return null;
   }
 
-  // Check cache first
-  const cached = getCachedLocale(ip);
+  const cached = getCachedCountry(ip);
   if (cached) {
     return cached;
   }
 
-  // Skip internal IPs
+  // Skip internal IPs: a lookup would only ever return the data centre itself.
   if (isInternalIP(ip)) {
-    return defaultLocale;
+    return null;
   }
 
-  // Lookup country code via ipapi.co
   const countryCode = await lookupCountryCode(ip);
-
-  // Default on failure
-  if (!countryCode) {
-    return defaultLocale;
+  if (countryCode) {
+    setCachedCountry(ip, countryCode);
   }
 
-  // Convert to locale
-  const locale = getLocaleFromCountryCode(countryCode);
-
-  // Cache the result
-  setCachedLocale(ip, locale);
-
-  return locale;
+  return countryCode;
 }

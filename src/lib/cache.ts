@@ -1,10 +1,10 @@
 /**
- * Simple in-memory cache for IP-to-locale mapping
+ * Simple in-memory cache for IP-to-country-code mapping
  * Uses a Map with timestamp for TTL expiration
  */
 
 interface CacheEntry {
-  locale: string;
+  countryCode: string;
   timestamp: number;
 }
 
@@ -13,7 +13,7 @@ const cache = new Map<string, CacheEntry>();
 // Default TTL: 1 hour (in milliseconds)
 const DEFAULT_TTL = 60 * 60 * 1000;
 
-// Hard cap on cached IP -> locale entries per server instance.
+// Hard cap on cached IP -> country entries per server instance.
 const MAX_ENTRIES = 5000;
 
 /**
@@ -31,10 +31,10 @@ function getTTL(): number {
 }
 
 /**
- * Get cached locale for an IP address
+ * Get cached country code for an IP address
  * Returns null if not found or expired
  */
-export function getCachedLocale(ip: string): string | null {
+export function getCachedCountry(ip: string): string | null {
   const entry = cache.get(ip);
 
   if (!entry) {
@@ -50,15 +50,15 @@ export function getCachedLocale(ip: string): string | null {
     return null;
   }
 
-  return entry.locale;
+  return entry.countryCode;
 }
 
 /**
- * Set cached locale for an IP address
+ * Set cached country code for an IP address
  */
-export function setCachedLocale(ip: string, locale: string): void {
+export function setCachedCountry(ip: string, countryCode: string): void {
   cache.set(ip, {
-    locale,
+    countryCode,
     timestamp: Date.now(),
   });
 
@@ -99,11 +99,4 @@ function cleanupExpired(): void {
  */
 export function clearCache(): void {
   cache.clear();
-}
-
-/**
- * Get cache size
- */
-export function getCacheSize(): number {
-  return cache.size;
 }

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
-import { getCountryFromHeaders, getLocaleFromIP } from "./lib/geoip";
+import { detectCountryFromIP, getCountryFromHeaders } from "./lib/geoip";
 import { LOCALE_COOKIE, defaultLocale, locales, type Locale } from "./lib/site";
 import { needsIpLookup, resolveRouting } from "./lib/routing";
 
@@ -46,13 +46,18 @@ export default async function proxy(request: NextRequest) {
   // ipapi.co lookup, which is slower but only runs on the root path.
   if (needsIpLookup(input)) {
     try {
-      const detected = await getLocaleFromIP(request, defaultLocale);
+      // Re-decide with the looked-up country instead of re-implementing the
+      // geo branch: the country -> locale rule stays in one place.
+      const decision = resolveRouting({
+        ...input,
+        countryCode: await detectCountryFromIP(request),
+      });
 
-      if (detected !== defaultLocale && locales.includes(detected as Locale)) {
-        return redirectTo(request, detected as Locale, true);
+      if (decision.kind === "redirect") {
+        return redirectTo(request, decision.locale, decision.source === "geo");
       }
     } catch (error) {
-      console.warn("Geo locale detection failed, using default locale:", error);
+      console.warn("Geo country detection failed, using default locale:", error);
     }
   }
 
@@ -60,5 +65,5 @@ export default async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/", "/((?!api|_next|_vercel|.*\\..*).*)"], // pattern pinned in routing.test.ts
 };

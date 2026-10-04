@@ -1,12 +1,5 @@
 import { CRAWLER_UA_RE, defaultLocale, locales, type Locale } from "./site";
 
-/**
- * Next.js matcher for the proxy: "/" plus every path without a locale prefix.
- * Dotted paths (robots.txt, sitemap.xml, llms.txt, favicon) and Next internals
- * are skipped so generated files are never redirected.
- */
-export const PROXY_MATCHER = ["/", "/((?!api|_next|_vercel|.*\\..*).*)"];
-
 export type RoutingSource = "crawler" | "geo";
 
 export type RoutingDecision =

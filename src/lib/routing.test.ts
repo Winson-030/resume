@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import {
-  PROXY_MATCHER,
   isCrawler,
   localeFromCountry,
   localeInPath,
@@ -102,8 +101,13 @@ describe("needsIpLookup", () => {
   });
 });
 
-describe("PROXY_MATCHER", () => {
-  const pageMatcher = new RegExp(`^${PROXY_MATCHER[1]}$`);
+// Mirrors the literal matcher in src/proxy.ts: "/" plus every path without a
+// locale prefix. Next.js statically parses that field, so it cannot be imported
+// from here -- keep the two literals in sync.
+const PAGE_MATCHER = "/((?!api|_next|_vercel|.*\\..*).*)";
+
+describe("proxy matcher", () => {
+  const pageMatcher = new RegExp(`^${PAGE_MATCHER}$`);
 
   it("skips generated files so robots.txt and sitemap.xml are never redirected", () => {
     expect(pageMatcher.test("/robots.txt")).toBe(false);
