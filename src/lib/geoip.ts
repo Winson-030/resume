@@ -1,5 +1,3 @@
-import { getCachedCountry, setCachedCountry } from "./cache";
-
 /**
  * Get client IP address from request headers
  */
@@ -128,4 +126,70 @@ export async function detectCountryFromIP(request: Request): Promise<string | nu
   }
 
   return countryCode;
+}
+
+// --- Per-instance IP -> country cache -------------------------------
+// Implementation detail: nothing outside this module may read or write it.
+// clearCache is the one exception, and it exists for this module's tests.
+
+interface CacheEntry {
+  countryCode: string;
+  timestamp: number;
+}
+
+const cache = new Map<string, CacheEntry>();
+
+/** Default TTL 1 hour; override with GEOIP_CACHE_TTL (seconds). */
+const DEFAULT_TTL = 60 * 60 * 1000;
+
+// Hard cap on cached IP -> country entries per server instance.
+const MAX_ENTRIES = 5000;
+
+function getTTL(): number {
+  const seconds = parseInt(process.env.GEOIP_CACHE_TTL ?? "", 10);
+  return isNaN(seconds) ? DEFAULT_TTL : seconds * 1000;
+}
+
+function getCachedCountry(ip: string): string | null {
+  const entry = cache.get(ip);
+
+  if (!entry) {
+    return null;
+  }
+
+  if (Date.now() - entry.timestamp > getTTL()) {
+    cache.delete(ip);
+    return null;
+  }
+
+  return entry.countryCode;
+}
+
+function setCachedCountry(ip: string, countryCode: string): void {
+  cache.set(ip, { countryCode, timestamp: Date.now() });
+
+  // Keep the map bounded: a long-lived instance would only ever grow otherwise.
+  if (cache.size <= MAX_ENTRIES) {
+    return;
+  }
+
+  const now = Date.now();
+  const ttl = getTTL();
+  for (const [key, entry] of cache) {
+    if (now - entry.timestamp > ttl) {
+      cache.delete(key);
+    }
+  }
+
+  let excess = cache.size - MAX_ENTRIES;
+  for (const key of cache.keys()) {
+    if (excess <= 0) break;
+    cache.delete(key);
+    excess -= 1;
+  }
+}
+
+/** Clear all cache entries. For this module's tests. */
+export function clearCache(): void {
+  cache.clear();
 }

@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { clearCache } from "./cache";
-import { detectCountryFromIP } from "./geoip";
+import { clearCache, detectCountryFromIP } from "./geoip";
 
 function requestFrom(ip: string): Request {
   return new Request("https://www.winson.dev/", {
