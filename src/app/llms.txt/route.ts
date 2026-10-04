@@ -45,7 +45,7 @@ ${projectLines.join("\n")}
 - Email: mail@winson.dev
 - GitHub: https://github.com/winson-030
 - LinkedIn: https://www.linkedin.com/in/winson-dev
-- Resume (PDF): https://r.easycv.cn/winson_li_jp
+- Resume (PDF): https://r.easycv.cn/winsonli_jp
 
 ## Full profile
 ${SITE_URL}/llms-full.txt
