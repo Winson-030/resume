@@ -2,6 +2,7 @@ import { type NextRequest } from "next/server";
 import { getMessages } from "@/i18n/request";
 import { SITE_URL, locales, htmlLang } from "@/lib/site";
 import type { Locale } from "@/lib/site";
+import { EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from "@/lib/profile";
 
 export const dynamic = "force-static";
 
@@ -49,10 +50,10 @@ ${highlights}`;
       (cert) => `  - ${cert.name} (${cert.issuer}, ${cert.date})`
     );
 
-    const contactSection = `Email: mail@winson.dev
-GitHub: https://github.com/winson-030
-LinkedIn: https://www.linkedin.com/in/winson-dev
-Resume (PDF): https://r.easycv.cn/winsonli_jp`;
+    const contactSection = `Email: ${EMAIL}
+GitHub: ${GITHUB_URL}
+LinkedIn: ${LINKEDIN_URL}
+Resume (PDF): ${RESUME_URL}`;
 
     const section = `=== ${langName} (${htmlLangTag}) ===
 Page URL: ${pageUrl}

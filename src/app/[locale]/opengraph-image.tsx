@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import type { Messages } from "@/lib/seo";
 import { SITE_HOST, defaultLocale, isLocale, type Locale } from "@/lib/site";
 import { getMessages } from "@/i18n/request";
+import { CITY_LABEL } from "@/lib/profile";
 
 const size = { width: 1200, height: 630 };
 const contentType = "image/png";
@@ -35,7 +36,7 @@ export default async function OpengraphImage() {
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", backgroundColor: "#f1efea", color: "#111111", padding: "64px 72px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 20, letterSpacing: 3, textTransform: "uppercase", opacity: 0.5 }}>
           <span>{SITE_HOST}</span>
-          <span>Tokyo, Japan</span>
+          <span>{CITY_LABEL}</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 80, fontWeight: 700, letterSpacing: -2, lineHeight: 1 }}>{messages.hero.name.toUpperCase()}</div>

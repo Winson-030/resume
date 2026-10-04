@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/app/ui/components/Button";
+import { EMAIL } from "@/lib/profile";
 
 interface ContactFormProps {
   labels: {
@@ -27,7 +28,9 @@ export function ContactForm({ labels }: ContactFormProps) {
     // Create mailto link with pre-filled data
     const subject = `Contact from ${formData.name}`;
     const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-    const mailtoLink = `mailto:mail@winson.dev?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // Keep the literal mailto: prefix: it is protocol syntax, not an identity
+// fact, and it lets the Next.js lint rule see that this is not a local path.
+const mailtoLink = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     // Open mailto link using window.location
     window.location.href = mailtoLink;

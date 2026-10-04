@@ -5,6 +5,7 @@ import { FadeInWhenVisible } from "@/app/ui/animations/FadeInWhenVisible";
 import { ChromeBar } from "@/app/ui/components/ChromeBar";
 import { Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
+import { GITHUB_URL, LINKEDIN_URL, MAILTO } from "@/lib/profile";
 
 function SocialLink({ href, icon: Icon, ariaLabel }: { href: string; icon: React.ElementType; ariaLabel: string }) {
   return (
@@ -91,9 +92,9 @@ export function AboutSection({ messages, chrome, certificates, skills }: AboutSe
 
             <FadeInWhenVisible delay={0.3}>
               <div className="flex gap-4 pl-6">
-                <SocialLink href="https://github.com/winson-030" icon={Github} ariaLabel="GitHub Profile" />
-                <SocialLink href="https://www.linkedin.com/in/winson-dev" icon={Linkedin} ariaLabel="LinkedIn Profile" />
-                <SocialLink href="mailto:mail@winson.dev" icon={Mail} ariaLabel="Send Email" />
+                <SocialLink href={GITHUB_URL} icon={Github} ariaLabel="GitHub Profile" />
+                <SocialLink href={LINKEDIN_URL} icon={Linkedin} ariaLabel="LinkedIn Profile" />
+                <SocialLink href={MAILTO} icon={Mail} ariaLabel="Send Email" />
               </div>
             </FadeInWhenVisible>
 

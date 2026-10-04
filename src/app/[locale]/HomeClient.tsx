@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { GITHUB_URL, LINKEDIN_URL, MAILTO } from "@/lib/profile";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/app/ui/theme/ThemeToggle";
@@ -380,13 +381,13 @@ function Footer({ messages }: { messages: HomeClientProps["messages"] }) {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground font-mono-alt tracking-wide">{messages.footer.copyright}</p>
           <div className="flex items-center space-x-6 text-xs text-muted-foreground font-mono-alt tracking-wide">
-            <Link href="https://github.com/winson-030" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+            <Link href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               GitHub
             </Link>
-            <Link href="https://www.linkedin.com/in/winson-dev" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+            <Link href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               LinkedIn
             </Link>
-            <Link href="mailto:mail@winson.dev" className="hover:text-foreground transition-colors">
+            <Link href={MAILTO} className="hover:text-foreground transition-colors">
               Email
             </Link>
           </div>

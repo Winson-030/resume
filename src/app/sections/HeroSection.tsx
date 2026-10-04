@@ -7,6 +7,7 @@ import { WebGLBackground } from "@/app/ui/animations/WebGLBackground";
 import { ArrowRight, Download } from "lucide-react";
 import Link from "next/link";
 import { useReducedMotion } from "@/app/ui/hooks/useReducedMotion";
+import { RESUME_URL } from "@/lib/profile";
 
 interface HeroSectionProps {
   messages: {
@@ -72,7 +73,7 @@ export function HeroSection({ messages, chrome }: HeroSectionProps) {
         <div className="reveal" style={{ "--reveal-delay": "1000ms" } as CSSProperties}>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="https://r.easycv.cn/winsonli_jp"
+              href={RESUME_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3 bg-foreground text-background text-sm tracking-wide hover:opacity-80 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-opacity"

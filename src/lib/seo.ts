@@ -1,5 +1,15 @@
 import type { Metadata } from "next";
 import { SITE_LAST_MODIFIED } from "./build-info";
+import {
+  ALTERNATE_NAMES,
+  BRAND_NAME,
+  CITY,
+  COUNTRY_CODE,
+  FULL_NAME,
+  GITHUB_URL,
+  LINKEDIN_URL,
+  MAILTO,
+} from "./profile";
 import { SITE_URL, ogLocale, locales, htmlLang, alternateLanguages, type Locale } from "./site";
 
 export type Messages = typeof import("@/i18n/en.json");
@@ -14,9 +24,9 @@ export function buildMetadata(locale: Locale, messages: Messages): Metadata {
     title: messages.seo.title,
     description: messages.seo.description,
     keywords: messages.seo.keywords,
-    authors: [{ name: "LI YONGJIE (Winson)", url: SITE_URL }],
-    creator: "LI YONGJIE (Winson)",
-    publisher: "LI YONGJIE (Winson)",
+    authors: [{ name: FULL_NAME, url: SITE_URL }],
+    creator: FULL_NAME,
+    publisher: FULL_NAME,
     category: "technology",
     alternates: {
       canonical: `/${locale}`,
@@ -24,7 +34,7 @@ export function buildMetadata(locale: Locale, messages: Messages): Metadata {
     },
     openGraph: {
       type: "profile",
-      siteName: "Winson",
+      siteName: BRAND_NAME,
       url,
       title: messages.seo.title,
       description: messages.seo.description,
@@ -87,7 +97,7 @@ export function buildJsonLd(locale: Locale, messages: Messages): Record<string, 
         "@type": "WebSite",
         "@id": websiteId,
         url: SITE_URL,
-        name: "Winson",
+        name: BRAND_NAME,
         inLanguage: htmlLang[locale],
         publisher: { "@id": personId },
       },
@@ -95,20 +105,17 @@ export function buildJsonLd(locale: Locale, messages: Messages): Record<string, 
         "@type": "Person",
         "@id": personId,
         name: messages.hero.name,
-        alternateName: ["Winson", "LI YONGJIE", "李永杰"],
+        alternateName: ALTERNATE_NAMES,
         jobTitle: messages.hero.title,
         description: messages.about.content,
         url: pageUrl,
-        email: "mailto:mail@winson.dev",
+        email: MAILTO,
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Tokyo",
-          addressCountry: "JP",
+          addressLocality: CITY,
+          addressCountry: COUNTRY_CODE,
         },
-        sameAs: [
-          "https://github.com/winson-030",
-          "https://www.linkedin.com/in/winson-dev",
-        ],
+        sameAs: [GITHUB_URL, LINKEDIN_URL],
         knowsAbout,
         worksFor: {
           "@type": "Organization",

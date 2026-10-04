@@ -5,6 +5,7 @@ import { ChromeBar } from "@/app/ui/components/ChromeBar";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { GITHUB_URL, LINKEDIN_URL, MAILTO, RESUME_URL } from "@/lib/profile";
 import { useState } from "react";
 import { SocialLink } from "./SocialLink";
 
@@ -56,9 +57,9 @@ export function ContactSection({ messages, chrome }: ContactSectionProps) {
             <FadeInWhenVisible delay={0.3}>
               <div className="mt-10 flex items-center gap-6">
                 {[
-                  { href: "https://github.com/winson-030", icon: Github, ariaLabel: "GitHub Profile" },
-                  { href: "https://www.linkedin.com/in/winson-dev", icon: Linkedin, ariaLabel: "LinkedIn Profile" },
-                  { href: "mailto:mail@winson.dev", icon: Mail, ariaLabel: "Send Email" },
+                  { href: GITHUB_URL, icon: Github, ariaLabel: "GitHub Profile" },
+                  { href: LINKEDIN_URL, icon: Linkedin, ariaLabel: "LinkedIn Profile" },
+                  { href: MAILTO, icon: Mail, ariaLabel: "Send Email" },
                 ].map(({ href, icon: Icon, ariaLabel }) => (
                   <SocialLink key={href} href={href} icon={Icon} ariaLabel={ariaLabel} />
                 ))}
@@ -68,7 +69,7 @@ export function ContactSection({ messages, chrome }: ContactSectionProps) {
             <FadeInWhenVisible delay={0.4}>
               <div className="mt-10">
                 <Link
-                  href="https://r.easycv.cn/winsonli_jp"
+                  href={RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm tracking-wide text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-colors"

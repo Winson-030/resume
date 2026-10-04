@@ -1,6 +1,7 @@
 import { type NextRequest } from "next/server";
 import { getMessages } from "@/i18n/request";
 import { SITE_URL } from "@/lib/site";
+import { CITY_LABEL, EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from "@/lib/profile";
 
 export const dynamic = "force-static";
 
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest) {
 
 > ${messages.hero.description}
 
-Key facts: based in Tokyo, Japan · ${messages.stats.items[0].value} years of experience · 100+ engineering teams served
+Key facts: based in ${CITY_LABEL} · ${messages.stats.items[0].value} years of experience · 100+ engineering teams served
 
 ## Languages
 - English: ${SITE_URL}/en
@@ -42,10 +43,10 @@ ${experienceLines.join("\n")}
 ${projectLines.join("\n")}
 
 ## Contact
-- Email: mail@winson.dev
-- GitHub: https://github.com/winson-030
-- LinkedIn: https://www.linkedin.com/in/winson-dev
-- Resume (PDF): https://r.easycv.cn/winsonli_jp
+- Email: ${EMAIL}
+- GitHub: ${GITHUB_URL}
+- LinkedIn: ${LINKEDIN_URL}
+- Resume (PDF): ${RESUME_URL}
 
 ## Full profile
 ${SITE_URL}/llms-full.txt
