@@ -3,7 +3,7 @@ import { getCachedCountry, setCachedCountry } from "./cache";
 /**
  * Get client IP address from request headers
  */
-export function getClientIP(request: Request): string | null {
+function getClientIP(request: Request): string | null {
   // Check various headers that might contain the real client IP
   const headers = [
     "CF-Connecting-IP", // Cloudflare
@@ -27,7 +27,7 @@ export function getClientIP(request: Request): string | null {
 /**
  * Check if IP is localhost or internal network
  */
-export function isInternalIP(ip: string): boolean {
+function isInternalIP(ip: string): boolean {
   // IPv4 localhost
   if (ip === "127.0.0.1" || ip === "localhost") {
     return true;
