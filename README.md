@@ -28,17 +28,27 @@ Environment variables (all optional):
 - `NEXT_PUBLIC_SITE_URL` - canonical origin, defaults to `https://www.winson.dev`. Must match the origin the edge actually serves (the apex domain currently 308-redirects to www, so canonical/hreflang/sitemap must use the www origin).
 - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` - Search Console verification token
 - `NEXT_PUBLIC_BING_SITE_VERIFICATION` - Bing Webmaster `msvalidate.01` token
-- `GEOIP_CACHE_TTL` - seconds an IP to locale mapping stays cached (default 3600)
 - `INDEXNOW_KEY_FILE` - overrides the IndexNow key file inside public/ (default is `<key>.txt`)
 - `SITE_LAST_MODIFIED` - optional: pin sitemap lastmod / JSON-LD dateModified. Defaults to the last git commit date, then to build time.
 
-Routing contract:
+Edge contract:
 
-- crawlers and social unfurlers always receive a stable `307 /en` from `/`
-- human visitors are routed by country (`x-vercel-ip-country`, then
-  `cf-ipcountry`, then the ipapi.co fallback) and an existing `NEXT_LOCALE`
-  cookie wins over GeoIP
-- geo redirects are sent with `Cache-Control: private, no-store`
+- `/` is answered by Cloudflare, never by the origin. Single Redirect rules (mutually exclusive, so order does not matter), all 307 with query string preserved:
+  - `http.request.uri.path eq "/" and ip.src.country eq "CN" and not http.user_agent contains "bot"` → `/zh`
+  - `http.request.uri.path eq "/" and ip.src.country eq "JP" and not http.user_agent contains "bot"` → `/ja`
+  - `http.request.uri.path eq "/" and ip.src.country ne "CN" and ip.src.country ne "JP"` → `/en`
+  - `http.host eq "winson.dev"` → `concat("https://www.winson.dev", http.request.uri.path)`
+- The repository contains no middleware/proxy; the origin fallback for `/` is the next.config `redirects()` entry → `/en` (307).
+- Cloudflare Cache Rule 1: `http.host eq "www.winson.dev" and not starts_with(http.request.uri.path, "/_next/")` → eligible for cache; Edge TTL: ignore cache-control, 1 hour; Browser TTL: respect origin; Cache Key: default (do **not** ignore the query string).
+- Cloudflare Cache Rule 2: `starts_with(http.request.uri.path, "/_next/static/") or http.request.uri.path in {"/robots.txt" "/sitemap.xml" "/llms.txt" "/llms-full.txt"} or http.request.uri.path contains "/opengraph-image/"` → eligible for cache; Edge TTL: ignore cache-control, 1 day; Cache Key: ignore query string.
+- Cloudflare WAF custom rule (block crawlers that never refer traffic): `http.user_agent contains "Bytespider" or http.user_agent contains "CCBot" or http.user_agent contains "Amazonbot" or http.user_agent contains "meta-externalagent"` → Block.
+- Cloudflare WAF custom rule (scanner paths): block when the path contains `.php`, `/wp-`, `/.env`, `/.git` or `xmlrpc`. Use `contains`/`ends_with` — regex match is not available on the Free plan.
+- Cloudflare: Security Level `Medium`, Browser Integrity Check on, Bot Fight Mode **off** (on Free it cannot be exempted and would challenge the answer-engine crawlers the site keeps).
+- Cloudflare rate limiting (Free allows 1 rule, path/IP only): broadest path wildcard, count by IP, 50 requests / 10 s → block for 10 s.
+- Vercel WAF custom rule: `host contains ".vercel.app"` → Deny (the deployment URL is reachable without passing through Cloudflare).
+- Vercel rate limiting (Hobby allows 1 rule): count by IP, 60 requests / 10 s → rate limit / challenge.
+- HTML is cached at the edge for up to 1 hour and there is no purge automation, so an edit can take up to an hour to appear. Vercel Hobby pauses the project when usage limits are exceeded instead of billing.
+- Checks: `npm run verify` and `npm run check:edge -- https://www.winson.dev`.
 
 ### Verification
 

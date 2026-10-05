@@ -1,8 +1,5 @@
 import { execSync } from "node:child_process";
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
-
-const withNextIntl = createNextIntlPlugin();
 
 /**
  * Build timestamp shared with sitemap.xml and the ProfilePage JSON-LD.
@@ -34,22 +31,16 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_SITE_LAST_MODIFIED:
       process.env.NEXT_PUBLIC_SITE_LAST_MODIFIED ?? resolveLastModified(),
   },
-  images: {
-    remotePatterns: [
+  async redirects() {
+    return [
       {
-        protocol: "https",
-        hostname: "winson.dev",
+        // Cloudflare answers the root first; this only covers direct-origin hits.
+        source: "/",
+        destination: "/en",
+        permanent: false,
       },
-      {
-        protocol: "https",
-        hostname: "www.winson.dev",
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-    ],
+    ];
   },
 };
 
-export default withNextIntl(nextConfig);
+export default nextConfig;

@@ -26,16 +26,6 @@ export function alternateLanguages(path: (locale: Locale) => string): Record<str
   };
 }
 
-/** Cookie next-intl uses to remember an explicit locale choice. */
-export const LOCALE_COOKIE = "NEXT_LOCALE";
-
-/**
- * User agents that must always be served the stable default locale:
- * classic search engines, AI/answer crawlers and social unfurlers.
- */
-export const CRAWLER_UA_RE =
-  /(bot|crawler|spider|slurp|facebookexternalhit|Twitterbot|Slackbot|Discordbot|TelegramBot|LinkedInBot|WhatsApp|Embedly|Quora Link Preview|SkypeUriPreview|Google-InspectionTool|GPTBot|OAI-SearchBot|ChatGPT-User|ClaudeBot|Claude-SearchBot|Claude-User|PerplexityBot|Perplexity-User|CCBot|Bytespider|Amazonbot|meta-externalagent|cohere-ai|YouBot|DuckAssistBot|Timpibot|Applebot|Googlebot|Bingbot|DuckDuckBot|YandexBot|Baiduspider)/i;
-
 export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
 }

@@ -5,6 +5,7 @@ import robots from "./robots";
 interface Rule {
   userAgent: string | string[];
   allow?: string | string[];
+  disallow?: string | string[];
 }
 
 describe("robots", () => {
@@ -13,17 +14,27 @@ describe("robots", () => {
   const userAgents = (rule: Rule) =>
     Array.isArray(rule.userAgent) ? rule.userAgent : [rule.userAgent];
 
-  it("allows everything and keeps the explicit AI allowlist", () => {
-    const listed = rules.flatMap(userAgents);
+  it("allows the wildcard plus answer engines, and disallows the bulk scrapers", () => {
+    const disallowed = new Set(["Bytespider", "CCBot", "Amazonbot", "meta-externalagent"]);
+    const allowed = new Set([
+      "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot",
+      "Claude-User", "PerplexityBot", "Perplexity-User", "Google-Extended",
+      "Applebot-Extended", "cohere-ai", "YouBot", "DuckAssistBot", "Timpibot",
+    ]);
 
     expect(userAgents(rules[0])).toContain("*");
-    expect(listed).toContain("GPTBot");
-    expect(listed).toContain("Google-Extended");
-    expect(listed).toContain("PerplexityBot");
-    expect(listed).toContain("meta-externalagent");
 
-    for (const rule of rules) {
-      expect(rule.allow).toBe("/");
+    const allowedListed = rules
+      .filter((rule) => userAgents(rule).every((ua) => allowed.has(ua)))
+      .flatMap(userAgents);
+
+    for (const ua of allowed) expect(allowedListed).toContain(ua);
+
+    for (const ua of disallowed) {
+      const rule = rules.find((item) => userAgents(item).includes(ua));
+      expect(rule?.disallow).toBe("/");
+      expect(rule?.allow).toBeUndefined();
+      expect(allowedListed).not.toContain(ua);
     }
   });
 
