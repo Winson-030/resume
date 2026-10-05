@@ -33,23 +33,24 @@ Environment variables (all optional):
 
 Edge contract:
 
-- `/` is answered by Cloudflare, never by the origin. Single Redirect rules (mutually exclusive, so order does not matter), all 307 with query string preserved:
-  - `http.request.uri.path eq "/" and ip.src.country eq "CN" and not http.user_agent contains "bot"` → `/zh`
-  - `http.request.uri.path eq "/" and ip.src.country eq "JP" and not http.user_agent contains "bot"` → `/ja`
-  - `http.request.uri.path eq "/" and ip.src.country ne "CN" and ip.src.country ne "JP"` → `/en`
-  - `http.host eq "winson.dev"` → `concat("https://www.winson.dev", http.request.uri.path)`
-  - `.../me` → `https://bonjour.bio/winson` (query string preserved) and `.../resume` → `https://r.easycv.cn/winsonli_jp` (query dropped), both 307, host-scoped to `{winson.dev, www.winson.dev}`
+- `/` is answered by Cloudflare, never by the origin. Single Redirect rules, all 307, evaluated in order and **first match wins** (so `me`/`resume` sit above the apex catch-all):
+  - `(http.host in {"winson.dev" "www.winson.dev"}) and http.request.uri.path eq "/me"` → `https://bonjour.bio/winson` (query preserved)
+  - `(http.host in {"winson.dev" "www.winson.dev"}) and http.request.uri.path eq "/resume"` → `https://r.easycv.cn/winsonli_jp` (query dropped)
+  - `(http.host in {"winson.dev" "www.winson.dev"}) and http.request.uri.path eq "/" and not http.user_agent contains "bot" and ip.src.country eq "CN"` → `https://www.winson.dev/zh`
+  - the same with `ip.src.country eq "JP"` → `https://www.winson.dev/ja`
+  - `(http.host in {"winson.dev" "www.winson.dev"}) and http.request.uri.path eq "/" and (http.user_agent contains "bot" or (ip.src.country ne "CN" and ip.src.country ne "JP"))` → `https://www.winson.dev/en`
+  - `http.host eq "winson.dev"` → 308, `concat("https://www.winson.dev", http.request.uri.path)`
 - The repository contains no middleware/proxy; the origin fallback for `/` is the next.config `redirects()` entry → `/en` (307).
-- Cloudflare cache rules, in this order. The phase is evaluated in order and the **last matching rule wins** (confirmed the hard way: putting the bypass first silently served HTML to client-navigation requests):
+- Cloudflare cache rules, in this order. This phase is the opposite of the redirect phase: **last matching rule wins** (confirmed the hard way, putting the bypass first silently served HTML to client-navigation requests):
   - assets and generated SEO files: `starts_with(http.request.uri.path, "/_next/static/") or http.request.uri.path in {"/robots.txt" "/sitemap.xml" "/llms.txt" "/llms-full.txt"} or http.request.uri.path contains "/opengraph-image/"` → eligible for cache; Edge TTL: ignore cache-control, 1 day; Cache Key: ignore query string.
-  - HTML: `http.host eq "www.winson.dev" and not starts_with(http.request.uri.path, "/_next/")` → eligible for cache; Edge TTL: ignore cache-control, 1 hour; Browser TTL: respect origin; Cache Key: **ignore query string** so `?anything` cannot bust the cache and force origin fetches.
-  - force a cache bypass last: `http.host eq "www.winson.dev" and any(http.request.headers["rsc"][*] eq "1")` → bypass. Next.js client-navigation payloads share the page path with the HTML, so they must never be served the cached HTML. Verified in a real browser: the language toggle soft-navigates and the payload stays `text/x-component`.
-- Cloudflare WAF custom rule (block crawlers that never refer traffic): `http.user_agent contains "Bytespider" or http.user_agent contains "CCBot" or http.user_agent contains "Amazonbot" or http.user_agent contains "meta-externalagent"` → Block.
-- Cloudflare WAF custom rule (scanner paths): block when the path contains `.php`, `/wp-`, `/.env`, `/.git` or `xmlrpc`. Use `contains`/`ends_with` — regex match is not available on the Free plan.
+  - HTML: `http.host eq "www.winson.dev" and not starts_with(http.request.uri.path, "/_next/")` → eligible for cache; Edge TTL: ignore cache-control, 1 hour; Browser TTL: respect origin; Cache Key: **ignore query string**, so `?anything` cannot bust the cache and force origin fetches.
+  - cache bypass: `http.host eq "www.winson.dev" and any(http.request.headers["rsc"][*] eq "1")` → bypass. Next.js client-navigation payloads share the page path with the HTML and must never be served the cached HTML. Verified in a real browser: the language toggle soft-navigates and the payload stays `text/x-component`.
+- Cloudflare WAF custom rules, both host-scoped to `{winson.dev www.winson.dev}`, action Block:
+  - `http.user_agent contains "Bytespider" or http.user_agent contains "CCBot" or http.user_agent contains "Amazonbot" or http.user_agent contains "meta-externalagent"`
+  - `http.request.uri.path contains ".php" or http.request.uri.path contains "/wp-" or http.request.uri.path contains "/.env" or http.request.uri.path contains "/.git" or http.request.uri.path contains "xmlrpc"`
+  - This phase also carries a pre-existing `managed_challenge` rule for `cloud.winson.dev` (home server); it is deliberately left alone.
 - Cloudflare: Security Level `Medium`, Browser Integrity Check on, Bot Fight Mode **off** (on Free it cannot be exempted and would challenge the answer-engine crawlers the site keeps).
-- Cloudflare rate limiting (Free allows 1 rule, path/IP only): broadest path wildcard, count by IP, 50 requests / 10 s → block for 10 s.
-- Vercel firewall: deliberately **no** `*.vercel.app` deny rule. Deployment URLs are already behind Vercel Authentication (they answer `302` to the SSO login), so a deny there would only lock the owner out of previews.
-- Vercel rate limiting (the project's only custom firewall rule): count by IP on `winson.dev` and `www.winson.dev`, 60 requests / 10 s → rate limit. Hobby allows 3 custom firewall rules total and the rate limiting rule counts against that budget.
+- Cloudflare rate limiting (Free includes 1 rule; counting is per IP per colo, period and mitigation both 10 s): expression `http.host in {"winson.dev" "www.winson.dev"}`, `characteristics = ["ip.src" "cf.colo.id"]`, `requests_per_period = 50`, `mitigation_timeout = 10` → block.
 - HTML is cached at the edge for up to 1 hour and there is no purge automation, so an edit can take up to an hour to appear. Vercel Hobby pauses the project when usage limits are exceeded instead of billing.
 - Checks: `npm run verify` and `npm run check:edge -- https://www.winson.dev`.
 
