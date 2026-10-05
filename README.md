@@ -38,6 +38,7 @@ Edge contract:
   - `http.request.uri.path eq "/" and ip.src.country eq "JP" and not http.user_agent contains "bot"` → `/ja`
   - `http.request.uri.path eq "/" and ip.src.country ne "CN" and ip.src.country ne "JP"` → `/en`
   - `http.host eq "winson.dev"` → `concat("https://www.winson.dev", http.request.uri.path)`
+  - `.../me` → `https://bonjour.bio/winson` (query string preserved) and `.../resume` → `https://r.easycv.cn/winsonli_jp` (query dropped), both 307, host-scoped to `{winson.dev, www.winson.dev}`
 - The repository contains no middleware/proxy; the origin fallback for `/` is the next.config `redirects()` entry → `/en` (307).
 - Cloudflare Cache Rule 1: `http.host eq "www.winson.dev" and not starts_with(http.request.uri.path, "/_next/")` → eligible for cache; Edge TTL: ignore cache-control, 1 hour; Browser TTL: respect origin; Cache Key: default (do **not** ignore the query string).
 - Cloudflare Cache Rule 2: `starts_with(http.request.uri.path, "/_next/static/") or http.request.uri.path in {"/robots.txt" "/sitemap.xml" "/llms.txt" "/llms-full.txt"} or http.request.uri.path contains "/opengraph-image/"` → eligible for cache; Edge TTL: ignore cache-control, 1 day; Cache Key: ignore query string.
@@ -45,8 +46,8 @@ Edge contract:
 - Cloudflare WAF custom rule (scanner paths): block when the path contains `.php`, `/wp-`, `/.env`, `/.git` or `xmlrpc`. Use `contains`/`ends_with` — regex match is not available on the Free plan.
 - Cloudflare: Security Level `Medium`, Browser Integrity Check on, Bot Fight Mode **off** (on Free it cannot be exempted and would challenge the answer-engine crawlers the site keeps).
 - Cloudflare rate limiting (Free allows 1 rule, path/IP only): broadest path wildcard, count by IP, 50 requests / 10 s → block for 10 s.
-- Vercel WAF custom rule: `host contains ".vercel.app"` → Deny (the deployment URL is reachable without passing through Cloudflare).
-- Vercel rate limiting (Hobby allows 1 rule): count by IP, 60 requests / 10 s → rate limit / challenge.
+- Vercel firewall: deliberately **no** `*.vercel.app` deny rule. Deployment URLs are already behind Vercel Authentication (they answer `302` to the SSO login), so a deny there would only lock the owner out of previews.
+- Vercel rate limiting (the project's only custom firewall rule): count by IP on `winson.dev` and `www.winson.dev`, 60 requests / 10 s → rate limit. Hobby allows 3 custom firewall rules total and the rate limiting rule counts against that budget.
 - HTML is cached at the edge for up to 1 hour and there is no purge automation, so an edit can take up to an hour to appear. Vercel Hobby pauses the project when usage limits are exceeded instead of billing.
 - Checks: `npm run verify` and `npm run check:edge -- https://www.winson.dev`.
 
