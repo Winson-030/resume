@@ -71,3 +71,32 @@ Manual steps after a deploy:
    curl -sS https://www.winson.dev/robots.txt
    curl -sS https://www.winson.dev/sitemap.xml | grep -c 'https://winson.dev'   # must print 0
    curl -sSI -A GPTBot https://www.winson.dev/ | head -1                        # 307
+
+6. Run the edge contract check. This is the real acceptance gate for the abuse protection, and it covers the cache, redirect and WAF behaviour the three curls above cannot see:
+
+   npm run check:edge -- https://www.winson.dev     # 13 assertions, exit code 0 when all pass
+
+### Applying the edge configuration
+
+The Cloudflare side is phase rulesets, editable from the `cf` CLI (needs an OAuth login; `cf auth whoami` tells you where you stand):
+
+    cf rulesets account-rulesets phases get    http_request_cache_settings -z winson.dev                   # snapshot first
+    cf rulesets account-rulesets phases update http_request_cache_settings -z <zone-id> --rules @rules.json --validate-only
+    cf rulesets account-rulesets phases update http_request_cache_settings -z <zone-id> --rules @rules.json
+
+- Phases: `http_request_dynamic_redirect`, `http_request_cache_settings`, `http_request_firewall_custom`, `http_ratelimit`.
+- `--validate-only` really validates against the API (a bogus field comes back as `[20127] unknown identifier`); `--dry-run` only prints the request it would send and does not resolve the zone name.
+- `-z` accepts the domain on the read calls, but the update call drops it into the URL verbatim, so pass the zone id there.
+- The update call replaces the entire rule list for that phase, so always `get` first, merge, then update. That snapshot is also your rollback.
+- Ordering differs per phase and both were confirmed empirically: redirect rules are first-match-wins, cache rules are last-match-wins.
+- New rules take a few seconds to reach every edge location. Re-probe before concluding that a rule failed to match.
+- Zone-wide settings are separate: `cf zones settings get|edit security_level|browser_check`.
+
+The Vercel side stages drafts that must be published:
+
+    vercel firewall rules add "<name>" --project resume --action rate_limit --rate-limit-requests 60 --rate-limit-window 10 --yes
+    vercel firewall diff    --project resume
+    vercel firewall publish --project resume --yes
+
+- Hobby allows 3 custom firewall rules per project, and the rate limiting rule counts against that budget.
+- Use `vercel firewall status|traffic list|overview` to read it back. When judging how much traffic actually reaches the origin, trust those counters, not the `x-vercel-id` response header: Cloudflare replays that header on cache hits, so it appears even when nothing reached Vercel.
