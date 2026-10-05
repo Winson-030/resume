@@ -3,6 +3,7 @@ import { getMessages } from "@/i18n/request";
 import { SITE_URL, locales, htmlLang } from "@/lib/site";
 import type { Locale } from "@/lib/site";
 import { EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from "@/lib/profile";
+import { SITE_LAST_MODIFIED } from "@/lib/build-info";
 
 export const dynamic = "force-static";
 
@@ -87,7 +88,7 @@ ${contactSection}
 
   const header = `# Full profile index (AI-friendly plain text)
 # This file contains up-to-date information about Winson's professional profile in three languages.
-# Generated for LLM indexing and retrieval. Last updated: ${new Date().toISOString()}
+# Generated for LLM indexing and retrieval. Last updated: ${SITE_LAST_MODIFIED}
 
 ${entries.join("\n\n")}`;
   return new Response(header, { headers: { "content-type": "text/plain; charset=utf-8" } });

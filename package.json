@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "verify": "npm run typecheck && npm run lint && npm test && npm run build",
-    "check:edge": "node scripts/check-edge.mjs"
+    "check:edge": "node scripts/check-edge.mjs",
+    "edge:ruleset": "node scripts/edge-ruleset.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.16",

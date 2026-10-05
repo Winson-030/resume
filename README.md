@@ -31,24 +31,23 @@ Environment variables (all optional):
 - `INDEXNOW_KEY_FILE` - overrides the IndexNow key file inside public/ (default is `<key>.txt`)
 - `SITE_LAST_MODIFIED` - optional: pin sitemap lastmod / JSON-LD dateModified. Defaults to the last git commit date, then to build time.
 
-Edge contract:
+Edge policy: **`src/lib/edge-policy.mjs` is the single source of truth** for the crawler lists,
+the Cloudflare redirect / cache / firewall rule expressions, and the live-conformance probe table.
+Generate the ruleset JSON with `npm run edge:ruleset` (writes to the gitignored `.edge-ruleset/`
+and prints the exact `cf` commands, `--validate-only` first). Do not hand-edit the rules in the
+Cloudflare dashboard or in this file — edit the module and re-apply.
 
-- `/` is answered by Cloudflare, never by the origin. Single Redirect rules, all 307, evaluated in order and **first match wins** (so `me`/`resume` sit above the apex catch-all):
-  - `(http.host in {"winson.dev" "www.winson.dev"}) and http.request.uri.path eq "/me"` → `https://bonjour.bio/winson` (query preserved)
-  - `(http.host in {"winson.dev" "www.winson.dev"}) and http.request.uri.path eq "/resume"` → `https://r.easycv.cn/winsonli_jp` (query dropped)
-  - `(http.host in {"winson.dev" "www.winson.dev"}) and http.request.uri.path eq "/" and not http.user_agent contains "bot" and ip.src.country eq "CN"` → `https://www.winson.dev/zh`
-  - the same with `ip.src.country eq "JP"` → `https://www.winson.dev/ja`
-  - `(http.host in {"winson.dev" "www.winson.dev"}) and http.request.uri.path eq "/" and (http.user_agent contains "bot" or (ip.src.country ne "CN" and ip.src.country ne "JP"))` → `https://www.winson.dev/en`
-  - `http.host eq "winson.dev"` → 308, `concat("https://www.winson.dev", http.request.uri.path)`
-- The repository contains no middleware/proxy; the origin fallback for `/` is the next.config `redirects()` entry → `/en` (307).
-- Cloudflare cache rules, in this order. This phase is the opposite of the redirect phase: **last matching rule wins** (confirmed the hard way, putting the bypass first silently served HTML to client-navigation requests):
-  - assets and generated SEO files: `starts_with(http.request.uri.path, "/_next/static/") or http.request.uri.path in {"/robots.txt" "/sitemap.xml" "/llms.txt" "/llms-full.txt"} or http.request.uri.path contains "/opengraph-image/"` → eligible for cache; Edge TTL: ignore cache-control, 1 day; Cache Key: ignore query string.
-  - HTML: `http.host eq "www.winson.dev" and not starts_with(http.request.uri.path, "/_next/")` → eligible for cache; Edge TTL: ignore cache-control, 1 hour; Browser TTL: respect origin; Cache Key: **ignore query string**, so `?anything` cannot bust the cache and force origin fetches.
-  - cache bypass: `http.host eq "www.winson.dev" and any(http.request.headers["rsc"][*] eq "1")` → bypass. Next.js client-navigation payloads share the page path with the HTML and must never be served the cached HTML. Verified in a real browser: the language toggle soft-navigates and the payload stays `text/x-component`.
-- Cloudflare WAF custom rules, both host-scoped to `{winson.dev www.winson.dev}`, action Block:
-  - `http.user_agent contains "Bytespider" or http.user_agent contains "CCBot" or http.user_agent contains "Amazonbot" or http.user_agent contains "meta-externalagent"`
-  - `http.request.uri.path contains ".php" or http.request.uri.path contains "/wp-" or http.request.uri.path contains "/.env" or http.request.uri.path contains "/.git" or http.request.uri.path contains "xmlrpc"`
-  - This phase also carries a pre-existing `managed_challenge` rule for `cloud.winson.dev` (home server); it is deliberately left alone.
+Two facts worth knowing before you change that module:
+
+- Redirect rules are **first match wins**, cache rules are **last match wins**. Both were confirmed
+  empirically (putting the RSC bypass first silently served HTML to client-navigation requests).
+- Crawler matching uses `lower(http.user_agent)`. Cloudflare string matching is case-sensitive by
+  default, and real crawler UAs are CamelCase, so a plain `contains "bot"` misses them. On top of
+  that, five of the fourteen allowed crawlers contain no `bot` substring at all (`ChatGPT-User`,
+  `Claude-User`, `Perplexity-User`, `Google-Extended`, `cohere-ai`), so the module derives an
+  explicit token list from `AI_SEARCH_CRAWLERS` rather than relying on the substring alone.
+  `CRAWLER_TOKENS_WITHOUT_BOT` is computed, never hand-written.
+- The WAF phase also carries a pre-existing `managed_challenge` rule for `cloud.winson.dev` (home server); it is deliberately left alone.
 - Cloudflare: Security Level `Medium`, Browser Integrity Check on, Bot Fight Mode **off** (on Free it cannot be exempted and would challenge the answer-engine crawlers the site keeps).
 - Cloudflare rate limiting (Free includes 1 rule; counting is per IP per colo, period and mitigation both 10 s): expression `http.host in {"winson.dev" "www.winson.dev"}`, `characteristics = ["ip.src" "cf.colo.id"]`, `requests_per_period = 50`, `mitigation_timeout = 10` → block.
 - HTML is cached at the edge for up to 1 hour and there is no purge automation, so an edit can take up to an hour to appear. Vercel Hobby pauses the project when usage limits are exceeded instead of billing.
@@ -71,14 +70,18 @@ Manual steps after a deploy:
    curl -sS https://www.winson.dev/robots.txt
    curl -sS https://www.winson.dev/sitemap.xml | grep -c 'https://winson.dev'   # must print 0
    curl -sSI -A GPTBot https://www.winson.dev/ | head -1                        # 307
+   curl -sS -o /dev/null -w '%{http_code} %{redirect_url}\n' -A GPTBot https://www.winson.dev/          # 307 .../en
+   curl -sS -o /dev/null -w '%{http_code} %{redirect_url}\n' -A ccbot/2.0 https://www.winson.dev/en       # 403, not 200
 
 6. Run the edge contract check. This is the real acceptance gate for the abuse protection, and it covers the cache, redirect and WAF behaviour the three curls above cannot see:
 
-   npm run check:edge -- https://www.winson.dev     # 13 assertions, exit code 0 when all pass
+   npm run check:edge -- https://www.winson.dev     # exit code 0 when all pass
 
 ### Applying the edge configuration
 
 The Cloudflare side is phase rulesets, editable from the `cf` CLI (needs an OAuth login; `cf auth whoami` tells you where you stand):
+
+Do not hand-write the expressions. Run `npm run edge:ruleset` (optionally with `-- --dry-run`) to generate the ruleset JSON from `src/lib/edge-policy.mjs` into `.edge-ruleset/`, then apply the printed commands. Set `CF_ZONE_ID` first so the printed commands are runnable. The `--validate-only` invocation must succeed before the real one: it is what catches an expression Cloudflare will reject (a bogus field comes back as `[20127] unknown identifier`).
 
     cf rulesets account-rulesets phases get    http_request_cache_settings -z winson.dev                   # snapshot first
     cf rulesets account-rulesets phases update http_request_cache_settings -z <zone-id> --rules @rules.json --validate-only

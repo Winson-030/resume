@@ -1,19 +1,11 @@
 import type { MetadataRoute } from "next";
 import { SITE_HOST, SITE_URL } from "@/lib/site";
-
-// Allow search & answer engines: retrieval bots that enhance user experience.
-const allowedCrawlers = [
-  "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot",
-  "Claude-User", "PerplexityBot", "Perplexity-User", "Google-Extended",
-  "Applebot-Extended", "cohere-ai", "YouBot", "DuckAssistBot", "Timpibot",
-];
-
-// Disallow bulk harvesters: non-referral scraping tools that consume resources.
-const disallowedCrawlers = [
-  "Bytespider", "CCBot", "Amazonbot", "meta-externalagent",
-];
+import { AI_SEARCH_CRAWLERS, AI_BULK_SCRAPERS } from "@/lib/edge-policy.mjs";
 
 export default function robots(): MetadataRoute.Robots {
+  const allowedCrawlers = AI_SEARCH_CRAWLERS;
+  const disallowedCrawlers = AI_BULK_SCRAPERS;
+
   const rules: MetadataRoute.Robots["rules"] = [
     { userAgent: "*", allow: "/" },
     ...allowedCrawlers.map((userAgent) => ({ userAgent, allow: "/" })),

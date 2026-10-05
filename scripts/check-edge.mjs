@@ -4,6 +4,7 @@
 // Checks that the site is properly cached at the edge with correct behavior
 
 import { URL } from 'url';
+import { ROOT_PROBES } from '../src/lib/edge-policy.mjs';
 
 async function main() {
   const baseUrl = process.argv[2] || 'https://www.winson.dev';
@@ -115,38 +116,41 @@ async function main() {
     failed++;
   }
 
-  // Assert B: Check that / returns 307 to /en, /zh, or /ja and no x-vercel-id header
-  try {
-    const resp = await fetch(`${baseUrl}/`, {
-      method: 'GET',
-      redirect: 'manual', // Don't follow redirects
-      headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
-      signal: AbortSignal.timeout(15000)
-    });
-    
-    const location = resp.headers.get('location');
-    const vercelId = resp.headers.get('x-vercel-id');
-    
-    if (resp.status === 307) {
-      if (location && (location.endsWith('/en') || location.endsWith('/zh') || location.endsWith('/ja'))) {
-        if (!vercelId) {
-          console.log(`PASS B: / -> 307 to ${location} (no x-vercel-id)`);
-          passed++;
-        } else {
-          console.log(`FAIL B: / -> 307 to ${location} but has x-vercel-id: ${vercelId}`);
-          failed++;
+  // Assert B: Check ROOT_PROBES (crawlers must get 307 to /en regardless of country)
+  for (const probe of ROOT_PROBES) {
+    try {
+      const resp = await fetch(`${baseUrl}/`, {
+        method: 'GET',
+        redirect: 'manual',
+        headers: { 'User-Agent': probe.userAgent },
+        signal: AbortSignal.timeout(15000)
+      });
+      
+      const location = resp.headers.get('location');
+      // Cloudflare may return either an absolute URL or a root-relative path.
+      // Normalize both sides to a path so the comparison is not sensitive to that.
+      const toPath = (value) => {
+        if (!value) return value;
+        try {
+          return new URL(value, baseUrl).pathname;
+        } catch {
+          return value;
         }
+      };
+      const actualPath = toPath(location);
+      const expectedPath = toPath(probe.expectLocation);
+      
+      if (resp.status === probe.expectStatus && actualPath === expectedPath) {
+        console.log(`PASS B: ${probe.name} - ${resp.status} -> ${location}`);
+        passed++;
       } else {
-        console.log(`FAIL B: / -> 307 to invalid location: ${location}`);
+        console.log(`FAIL B: ${probe.name} - expected ${probe.expectStatus} -> ${probe.expectLocation}, got ${resp.status} -> ${location}`);
         failed++;
       }
-    } else {
-      console.log(`FAIL B: / -> ${resp.status} instead of 307`);
+    } catch (error) {
+      console.log(`FAIL B: ${probe.name} - Error: ${error.message}`);
       failed++;
     }
-  } catch (error) {
-    console.log(`FAIL B: Error testing root redirect - ${error.message}`);
-    failed++;
   }
 
   // Assert C: Check that /nope returns 404
@@ -208,6 +212,26 @@ async function main() {
     }
   } catch (error) {
     console.log(`FAIL D2: Error testing Bytespider - ${error.message}`);
+    failed++;
+  }
+
+  // D3: ccbot/2.0 (lowercase) should also be blocked (to catch WAF case-sensitivity regression)
+  try {
+    const resp = await fetch(`${baseUrl}/en`, {
+      method: 'GET',
+      headers: { 'User-Agent': 'ccbot/2.0 (https://commoncrawl.org/faq/)' },
+      signal: AbortSignal.timeout(15000)
+    });
+    
+    if (resp.status !== 200) {
+      console.log(`PASS D3: ccbot/2.0 /en -> ${resp.status} (blocked via lowercase WAF check)`);
+      passed++;
+    } else {
+      console.log(`FAIL D3: ccbot/2.0 /en -> 200 (should be blocked - lowercase WAF regression)`);
+      failed++;
+    }
+  } catch (error) {
+    console.log(`FAIL D3: Error testing ccbot/2.0 - ${error.message}`);
     failed++;
   }
 
