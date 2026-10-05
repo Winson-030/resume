@@ -18,19 +18,13 @@ describe("sitemap", () => {
     }
   });
 
-  it("lists all four alternates on every entry", () => {
-    const expected = {
-      en: `${SITE_URL}/en`,
-      "zh-Hans": `${SITE_URL}/zh`,
-      ja: `${SITE_URL}/ja`,
-      "x-default": `${SITE_URL}/en`,
-    };
-
+  it("leaves hreflang to the page <head> so the file stays schema-valid", () => {
+    // The sitemaps.org XSD allows foreign-namespace elements only after
+    // <priority> and needs an xhtml schema to resolve them, so <xhtml:link>
+    // here can never pass strict validation. buildMetadata() emits the
+    // alternates in <head> instead.
     for (const entry of entries) {
-      const languages = entry.alternates?.languages as Record<string, string>;
-
-      expect(Object.keys(languages).sort()).toEqual(["en", "ja", "x-default", "zh-Hans"]);
-      expect(languages).toEqual(expected);
+      expect(entry.alternates).toBeUndefined();
     }
   });
 
