@@ -5,6 +5,10 @@ import {
   CRAWLER_TOKENS_WITHOUT_BOT,
   ROOT_PROBES,
   ZONE_HOSTS,
+  ACCESSIBLE_METHODS,
+  ACCESSIBLE_EXACT_PATHS,
+  ACCESSIBLE_PATH_PREFIXES,
+  buildAccessAllowlistExpression,
   isCrawlerUserAgent,
   classifyRootRequest,
   buildRedirectRules,
@@ -266,26 +270,128 @@ describe("edge-policy", () => {
     });
   });
 
+  describe("ACCESSIBLE_METHODS", () => {
+    it("contains GET, HEAD, OPTIONS", () => {
+      expect(ACCESSIBLE_METHODS).toEqual(["GET", "HEAD", "OPTIONS"]);
+    });
+  });
+
+  describe("ACCESSIBLE_EXACT_PATHS", () => {
+    it("contains all required exact paths", () => {
+      const required = [
+        "/",
+        "/en",
+        "/en/",
+        "/zh",
+        "/zh/",
+        "/ja",
+        "/ja/",
+        "/me",
+        "/resume",
+        "/robots.txt",
+        "/sitemap.xml",
+        "/llms.txt",
+        "/llms-full.txt",
+        "/favicon.ico",
+        "/file.svg",
+        "/globe.svg",
+        "/next.svg",
+        "/vercel.svg",
+        "/window.svg",
+        "/7d41c9f0e3a84b6fa1c2d5e0937b4f18.txt",
+        "/en/opengraph-image/default",
+        "/zh/opengraph-image/default",
+        "/ja/opengraph-image/default",
+      ];
+      for (const path of required) {
+        expect(ACCESSIBLE_EXACT_PATHS).toContain(path);
+      }
+    });
+  });
+
+  describe("ACCESSIBLE_PATH_PREFIXES", () => {
+    it("contains /_next/static/", () => {
+      expect(ACCESSIBLE_PATH_PREFIXES).toEqual(["/_next/static/"]);
+    });
+  });
+
+  describe("buildAccessAllowlistExpression", () => {
+    it("returns expression containing method check with 'in' operator", () => {
+      const expr = buildAccessAllowlistExpression();
+      expect(expr).toContain('http.request.method in {"GET" "HEAD" "OPTIONS"}');
+    });
+
+    it("returns expression containing exact path check with 'in' operator", () => {
+      const expr = buildAccessAllowlistExpression();
+      expect(expr).toContain("http.request.uri.path in {");
+      expect(expr).toContain('"/en"');
+      expect(expr).toContain('"/robots.txt"');
+    });
+
+    it("returns expression containing prefix check with starts_with", () => {
+      const expr = buildAccessAllowlistExpression();
+      expect(expr).toContain('starts_with(http.request.uri.path, "/_next/static/")');
+    });
+
+    it("does not use matches() or regex", () => {
+      const expr = buildAccessAllowlistExpression();
+      expect(expr).not.toContain("matches(");
+      expect(expr).not.toContain("~");
+      expect(expr).not.toContain("regex");
+    });
+  });
+
   describe("buildFirewallRules", () => {
     // The live phase carries a managed_challenge rule for cloud.winson.dev that
     // references a $risk_ips list. phases update REPLACES the phase, so the module
     // must reproduce it or applying the ruleset would delete it from production.
-    it("returns 3 rules including the preserved cloud.winson.dev challenge", () => {
+    it("returns 4 rules including the preserved cloud.winson.dev challenge", () => {
       const rules = buildFirewallRules();
-      expect(rules).toHaveLength(3);
+      expect(rules).toHaveLength(4);
       expect(rules[0].action).toBe("managed_challenge");
       expect(rules[0].expression).toContain("cloud.winson.dev");
     });
 
-    it("the two winson.dev block rules are host-scoped via ZONE_HOSTS", () => {
+    it("the three winson.dev block rules are host-scoped via ZONE_HOSTS", () => {
       const blockRules = buildFirewallRules().slice(1);
-      expect(blockRules).toHaveLength(2);
+      expect(blockRules).toHaveLength(3);
       for (const rule of blockRules) {
         expect(rule.action).toBe("block");
         for (const host of ZONE_HOSTS) {
           expect(rule.expression).toContain(`\"${host}\"`);
         }
       }
+    });
+
+    it("the 4th rule is the allowlist-deny rule with ref waf-allowlist-deny", () => {
+      const rules = buildFirewallRules();
+      const lastRule = rules[rules.length - 1];
+      expect(lastRule.ref).toBe("waf-allowlist-deny");
+      expect(lastRule.action).toBe("block");
+      expect(lastRule.description).toContain("allowlist");
+    });
+
+    it("the allowlist-deny rule expression contains the allowlist expression", () => {
+      const rules = buildFirewallRules();
+      const lastRule = rules[rules.length - 1];
+      const allowlistExpr = buildAccessAllowlistExpression();
+      expect(lastRule.expression).toContain(allowlistExpr);
+      expect(lastRule.expression).toContain("not (");
+    });
+
+    it("preserves the first 3 rules unchanged", () => {
+      const rules = buildFirewallRules();
+      // Rule 0: cloud.winson.dev managed_challenge
+      expect(rules[0].ref).toBe("cloud_winson_dev_managed_challenge");
+      expect(rules[0].action).toBe("managed_challenge");
+      // Rule 1: waf-ua-block
+      expect(rules[1].ref).toBe("waf-ua-block");
+      expect(rules[1].action).toBe("block");
+      expect(rules[1].expression).toContain("lower(http.user_agent)");
+      // Rule 2: waf-path-block
+      expect(rules[2].ref).toBe("waf-path-block");
+      expect(rules[2].action).toBe("block");
+      expect(rules[2].expression).toContain(".php");
     });
 
     it("UA rule uses lower(http.user_agent) and every bulk scraper in lowercase", () => {

@@ -37,6 +37,31 @@ Generate the ruleset JSON with `npm run edge:ruleset` (writes to the gitignored 
 and prints the exact `cf` commands, `--validate-only` first). Do not hand-edit the rules in the
 Cloudflare dashboard or in this file — edit the module and re-apply.
 
+**URL Allowlist / Default Deny:**
+The firewall includes a default-deny rule (`waf-allowlist-deny`) that blocks any request not matching
+the explicit allowlist. This protects against automated scans and unknown attack vectors:
+
+- **Allowed methods:** `GET`, `HEAD`, `OPTIONS` only
+- **Allowed exact paths:** `/`, `/en`, `/en/`, `/zh`, `/zh/`, `/ja`, `/ja/`, `/me`, `/resume`,
+  `/robots.txt`, `/sitemap.xml`, `/llms.txt`, `/llms-full.txt`, `/favicon.ico`,
+  `/file.svg`, `/globe.svg`, `/next.svg`, `/vercel.svg`, `/window.svg`,
+  `/7d41c9f0e3a84b6fa1c2d5e0937b4f18.txt`,
+  `/en/opengraph-image/default`, `/zh/opengraph-image/default`, `/ja/opengraph-image/default`
+- **Allowed path prefixes:** `/_next/static/` (Next.js static assets)
+
+All other paths return **403** by default. Query strings are ignored for path matching
+(`http.request.uri.path` does not include the query), so `/en?any=value` is allowed.
+
+**Why Cloudflare Top paths may show blocked requests:**
+Cloudflare Analytics counts requests before WAF evaluation, so automated scans that trigger
+403 responses still appear in Top paths statistics. This is expected behavior and does not
+indicate a security issue.
+
+**Adding new public files:**
+When adding new public assets (e.g., new `.svg` icons, verification files, or OG images),
+update `ACCESSIBLE_EXACT_PATHS` in `src/lib/edge-policy.mjs` and regenerate the ruleset.
+The allowlist must be kept in sync with the actual files served by the application.
+
 Two facts worth knowing before you change that module:
 
 - Redirect rules are **first match wins**, cache rules are **last match wins**. Both were confirmed

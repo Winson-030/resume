@@ -4,7 +4,7 @@
 // Checks that the site is properly cached at the edge with correct behavior
 
 import { URL } from 'url';
-import { ROOT_PROBES } from '../src/lib/edge-policy.mjs';
+import { ROOT_PROBES, ACCESSIBLE_METHODS } from '../src/lib/edge-policy.mjs';
 
 async function main() {
   const baseUrl = process.argv[2] || 'https://www.winson.dev';
@@ -153,7 +153,7 @@ async function main() {
     }
   }
 
-  // Assert C: Check that /nope returns 404
+  // Assert C: Check that /nope returns 403 (WAF block for non-allowlisted path)
   try {
     const resp = await fetch(`${baseUrl}/nope`, {
       method: 'GET',
@@ -161,16 +161,203 @@ async function main() {
       headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
       signal: AbortSignal.timeout(15000)
     });
-    
-    if (resp.status === 404) {
-      console.log(`PASS C: /nope -> 404`);
+
+    if (resp.status === 403) {
+      console.log(`PASS C: /nope -> 403 (WAF block)`);
       passed++;
     } else {
-      console.log(`FAIL C: /nope -> ${resp.status} instead of 404`);
+      console.log(`FAIL C: /nope -> ${resp.status} instead of 403`);
       failed++;
     }
   } catch (error) {
     console.log(`FAIL C: Error testing 404 - ${error.message}`);
+    failed++;
+  }
+
+  // Assert F: Allowed-path smoke tests (must not be 403)
+  const allowedPaths = ['/en', '/zh', '/ja', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/favicon.ico'];
+  for (const path of allowedPaths) {
+    try {
+      const resp = await fetch(`${baseUrl}${path}`, {
+        method: 'GET',
+        headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
+        signal: AbortSignal.timeout(15000)
+      });
+
+      if (resp.status !== 403) {
+        console.log(`PASS F: ${path} -> ${resp.status} (not blocked)`);
+        passed++;
+      } else {
+        console.log(`FAIL F: ${path} -> 403 (should be allowed)`);
+        failed++;
+      }
+    } catch (error) {
+      console.log(`FAIL F: ${path} - Error: ${error.message}`);
+      failed++;
+    }
+  }
+
+  // Assert F2: Trailing slash paths return 308 (redirect to non-slash version)
+  const trailingSlashPaths = ['/en/', '/zh/', '/ja/'];
+  for (const path of trailingSlashPaths) {
+    try {
+      const resp = await fetch(`${baseUrl}${path}`, {
+        method: 'GET',
+        redirect: 'manual',
+        headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
+        signal: AbortSignal.timeout(15000)
+      });
+
+      if (resp.status === 308) {
+        console.log(`PASS F2: ${path} -> 308 (redirect)`);
+        passed++;
+      } else {
+        console.log(`FAIL F2: ${path} -> ${resp.status} instead of 308`);
+        failed++;
+      }
+    } catch (error) {
+      console.log(`FAIL F2: ${path} - Error: ${error.message}`);
+      failed++;
+    }
+  }
+
+  // Assert F3: OpenGraph default images must return 200
+  const ogPaths = ['/en/opengraph-image/default', '/zh/opengraph-image/default', '/ja/opengraph-image/default'];
+  for (const path of ogPaths) {
+    try {
+      const resp = await fetch(`${baseUrl}${path}`, {
+        method: 'GET',
+        headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
+        signal: AbortSignal.timeout(15000)
+      });
+
+      if (resp.status === 200) {
+        console.log(`PASS F3: ${path} -> 200`);
+        passed++;
+      } else {
+        console.log(`FAIL F3: ${path} -> ${resp.status} instead of 200`);
+        failed++;
+      }
+    } catch (error) {
+      console.log(`FAIL F3: ${path} - Error: ${error.message}`);
+      failed++;
+    }
+  }
+
+  // Assert F4: Extract a real /_next/static/ URL from /en HTML and verify it's not blocked
+  try {
+    const resp = await fetch(`${baseUrl}/en`, {
+      method: 'GET',
+      headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
+      signal: AbortSignal.timeout(15000)
+    });
+
+    const html = await resp.text();
+    const staticMatch = html.match(/\/_next\/static\/[^"']+/);
+
+    if (staticMatch && staticMatch[0]) {
+      const staticUrl = staticMatch[0];
+      const staticResp = await fetch(`${baseUrl}${staticUrl}`, {
+        method: 'GET',
+        headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
+        signal: AbortSignal.timeout(15000)
+      });
+
+      if (staticResp.status !== 403) {
+        console.log(`PASS F4: ${staticUrl} -> ${staticResp.status} (not blocked)`);
+        passed++;
+      } else {
+        console.log(`FAIL F4: ${staticUrl} -> 403 (should be allowed)`);
+        failed++;
+      }
+    } else {
+      console.log(`SKIP F4: Could not extract /_next/static/ URL from /en`);
+    }
+  } catch (error) {
+    console.log(`FAIL F4: Error testing /_next/static/ - ${error.message}`);
+    failed++;
+  }
+
+  // Assert F5: OPTIONS /en must return 204
+  try {
+    const resp = await fetch(`${baseUrl}/en`, {
+      method: 'OPTIONS',
+      headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
+      signal: AbortSignal.timeout(15000)
+    });
+
+    if (resp.status === 204) {
+      console.log(`PASS F5: OPTIONS /en -> 204`);
+      passed++;
+    } else {
+      console.log(`FAIL F5: OPTIONS /en -> ${resp.status} instead of 204`);
+      failed++;
+    }
+  } catch (error) {
+    console.log(`FAIL F5: Error testing OPTIONS /en - ${error.message}`);
+    failed++;
+  }
+
+  // Assert F6: /en?allowlist_test=1 must return 200 (query string auto-allowed)
+  try {
+    const resp = await fetch(`${baseUrl}/en?allowlist_test=1`, {
+      method: 'GET',
+      headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
+      signal: AbortSignal.timeout(15000)
+    });
+
+    if (resp.status === 200) {
+      console.log(`PASS F6: /en?allowlist_test=1 -> 200`);
+      passed++;
+    } else {
+      console.log(`FAIL F6: /en?allowlist_test=1 -> ${resp.status} instead of 200`);
+      failed++;
+    }
+  } catch (error) {
+    console.log(`FAIL F6: Error testing /en?allowlist_test=1 - ${error.message}`);
+    failed++;
+  }
+
+  // Assert G: Blocked-path smoke tests (must be 403)
+  const blockedPaths = ['/.env', '/.env.local', '/wp-content/themes/index.php', '/this_is_a_new_hello_world.php', '/chosen.php', '/api/health', '/_next/image'];
+  for (const path of blockedPaths) {
+    try {
+      const resp = await fetch(`${baseUrl}${path}`, {
+        method: 'GET',
+        headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
+        signal: AbortSignal.timeout(15000)
+      });
+
+      if (resp.status === 403) {
+        console.log(`PASS G: ${path} -> 403 (blocked)`);
+        passed++;
+      } else {
+        console.log(`FAIL G: ${path} -> ${resp.status} instead of 403`);
+        failed++;
+      }
+    } catch (error) {
+      console.log(`FAIL G: ${path} - Error: ${error.message}`);
+      failed++;
+    }
+  }
+
+  // Assert G2: POST /en must be 403 (method not in allowlist)
+  try {
+    const resp = await fetch(`${baseUrl}/en`, {
+      method: 'POST',
+      headers: { 'User-Agent': 'Edge-Cache-Validator/1.0' },
+      signal: AbortSignal.timeout(15000)
+    });
+
+    if (resp.status === 403) {
+      console.log(`PASS G2: POST /en -> 403 (blocked)`);
+      passed++;
+    } else {
+      console.log(`FAIL G2: POST /en -> ${resp.status} instead of 403`);
+      failed++;
+    }
+  } catch (error) {
+    console.log(`FAIL G2: Error testing POST /en - ${error.message}`);
     failed++;
   }
 

@@ -18,6 +18,58 @@
  */
 
 /**
+ * Allowed HTTP methods for public access.
+ */
+export const ACCESSIBLE_METHODS = ["GET", "HEAD", "OPTIONS"];
+
+/**
+ * Allowed exact paths for public access.
+ */
+export const ACCESSIBLE_EXACT_PATHS = [
+  "/",
+  "/en",
+  "/en/",
+  "/zh",
+  "/zh/",
+  "/ja",
+  "/ja/",
+  "/me",
+  "/resume",
+  "/robots.txt",
+  "/sitemap.xml",
+  "/llms.txt",
+  "/llms-full.txt",
+  "/favicon.ico",
+  "/file.svg",
+  "/globe.svg",
+  "/next.svg",
+  "/vercel.svg",
+  "/window.svg",
+  "/7d41c9f0e3a84b6fa1c2d5e0937b4f18.txt",
+  "/en/opengraph-image/default",
+  "/zh/opengraph-image/default",
+  "/ja/opengraph-image/default",
+];
+
+/**
+ * Allowed path prefixes for public access.
+ */
+export const ACCESSIBLE_PATH_PREFIXES = ["/_next/static/"];
+
+/**
+ * Build the access allowlist expression for Cloudflare firewall rules.
+ * Returns an expression that matches allowed methods AND (exact paths OR prefix paths).
+ * Uses only Free-tier compatible operators: `in` and `starts_with`.
+ */
+export function buildAccessAllowlistExpression() {
+  const methodsExpr = `http.request.method in {${ACCESSIBLE_METHODS.map(m => `"${m}"`).join(" ")}}`;
+  const exactPathsExpr = `http.request.uri.path in {${ACCESSIBLE_EXACT_PATHS.map(p => `"${p}"`).join(" ")}}`;
+  const prefixExprs = ACCESSIBLE_PATH_PREFIXES.map(p => `starts_with(http.request.uri.path, "${p}")`).join(" or ");
+  const pathExpr = `(${exactPathsExpr} or ${prefixExprs})`;
+  return `(${methodsExpr} and ${pathExpr})`;
+}
+
+/**
  * AI search & answer engines that should be allowed to crawl the site.
  * 14 crawlers: 9 contain "bot", 5 do not (must be auto-derived).
  * Order preserved from original robots.txt.
@@ -277,6 +329,8 @@ export function buildFirewallRules() {
     'http.request.uri.path contains "xmlrpc"',
   ].join(" or ");
 
+  const allowlistExpr = buildAccessAllowlistExpression();
+
   return [
     unmanagedHostRule,
     {
@@ -290,6 +344,12 @@ export function buildFirewallRules() {
       description: "Block common attack vectors",
       action: "block",
       expression: `${buildHostInExpr(ZONE_HOSTS)} and (${pathBasedExpr})`,
+    },
+    {
+      ref: "waf-allowlist-deny",
+      description: "URL allowlist/default deny: only allowlisted paths and methods are accessible",
+      action: "block",
+      expression: `${buildHostInExpr(ZONE_HOSTS)} and not (${allowlistExpr})`,
     },
   ];
 }
